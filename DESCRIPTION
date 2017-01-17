@@ -7,7 +7,9 @@ Depends:
     R (>= 3.3.2)
 Imports:
     datacheckr,
+    ggplot2,
     magrittr,
+    readr,
     stringr,
     yesno
 Remotes:

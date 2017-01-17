@@ -1,6 +1,6 @@
-#' Save Object as .rds
+#' Save Object
 #'
-#' @param x The object to save. If missing saves all objects in global env.
+#' @param x The object to save. If missing saves all objects in calling env.
 #' @param type A string of the type of x.
 #' @param main A string of the main subfolder.
 #' @param sub A string of the path to the directory to save the object.
@@ -16,13 +16,13 @@ save_object <- function(x, type = "", main = get_main(), sub = get_sub(),
   check_flag(ask)
 
   if (missing(x)) {
-    names <- objects(envir = .GlobalEnv)
+    names <- objects(envir = calling_env())
     if (!length(names)) {
-      warning("no objects in global environment")
+      warning("no objects in calling environment")
       return(invisible(FALSE))
     }
     for (name in names) {
-      object <- get(x = name, envir = .GlobalEnv)
+      object <- get(x = name, envir = calling_env())
       save_object(object, type = type, main = main, sub = sub, x_name = name, ask = ask)
     }
     return(invisible(TRUE))
@@ -32,13 +32,9 @@ save_object <- function(x, type = "", main = get_main(), sub = get_sub(),
 
   check_string(x_name)
 
-  dir <- file_path(main, "object", type, sub)
+  dir <- file_path(main, "objects", type, sub)
 
-  if (!dir.exists(dir)) {
-    if (ask && !yesno("Create directory '", dir, "'?"))
-      return(invisible(x))
-    dir.create(dir, recursive = TRUE)
-  }
+  create_dir(dir, ask)
 
   file <- file_path(dir, x_name) %>% str_c(".rds")
 
@@ -51,23 +47,6 @@ save_object <- function(x, type = "", main = get_main(), sub = get_sub(),
 #'
 #' @inheritParams save_object
 #' @export
-load_object <- function(x_name = NULL, type = "", main = get_main(), sub = get_sub()) {
-
-  if (!is.null(x_name)) {
-    file <- file_path(main, "object", type, sub, x_name) %>% str_c(".rds")
-    if (!file.exists(file)) error("file '", file, "' does not exist")
-    return(readRDS(file))
-  }
-
-  files <- list.files(path = file_path(main, "object", type, sub), pattern = "[.]rds$")
-  if (!length(files)) {
-    warning("no .rds objects found")
-    return(invisible(FALSE))
-  }
-
-  for (file in files) {
-    x_name <- basename(file) %>% str_replace("[.]rds$", "")
-    assign(x_name, load_object(x_name, type = type, main = main, sub = sub), envir = .GlobalEnv)
-  }
-  invisible(TRUE)
+load_object <- function(x, type = "", main = get_main(), sub = get_sub(), env = calling_env()) {
+  load_rds(x, class = "objects", main = main, sub = sub, env = env)
 }

@@ -88,3 +88,46 @@ file_path <- function(...) {
   path %<>% str_replace_all("//", "/") %>% str_replace_all("//", "/")
   path
 }
+
+create_dir <- function(dir, ask) {
+  if (!dir.exists(dir)) {
+    if (ask && !yesno("Create directory '", dir, "'?"))
+      return(invisible(x))
+    dir.create(dir, recursive = TRUE)
+  }
+  dir
+}
+
+#' Calling Environment
+#' @export
+#' @examples
+#' calling_env()
+calling_env <- function() {
+  parent.frame(n = 2)
+}
+
+load_rds <- function(x, class, type = "", main = get_main(), sub = get_sub(), env = calling_env()) {
+  check_string(class)
+  check_string(type)
+  check_string(main)
+  check_string(sub)
+
+  if (!missing(x)) {
+    check_string(x)
+    file <- file_path(main, class, type, sub, x) %>% str_c(".rds")
+    if (!file.exists(file)) error("file '", file, "' does not exist")
+    return(readRDS(file))
+  }
+
+  files <- list.files(path = file_path(main, class, type, sub), pattern = "[.]rds$")
+  if (!length(files)) {
+    warning("no .rds objects found")
+    return(invisible(FALSE))
+  }
+
+  for (file in files) {
+    x <- basename(file) %>% str_replace("[.]rds$", "")
+    assign(x, load_rds(x, class = class, type = type, main = main, sub = sub), envir = env)
+  }
+  invisible(TRUE)
+}
