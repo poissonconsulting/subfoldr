@@ -4,8 +4,8 @@
 \alias{save_plot}
 \title{Save Object as .png}
 \usage{
-save_plot(x, type = "", main = get_main(), sub = get_sub(), width = 6,
-  height = 6, dpi = 300, caption = "", ask = getOption("subfoldr.ask",
+save_plot(x, type = "", main = get_main(), sub = get_sub(), width = NA,
+  height = NA, dpi = 300, caption = "", ask = getOption("subfoldr.ask",
   TRUE), plot = ggplot2::last_plot())
 }
 \arguments{

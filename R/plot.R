@@ -7,7 +7,7 @@
 #' @param caption A string of the figure caption.
 #' @export
 save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
-                      width = 6, height = 6, dpi = 300, caption = "",
+                      width = NA, height = NA, dpi = 300, caption = "",
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
 
