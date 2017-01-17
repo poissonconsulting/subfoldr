@@ -27,6 +27,20 @@ set_sub <- function(...) {
   old_sub
 }
 
+#' Add sub
+#'
+#' @param ... One or more strings
+#' @return A string of the old sub.
+#' @export
+add_sub <- function(...) {
+  sub <- file_path(...)
+  check_string(sub)
+  old_sub <- get_sub()
+  sub %<>% file_path(old_sub, .)
+  options(subfoldr.sub = sub)
+  old_sub
+}
+
 #' Reset sub
 #'
 #' @return A string of the old sub.
@@ -86,16 +100,18 @@ reset_all <- function() {
 file_path <- function(...) {
   path <- file.path(...)
   path %<>% str_replace_all("//", "/") %>% str_replace_all("//", "/")
+  path %<>% str_replace("^/", "") %>% str_replace_all("/$", "")
+
   path
 }
 
 create_dir <- function(dir, ask) {
   if (!dir.exists(dir)) {
     if (ask && !yesno("Create directory '", dir, "'?"))
-      return(invisible(x))
+      return(FALSE)
     dir.create(dir, recursive = TRUE)
   }
-  dir
+  TRUE
 }
 
 #' Calling Environment
@@ -106,7 +122,26 @@ calling_env <- function() {
   parent.frame(n = 2)
 }
 
-load_rds <- function(x, class, type = "", main = get_main(), sub = get_sub(), env = calling_env()) {
+save_rds <- function(x, class, type, main, sub, x_name, ask) {
+  check_string(class)
+  check_string(type)
+  check_string(main)
+  check_string(sub)
+  check_flag(ask)
+  check_string(x_name)
+
+  dir <- file_path(main, class, type, sub)
+
+  create_dir(dir, ask)
+
+  file <- file_path(dir, x_name) %>% str_c(".rds")
+
+  saveRDS(x, file)
+
+  invisible(x)
+}
+
+load_rds <- function(x, class, type, main, sub, env) {
   check_string(class)
   check_string(type)
   check_string(main)
@@ -127,7 +162,7 @@ load_rds <- function(x, class, type = "", main = get_main(), sub = get_sub(), en
 
   for (file in files) {
     x <- basename(file) %>% str_replace("[.]rds$", "")
-    assign(x, load_rds(x, class = class, type = type, main = main, sub = sub), envir = env)
+    assign(x, load_rds(x, class = class, type = type, main = main, sub = sub, env = env), envir = env)
   }
   invisible(TRUE)
 }

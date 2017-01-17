@@ -3,12 +3,15 @@
 #' @inheritParams save_object
 #' @inheritParams ggplot2::ggsave
 #' @param x A string of the plot name.
+#' @param height A number indicating the height of the plot in inches.
 #' @param caption A string of the figure caption.
 #' @export
 save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
                       width = 6, height = 6, dpi = 300, caption = "",
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
+
+  check_string(x)
   check_string(type)
   check_string(main)
   check_string(sub)
@@ -17,21 +20,16 @@ save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
 
   if (is.null(plot)) error("plot is NULL")
 
-  dir <- file_path(main, "plots", type, sub)
+  save_rds(plot$data, "plots", type = type, main = main, sub = sub, x_name = x, ask = ask)
 
-  create_dir(dir, ask)
-
-  file <- file_path(dir, x_name) %>% str_c(".rds")
-
-  obj <- list(plot = plot, width = width, height = height, caption = caption)
+  obj <- list(plot = plot, width = width, height = height, dpi = dpi, caption = caption)
+  file <- file_path(main, "plots", type, sub, str_c(".", x)) %>% str_c(".rds")
   saveRDS(obj, file = file)
 
-  data <- obj$plot$data
+  file <- file_path(main, "plots", type, sub, x) %>% str_c(".csv")
+  readr::write_csv(plot$data, file = file)
 
-  file %<>% str_replace("[.]rds$", ".csv")
-  readr::write_csv(data, file = file)
-
-  file %<>% str_replace("[.]rds$", ".png")
+  file %<>% str_replace("[.]csv$", ".png")
   ggplot2::ggsave(file, plot = plot, width = width, height = height, dpi = dpi)
 
   invisible(x)
@@ -39,25 +37,21 @@ save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
 
 #' Load table
 #'
-#' @inheritParams save_table
+#' @inheritParams save_object
+#' @param data A flag indicating whether to load the plot data.
+#' @param env The environment to load the objects into if data = TRUE and  x is missing.
 #' @export
-load_table <- function(x, type = "", main = get_main(), sub = get_sub()) {
+load_plot <- function(x, type = "", main = get_main(), sub = get_sub(), data = FALSE, env = calling_env()) {
+  check_flag(data)
 
-  if (!is.null(x_name)) {
-    file <- file_path(main, "tables", type, sub, x_name) %>% str_c(".rds")
-    if (!file.exists(file)) error("file '", file, "' does not exist")
-    return(readRDS(file))
-  }
+  if (data) return(x, class = "plots", type = type, main = main, sub = sub, env = env)
 
-  files <- list.files(path = file_path(main, "tables", type, sub), pattern = "[.]rds$")
-  if (!length(files)) {
-    warning("no .rds tables found")
-    return(invisible(FALSE))
-  }
+  check_string(x)
 
-  for (file in files) {
-    x_name <- basename(file) %>% str_replace("[.]rds$", "")
-    assign(x_name, load_object(x_name, type = type, main = main, sub = sub), envir = calling_env())
-  }
-  invisible(TRUE)
+  file <- file_path(main, "plots", type, sub, str_c(".", x)) %>% str_c(".rds")
+  if (!file.exists(file)) error("file '", file, "' does not exist")
+
+  x <- readRDS(file)
+
+  x$plot
 }

@@ -21,32 +21,24 @@ save_object <- function(x, type = "", main = get_main(), sub = get_sub(),
       warning("no objects in calling environment")
       return(invisible(FALSE))
     }
-    for (name in names) {
-      object <- get(x = name, envir = calling_env())
-      save_object(object, type = type, main = main, sub = sub, x_name = name, ask = ask)
+    for (x_name in names) {
+      x <- get(x = x_name, envir = calling_env())
+      save_rds(x, "objects", type = type, main = main, sub = sub, x_name = x_name, ask = ask)
     }
     return(invisible(TRUE))
   }
 
   if (is.null(x_name)) x_name <- deparse(substitute(x))
-
   check_string(x_name)
 
-  dir <- file_path(main, "objects", type, sub)
-
-  create_dir(dir, ask)
-
-  file <- file_path(dir, x_name) %>% str_c(".rds")
-
-  saveRDS(x, file)
-
-  invisible(x)
+  save_rds(x, "objects", type = type, main = main, sub = sub, x_name = x_name, ask = ask)
 }
 
 #' Load Object
 #'
 #' @inheritParams save_object
+#' @param env The environment to load the objects into if x is missing.
 #' @export
 load_object <- function(x, type = "", main = get_main(), sub = get_sub(), env = calling_env()) {
-  load_rds(x, class = "objects", main = main, sub = sub, env = env)
+  load_rds(x, class = "objects", type = type, main = main, sub = sub, env = env)
 }

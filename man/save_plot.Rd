@@ -20,6 +20,8 @@ save_plot(x, type = "", main = get_main(), sub = get_sub(), width = 6,
 \item{width}{Plot size in \code{units} ("in", "cm", or "mm").
 If not supplied, uses the size of current graphics device.}
 
+\item{height}{A number indicating the height of the plot in inches.}
+
 \item{dpi}{Plot resolution. Applies only to raster output types.}
 
 \item{caption}{A string of the figure caption.}

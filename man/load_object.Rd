@@ -15,6 +15,8 @@ load_object(x, type = "", main = get_main(), sub = get_sub(),
 \item{main}{A string of the main subfolder.}
 
 \item{sub}{A string of the path to the directory to save the object.}
+
+\item{env}{The environment to load the objects into if x is missing.}
 }
 \description{
 Load Object

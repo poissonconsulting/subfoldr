@@ -16,6 +16,11 @@ test_that("sub", {
   expect_identical(get_sub(), "x/z")
   expect_identical(reset_sub(), "x/z")
   expect_identical(get_sub(), "")
+
+  expect_identical(add_sub("y"), "")
+  expect_identical(add_sub("t"), "y")
+  expect_identical(add_sub(""), "y/t")
+  expect_identical(get_sub(), "y/t")
 })
 
 test_that("main", {
