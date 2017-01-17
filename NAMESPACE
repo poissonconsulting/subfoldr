@@ -2,10 +2,11 @@
 
 export(get_main)
 export(get_sub)
+export(load_object)
 export(reset_all)
 export(reset_main)
 export(reset_sub)
-export(save_rds)
+export(save_object)
 export(set_main)
 export(set_sub)
 import(datacheckr)

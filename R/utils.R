@@ -85,6 +85,6 @@ reset_all <- function() {
 
 file_path <- function(...) {
   path <- file.path(...)
-  path %<>% str_replace_all("//", "/")
+  path %<>% str_replace_all("//", "/") %>% str_replace_all("//", "/")
   path
 }

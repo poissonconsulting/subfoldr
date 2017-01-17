@@ -1,9 +1,13 @@
 context("utils")
 
 test_that("file_path", {
+  reset_all()
+
   expect_identical(file_path(), character(0))
   expect_identical(file_path("x", "z"), "x/z")
   expect_identical(file_path("x", "", "z"), "x/z")
+  expect_identical(file_path("x/", "z"), "x/z")
+  expect_identical(file_path("x/", "", "z"), "x/z")
 })
 
 test_that("sub", {
@@ -20,6 +24,8 @@ test_that("main", {
   expect_identical(get_main(), "x/z")
   expect_identical(reset_main(), "x/z")
   expect_identical(get_main(), "output")
+
+  reset_all()
 })
 
 test_that("all", {
