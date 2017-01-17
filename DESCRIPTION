@@ -1,10 +1,20 @@
-Package: subfolder
-Title: What the Package Does (one line, title case)
+Package: subfoldr
+Title: Subfolders
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.3.2)
-License: What license is it under?
+Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
+Description: Orchestrates the saving and loading of objects to a subfolder.
+Depends:
+    R (>= 3.3.2)
+Imports:
+    datacheckr,
+    magrittr,
+    stringr,
+    yesno
+Remotes:
+    poissonconsulting/yesno
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat
+Suggests:
+    testthat
+RoxygenNote: 5.0.1

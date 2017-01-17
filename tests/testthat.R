@@ -1,4 +1,4 @@
 library(testthat)
-library(subfolder)
+library(subfoldr)
 
-test_check("subfolder")
+test_check("subfoldr")
