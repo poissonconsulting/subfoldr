@@ -17,15 +17,15 @@ save_object <- function(x, type = "", main = get_main(), sub = get_sub(),
 
   if (missing(x)) {
     names <- objects(envir = calling_env())
-    if (!length(names)) {
-      warning("no objects in calling environment")
-      return(invisible(FALSE))
-    }
+    flag <- FALSE
     for (x_name in names) {
       x <- get(x = x_name, envir = calling_env())
-      save_rds(x, "objects", type = type, main = main, sub = sub, x_name = x_name, ask = ask)
+      if (!is.function(x))
+        save_rds(x, "objects", type = type, main = main, sub = sub, x_name = x_name, ask = ask)
+      flag <- TRUE
     }
-    return(invisible(TRUE))
+    if (!flag) warning("no 'objects' in calling environment")
+    return(invisible(flag))
   }
 
   if (is.null(x_name)) x_name <- deparse(substitute(x))

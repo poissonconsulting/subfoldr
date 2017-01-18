@@ -16,7 +16,7 @@ save_table <- function(x, type = "", main = get_main(), sub = get_sub(),
     flag <- FALSE
     for (x_name in names) {
       x <- get(x = x_name, envir = calling_env())
-      if (is.data.frame(table))
+      if (is.data.frame(x))
         save_table(x, type = type, main = main, sub = sub, x_name = x_name, ask = ask)
         flag <- TRUE
     }
