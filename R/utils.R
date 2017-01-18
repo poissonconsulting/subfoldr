@@ -24,7 +24,7 @@ set_sub <- function(...) {
   check_string(sub)
   old_sub <- get_sub()
   options(subfoldr.sub = sub)
-  old_sub
+  invisible(old_sub)
 }
 
 #' Add sub
@@ -38,7 +38,7 @@ add_sub <- function(...) {
   old_sub <- get_sub()
   sub %<>% file_path(old_sub, .)
   options(subfoldr.sub = sub)
-  old_sub
+  invisible(old_sub)
 }
 
 #' Reset sub
@@ -48,7 +48,7 @@ add_sub <- function(...) {
 reset_sub <- function() {
   old_sub <- get_sub()
   options(subfoldr.sub = "")
-  old_sub
+  invisible(old_sub)
 }
 
 #' Get Main
@@ -73,7 +73,7 @@ set_main <- function(...) {
   check_string(main)
   old_main <- get_main()
   options(subfoldr.main = main)
-  old_main
+  invisible(old_main)
 }
 
 #' Reset Main
@@ -83,7 +83,7 @@ set_main <- function(...) {
 reset_main <- function() {
   old_main <- get_main()
   options(subfoldr.main = "output")
-  old_main
+  invisible(old_main)
 }
 
 #' Reset All
