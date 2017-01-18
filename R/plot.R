@@ -23,7 +23,7 @@ save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
   save_rds(plot$data, "plots", type = type, main = main, sub = sub, x_name = x, ask = ask)
 
   obj <- list(plot = plot, width = width, height = height, dpi = dpi, caption = caption)
-  file <- file_path(main, "plots", type, sub, str_c(".", x)) %>% str_c(".rds")
+  file <- file_path(main, "plots", type, sub, str_c(".", x)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 
   file <- file_path(main, "plots", type, sub, x) %>% str_c(".csv")
@@ -44,11 +44,11 @@ save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
 load_plot <- function(x, type = "", main = get_main(), sub = get_sub(), data = FALSE, env = calling_env()) {
   check_flag(data)
 
-  if (data) return(x, class = "plots", type = type, main = main, sub = sub, env = env)
+  if (data) return(load_rds(x, class = "plots", type = type, main = main, sub = sub, env = env))
 
   check_string(x)
 
-  file <- file_path(main, "plots", type, sub, str_c(".", x)) %>% str_c(".rds")
+  file <- file_path(main, "plots", type, sub, str_c(".", x)) %>% str_c(".RDS")
   if (!file.exists(file)) error("file '", file, "' does not exist")
 
   x <- readRDS(file)
