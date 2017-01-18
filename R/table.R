@@ -33,7 +33,7 @@ save_table <- function(x, type = "", main = get_main(), sub = get_sub(),
 
   file <- file_path(main, "tables", type, sub, x_name) %>% str_c(".csv")
 
-  readr::write_csv(x, file)
+  readr::write_csv(x, path = file)
 
   invisible(x)
 }

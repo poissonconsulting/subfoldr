@@ -27,7 +27,7 @@ save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
   saveRDS(obj, file = file)
 
   file <- file_path(main, "plots", type, sub, x) %>% str_c(".csv")
-  readr::write_csv(plot$data, file = file)
+  readr::write_csv(plot$data, path = file)
 
   file %<>% str_replace("[.]csv$", ".png")
   ggplot2::ggsave(file, plot = plot, width = width, height = height, dpi = dpi)
