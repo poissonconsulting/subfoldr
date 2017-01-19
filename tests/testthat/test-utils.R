@@ -12,22 +12,22 @@ test_that("file_path", {
 
 test_that("sub", {
   expect_identical(get_sub(), "")
-  expect_identical(set_sub("x", "z"), "")
+  expect_identical(set_sub("x", "z"), "x/z")
   expect_identical(get_sub(), "x/z")
-  expect_identical(reset_sub(), "x/z")
+  expect_identical(reset_sub(), "")
   expect_identical(get_sub(), "")
 
-  expect_identical(add_sub("y"), "")
-  expect_identical(add_sub("t"), "y")
+  expect_identical(add_sub("y"), "y")
+  expect_identical(add_sub("t"), "y/t")
   expect_identical(add_sub(""), "y/t")
   expect_identical(get_sub(), "y/t")
 })
 
 test_that("main", {
   expect_identical(get_main(), "output")
-  expect_identical(set_main("x", "z"), "output")
+  expect_identical(set_main("x", "z"), "x/z")
   expect_identical(get_main(), "x/z")
-  expect_identical(reset_main(), "x/z")
+  expect_identical(reset_main(), "output")
   expect_identical(get_main(), "output")
 
   reset_all()
