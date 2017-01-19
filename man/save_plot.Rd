@@ -4,9 +4,9 @@
 \alias{save_plot}
 \title{Save Object as .png}
 \usage{
-save_plot(x, type = "", main = get_main(), sub = get_sub(), width = NA,
-  height = NA, dpi = 300, caption = "", ask = getOption("subfoldr.ask",
-  TRUE), plot = ggplot2::last_plot())
+save_plot(x, type = get_type(), main = get_main(), sub = get_sub(),
+  width = NA, height = NA, dpi = 300, caption = "",
+  ask = getOption("subfoldr.ask", TRUE), plot = ggplot2::last_plot())
 }
 \arguments{
 \item{x}{A string of the plot name.}

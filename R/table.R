@@ -1,17 +1,21 @@
 #' Save Object as .csv
 #'
 #' @inheritParams save_object
+#' @param caption A string of the figure caption.
 #' @return The object x or TRUE or FALSE is x is missing.
 #' @export
-save_table <- function(x, type = "", main = get_main(), sub = get_sub(),
-                       x_name = NULL, ask = getOption("subfoldr.ask", TRUE)) {
+save_table <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
+                       x_name = NULL, caption = "",
+                       ask = getOption("subfoldr.ask", TRUE)) {
 
   check_string(type)
   check_string(main)
   check_string(sub)
+  check_string(caption)
   check_flag(ask)
 
   if (missing(x)) {
+    if (caption != "") error("caption is provided but x is missing")
     names <- objects(envir = calling_env())
     flag <- FALSE
     for (x_name in names) {
@@ -31,8 +35,11 @@ save_table <- function(x, type = "", main = get_main(), sub = get_sub(),
 
   save_rds(x, "tables", type = type, main = main, sub = sub, x_name = x_name, ask = ask)
 
-  file <- file_path(main, "tables", type, sub, x_name) %>% str_c(".csv")
+  obj <- list(caption = caption)
+  file <- file_path(main, "tables", type, sub, str_c(".", x_name)) %>% str_c(".RDS")
+  saveRDS(obj, file = file)
 
+  file <- file_path(main, "tables", type, sub, x_name) %>% str_c(".csv")
   readr::write_csv(x, path = file)
 
   invisible(x)
@@ -43,6 +50,6 @@ save_table <- function(x, type = "", main = get_main(), sub = get_sub(),
 #' @inheritParams save_object
 #' @param env The environment to load the objects into if x is missing.
 #' @export
-load_table <- function(x, type = "", main = get_main(), sub = get_sub(), env = calling_env()) {
+load_table <- function(x, type = get_type(), main = get_main(), sub = get_sub(), env = calling_env()) {
   load_rds(x, class = "tables", type = type, main = main, sub = sub, env = env)
 }

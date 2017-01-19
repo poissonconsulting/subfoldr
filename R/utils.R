@@ -17,7 +17,7 @@ get_sub <- function() {
 #' Set sub
 #'
 #' @param ... One or more strings
-#' @return A string of the old sub.
+#' @return A string of the new sub.
 #' @export
 set_sub <- function(...) {
   sub <- file_path(...)
@@ -29,7 +29,7 @@ set_sub <- function(...) {
 #' Add sub
 #'
 #' @param ... One or more strings
-#' @return A string of the old sub.
+#' @return A string of the new sub.
 #' @export
 add_sub <- function(...) {
   sub <- file_path(...)
@@ -42,7 +42,7 @@ add_sub <- function(...) {
 
 #' Reset sub
 #'
-#' @return A string of the old sub.
+#' @return A string of the new sub.
 #' @export
 reset_sub <- function() {
   options(subfoldr.sub = "")
@@ -64,7 +64,7 @@ get_main <- function() {
 #' Set Main
 #'
 #' @param ... One or more strings
-#' @return A string of the old main.
+#' @return A string of the new main.
 #' @export
 set_main <- function(...) {
   main <- file_path(...)
@@ -75,7 +75,7 @@ set_main <- function(...) {
 
 #' Reset Main
 #'
-#' @return A string of the old main.
+#' @return A string of the new main.
 #' @export
 reset_main <- function() {
   options(subfoldr.main = "output")
@@ -88,9 +88,43 @@ reset_main <- function() {
 #' @return An invisible flag indicating whether successful.
 #' @export
 reset_all <- function() {
+  reset_type()
   reset_main()
   reset_sub()
   invisible(TRUE)
+}
+
+#' Get Type
+#'
+#' @return A string of the default type folder.
+#' @export
+#'
+#' @examples
+#' get_type()
+get_type <- function() {
+  type <- getOption("subfoldr.type", "")
+  type
+}
+
+#' Set Type
+#'
+#' @param ... One or more strings
+#' @return A string of the new main.
+#' @export
+set_type <- function(...) {
+  type <- file_path(...)
+  check_string(type)
+  options(subfoldr.type = type)
+  invisible(type)
+}
+
+#' Reset Type
+#'
+#' @return A string of the new type.
+#' @export
+reset_type <- function() {
+  options(subfoldr.type = "")
+  invisible("")
 }
 
 file_path <- function(...) {

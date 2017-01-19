@@ -8,7 +8,7 @@
 #' @param ask A string indicating whether to ask before creating a sub directory.
 #' @return The object x or TRUE or FALSE is x is missing.
 #' @export
-save_object <- function(x, type = "", main = get_main(), sub = get_sub(),
+save_object <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
                         x_name = NULL, ask = getOption("subfoldr.ask", TRUE)) {
   check_string(type)
   check_string(main)
@@ -39,6 +39,6 @@ save_object <- function(x, type = "", main = get_main(), sub = get_sub(),
 #' @inheritParams save_object
 #' @param env The environment to load the objects into if x is missing.
 #' @export
-load_object <- function(x, type = "", main = get_main(), sub = get_sub(), env = calling_env()) {
+load_object <- function(x, type = get_type(), main = get_main(), sub = get_sub(), env = calling_env()) {
   load_rds(x, class = "objects", type = type, main = main, sub = sub, env = env)
 }

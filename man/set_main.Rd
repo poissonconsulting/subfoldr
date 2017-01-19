@@ -10,7 +10,7 @@ set_main(...)
 \item{...}{One or more strings}
 }
 \value{
-A string of the old main.
+A string of the new main.
 }
 \description{
 Set Main

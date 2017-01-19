@@ -4,7 +4,7 @@
 \alias{save_object}
 \title{Save Object}
 \usage{
-save_object(x, type = "", main = get_main(), sub = get_sub(),
+save_object(x, type = get_type(), main = get_main(), sub = get_sub(),
   x_name = NULL, ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{

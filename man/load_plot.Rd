@@ -4,7 +4,7 @@
 \alias{load_plot}
 \title{Load table}
 \usage{
-load_plot(x, type = "", main = get_main(), sub = get_sub(),
+load_plot(x, type = get_type(), main = get_main(), sub = get_sub(),
   data = FALSE, env = calling_env())
 }
 \arguments{

@@ -10,7 +10,7 @@ set_sub(...)
 \item{...}{One or more strings}
 }
 \value{
-A string of the old sub.
+A string of the new sub.
 }
 \description{
 Set sub

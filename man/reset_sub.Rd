@@ -7,7 +7,7 @@
 reset_sub()
 }
 \value{
-A string of the old sub.
+A string of the new sub.
 }
 \description{
 Reset sub

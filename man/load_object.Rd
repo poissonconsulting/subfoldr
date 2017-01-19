@@ -4,7 +4,7 @@
 \alias{load_object}
 \title{Load Object}
 \usage{
-load_object(x, type = "", main = get_main(), sub = get_sub(),
+load_object(x, type = get_type(), main = get_main(), sub = get_sub(),
   env = calling_env())
 }
 \arguments{

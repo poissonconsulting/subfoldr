@@ -6,7 +6,7 @@
 #' @param height A number indicating the height of the plot in inches.
 #' @param caption A string of the figure caption.
 #' @export
-save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
+save_plot <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
                       width = NA, height = NA, dpi = 300, caption = "",
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
@@ -41,7 +41,7 @@ save_plot <- function(x, type = "", main = get_main(), sub = get_sub(),
 #' @param data A flag indicating whether to load the plot data.
 #' @param env The environment to load the objects into if data = TRUE and  x is missing.
 #' @export
-load_plot <- function(x, type = "", main = get_main(), sub = get_sub(), data = FALSE, env = calling_env()) {
+load_plot <- function(x, type = get_type(), main = get_main(), sub = get_sub(), data = FALSE, env = calling_env()) {
   check_flag(data)
 
   if (data) return(load_rds(x, class = "plots", type = type, main = main, sub = sub, env = env))

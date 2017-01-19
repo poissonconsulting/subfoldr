@@ -4,8 +4,8 @@
 \alias{save_table}
 \title{Save Object as .csv}
 \usage{
-save_table(x, type = "", main = get_main(), sub = get_sub(),
-  x_name = NULL, ask = getOption("subfoldr.ask", TRUE))
+save_table(x, type = get_type(), main = get_main(), sub = get_sub(),
+  x_name = NULL, caption = "", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
@@ -17,6 +17,8 @@ save_table(x, type = "", main = get_main(), sub = get_sub(),
 \item{sub}{A string of the path to the directory to save the object.}
 
 \item{x_name}{An optional string of the name to use.}
+
+\item{caption}{A string of the figure caption.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 }
