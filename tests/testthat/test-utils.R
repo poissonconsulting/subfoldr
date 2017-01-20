@@ -33,6 +33,16 @@ test_that("main", {
   reset_all()
 })
 
+test_that("type", {
+  expect_identical(get_type(), "")
+  expect_identical(set_type("x", "z"), "x/z")
+  expect_identical(get_type(), "x/z")
+  expect_identical(reset_type(), "")
+  expect_identical(get_type(), "")
+
+  reset_all()
+})
+
 test_that("all", {
   expect_true(reset_all())
 })
