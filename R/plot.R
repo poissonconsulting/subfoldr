@@ -7,7 +7,7 @@
 #' @param caption A string of the figure caption.
 #' @export
 save_plot <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
-                      width = NA, height = NA, dpi = 300, caption = "",
+                      width = NA_real_, height = NA_real_, dpi = 300, caption = "",
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
 
@@ -17,8 +17,24 @@ save_plot <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
   check_string(sub)
   check_string(caption)
   check_flag(ask)
+  check_scalar(width, c(1, NA))
+  check_scalar(height, c(1, NA))
 
   if (is.null(plot)) error("plot is NULL")
+
+  if (is.na(width)) width <- height
+  if (is.na(height)) height <- width
+
+  if (is.na(width)) {
+    if (!length(grDevices::dev.list())) {
+      width = 6
+      height = 6
+    } else {
+      dim <- grDevices::dev.size(units = "in")
+      height <- dim[1]
+      width <- dim[2]
+    }
+  }
 
   save_rds(plot$data, "plots", type = type, main = main, sub = sub, x_name = x, ask = ask)
 

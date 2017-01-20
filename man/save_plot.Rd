@@ -5,7 +5,7 @@
 \title{Save Object as .png}
 \usage{
 save_plot(x, type = get_type(), main = get_main(), sub = get_sub(),
-  width = NA, height = NA, dpi = 300, caption = "",
+  width = NA_real_, height = NA_real_, dpi = 300, caption = "",
   ask = getOption("subfoldr.ask", TRUE), plot = ggplot2::last_plot())
 }
 \arguments{
