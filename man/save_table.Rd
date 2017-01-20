@@ -23,7 +23,7 @@ save_table(x, type = get_type(), main = get_main(), sub = get_sub(),
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 }
 \value{
-The object x or TRUE or FALSE is x is missing.
+The object x.
 }
 \description{
 Save Object as .csv
