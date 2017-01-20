@@ -31,8 +31,8 @@ save_plot <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
       height = 6
     } else {
       dim <- grDevices::dev.size(units = "in")
-      height <- dim[1]
-      width <- dim[2]
+      width <- dim[1]
+      height <- dim[2]
     }
   }
 
