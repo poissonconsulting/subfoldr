@@ -2,7 +2,7 @@
 #'
 #' @inheritParams save_object
 #' @param caption A string of the figure caption.
-#' @return The object x or TRUE or FALSE is x is missing.
+#' @return The object x.
 #' @export
 save_table <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
                        x_name = NULL, caption = "",
@@ -14,20 +14,6 @@ save_table <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
   check_string(caption)
   check_flag(ask)
 
-  if (missing(x)) {
-    if (caption != "") error("caption is provided but x is missing")
-    names <- objects(envir = calling_env())
-    flag <- FALSE
-    for (x_name in names) {
-      x <- get(x = x_name, envir = calling_env())
-      if (is.data.frame(x))
-        save_table(x, type = type, main = main, sub = sub, x_name = x_name, ask = ask)
-        flag <- TRUE
-    }
-    if (!flag) warning("no data.frames in calling environment")
-    return(invisible(flag))
-  }
-
   if (is.null(x_name)) x_name <- deparse(substitute(x))
   check_string(x_name)
 
@@ -35,7 +21,7 @@ save_table <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
 
   save_rds(x, "tables", type = type, main = main, sub = sub, x_name = x_name, ask = ask)
 
-  obj <- list(caption = caption)
+  obj <- list(data = x, caption = caption)
   file <- file_path(main, "tables", type, sub, str_c(".", x_name)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 
