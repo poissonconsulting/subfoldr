@@ -6,9 +6,7 @@ error <- function(...) {
 #'
 #' @return A string of the current sub.
 #' @export
-#'
 #' @examples
-#' get_sub()
 get_sub <- function() {
   sub <- getOption("subfoldr.sub", "")
   sub
