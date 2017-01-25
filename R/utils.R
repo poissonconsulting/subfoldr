@@ -6,7 +6,6 @@ error <- function(...) {
 #'
 #' @return A string of the current sub.
 #' @export
-#' @examples
 get_sub <- function() {
   sub <- getOption("subfoldr.sub", "")
   sub
@@ -169,11 +168,7 @@ save_rds <- function(x, class, type, main, sub, x_name, ask) {
   invisible(x)
 }
 
-load_rds <- function(x, class, type, main, sub, env) {
-  check_string(class)
-  check_string(type)
-  check_string(main)
-  check_string(sub)
+load_rds <- function(x, class, type, main, sub, is = function(x) {TRUE}, env) {
 
   if (!missing(x)) {
     check_string(x)
@@ -183,14 +178,17 @@ load_rds <- function(x, class, type, main, sub, env) {
   }
 
   files <- list.files(path = file_path(main, class, type, sub), pattern = "[.]rds$")
-  if (!length(files)) {
-    warning("no .rds objects found")
-    return(invisible(FALSE))
-  }
 
+  flag <- FALSE
   for (file in files) {
     x <- basename(file) %>% str_replace("[.]rds$", "")
-    assign(x, load_rds(x, class = class, type = type, main = main, sub = sub, env = env), envir = env)
+    object <- readRDS(file_path(main, class, type, sub, basename(file)))
+    if (is(object)) {
+      assign(x, object, envir = env)
+      flag <- TRUE
+    }
   }
-  invisible(TRUE)
+  if (!flag)
+    warning("no suitable .rds objects found")
+  invisible(flag)
 }

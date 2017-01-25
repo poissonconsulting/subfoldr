@@ -5,7 +5,7 @@
 \title{Load Object}
 \usage{
 load_object(x, type = get_type(), main = get_main(), sub = get_sub(),
-  env = calling_env())
+  is = is.data.frame, env = calling_env())
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
@@ -15,6 +15,9 @@ load_object(x, type = get_type(), main = get_main(), sub = get_sub(),
 \item{main}{A string of the main subfolder.}
 
 \item{sub}{A string of the path to the directory to save the object.}
+
+\item{is}{A function returning TRUE or FALSE to indicate whether to save particular objects.
+Ignored unless x is missing.}
 
 \item{env}{The environment to load the objects into if x is missing.}
 }
