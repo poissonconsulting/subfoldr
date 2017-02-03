@@ -4,11 +4,13 @@
 \alias{save_object}
 \title{Save Object}
 \usage{
-save_object(x, main = get_main(), sub = get_sub(), is = is.data.frame,
-  x_name = NULL, ask = getOption("subfoldr.ask", TRUE))
+save_object(x, x_name = NULL, main = get_main(), sub = get_sub(),
+  is = is.data.frame, ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
+
+\item{x_name}{An optional string of the name to use.}
 
 \item{main}{A string of the main subfolder.}
 
@@ -16,8 +18,6 @@ save_object(x, main = get_main(), sub = get_sub(), is = is.data.frame,
 
 \item{is}{A function returning TRUE or FALSE to indicate whether to save particular objects.
 Ignored unless x is missing.}
-
-\item{x_name}{An optional string of the name to use.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 }

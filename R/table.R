@@ -4,8 +4,8 @@
 #' @param caption A string of the figure caption.
 #' @return The object x.
 #' @export
-save_table <- function(x, main = get_main(), sub = get_sub(),
-                       x_name = NULL, caption = "",
+save_table <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
+                        caption = "",
                        ask = getOption("subfoldr.ask", TRUE)) {
 
   check_string(main)

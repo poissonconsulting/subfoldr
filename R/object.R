@@ -9,9 +9,9 @@
 #' @param ask A string indicating whether to ask before creating a sub directory.
 #' @return The object x or TRUE or FALSE is x is missing.
 #' @export
-save_object <- function(x, main = get_main(), sub = get_sub(),
+save_object <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
                         is = is.data.frame,
-                        x_name = NULL, ask = getOption("subfoldr.ask", TRUE)) {
+                        ask = getOption("subfoldr.ask", TRUE)) {
   check_string(main)
   check_string(sub)
   check_flag(ask)

@@ -4,8 +4,8 @@
 #' @param caption A string of the template caption.
 #' @return The object x.
 #' @export
-save_template <- function(x, main = get_main(), sub = get_sub(),
-                       x_name = NULL, caption = "",
+save_template <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
+                        caption = "",
                        ask = getOption("subfoldr.ask", TRUE)) {
 
   check_string(main)

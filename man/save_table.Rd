@@ -4,17 +4,17 @@
 \alias{save_table}
 \title{Save Object as .csv}
 \usage{
-save_table(x, main = get_main(), sub = get_sub(), x_name = NULL,
+save_table(x, x_name = NULL, main = get_main(), sub = get_sub(),
   caption = "", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
 
+\item{x_name}{An optional string of the name to use.}
+
 \item{main}{A string of the main subfolder.}
 
 \item{sub}{A string of the path to the directory to save the object.}
-
-\item{x_name}{An optional string of the name to use.}
 
 \item{caption}{A string of the figure caption.}
 
