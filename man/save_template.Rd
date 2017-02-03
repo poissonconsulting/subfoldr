@@ -4,19 +4,22 @@
 \alias{save_template}
 \title{Save string as .txt}
 \usage{
-save_template(x, x_name = NULL, main = get_main(), sub = get_sub(),
-  caption = "", ask = getOption("subfoldr.ask", TRUE))
+save_template(x, x_name = NULL, caption = "", report = !identical(caption,
+  ""), main = get_main(), sub = get_sub(), ask = getOption("subfoldr.ask",
+  TRUE))
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
 
 \item{x_name}{An optional string of the name to use.}
 
+\item{caption}{A string of the template caption.}
+
+\item{report}{A flag indicating to include the plot in reports (not yet implemented).}
+
 \item{main}{A string of the main subfolder.}
 
 \item{sub}{A string of the path to the directory to save the object.}
-
-\item{caption}{A string of the template caption.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 }

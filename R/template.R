@@ -2,12 +2,14 @@
 #'
 #' @inheritParams save_object
 #' @param caption A string of the template caption.
+#' @param report A flag indicating to include the plot in reports (not yet implemented).
 #' @return The object x.
 #' @export
-save_template <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
-                        caption = "",
-                       ask = getOption("subfoldr.ask", TRUE)) {
+save_template <- function(x, x_name = NULL, caption = "", report = !identical(caption, ""),
+                          main = get_main(), sub = get_sub(),
+                          ask = getOption("subfoldr.ask", TRUE)) {
 
+  check_flag(report)
   check_string(main)
   check_string(sub)
   check_string(caption)
@@ -19,7 +21,7 @@ save_template <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
 
   save_rds(x, "templates", main = main, sub = sub, x_name = x_name, ask = ask)
 
-  obj <- list(template = x, caption = caption)
+  obj <- list(template = x, caption = caption, report = report)
   file <- file_path(main, "templates", sub, str_c(".", x_name)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 

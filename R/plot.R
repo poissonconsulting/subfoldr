@@ -3,15 +3,18 @@
 #' @inheritParams save_object
 #' @inheritParams ggplot2::ggsave
 #' @param x A string of the plot name.
-#' @param height A number indicating the height of the plot in inches.
 #' @param caption A string of the figure caption.
+#' @param report A flag indicating to include the plot in reports (not yet implemented).
+#' @param height A number indicating the height of the plot in inches.
 #' @export
-save_plot <- function(x, main = get_main(), sub = get_sub(),
-                      width = NA_real_, height = NA_real_, dpi = 300, caption = "",
+save_plot <- function(x, caption = "", report = !identical(caption, ""),
+                      main = get_main(), sub = get_sub(),
+                      width = NA_real_, height = NA_real_, dpi = 300,
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
 
   check_string(x)
+  check_flag(report)
   check_string(main)
   check_string(sub)
   check_string(caption)
@@ -37,7 +40,7 @@ save_plot <- function(x, main = get_main(), sub = get_sub(),
 
   save_rds(plot$data, "plots", main = main, sub = sub, x_name = x, ask = ask)
 
-  obj <- list(plot = plot, width = width, height = height, dpi = dpi, caption = caption)
+  obj <- list(plot = plot, width = width, height = height, dpi = dpi, caption = caption, report = report)
   file <- file_path(main, "plots", sub, str_c(".", x)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 
