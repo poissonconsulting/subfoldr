@@ -4,13 +4,11 @@
 \alias{save_template}
 \title{Save string as .txt}
 \usage{
-save_template(x, type = get_type(), main = get_main(), sub = get_sub(),
-  x_name = NULL, caption = "", ask = getOption("subfoldr.ask", TRUE))
+save_template(x, main = get_main(), sub = get_sub(), x_name = NULL,
+  caption = "", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
-
-\item{type}{A string of the type of x.}
 
 \item{main}{A string of the main subfolder.}
 

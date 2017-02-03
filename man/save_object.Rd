@@ -4,14 +4,11 @@
 \alias{save_object}
 \title{Save Object}
 \usage{
-save_object(x, type = get_type(), main = get_main(), sub = get_sub(),
-  is = is.data.frame, x_name = NULL, ask = getOption("subfoldr.ask",
-  TRUE))
+save_object(x, main = get_main(), sub = get_sub(), is = is.data.frame,
+  x_name = NULL, ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
-
-\item{type}{A string of the type of x.}
 
 \item{main}{A string of the main subfolder.}
 

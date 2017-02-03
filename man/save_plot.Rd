@@ -4,14 +4,12 @@
 \alias{save_plot}
 \title{Save Object as .png}
 \usage{
-save_plot(x, type = get_type(), main = get_main(), sub = get_sub(),
-  width = NA_real_, height = NA_real_, dpi = 300, caption = "",
+save_plot(x, main = get_main(), sub = get_sub(), width = NA_real_,
+  height = NA_real_, dpi = 300, caption = "",
   ask = getOption("subfoldr.ask", TRUE), plot = ggplot2::last_plot())
 }
 \arguments{
 \item{x}{A string of the plot name.}
-
-\item{type}{A string of the type of x.}
 
 \item{main}{A string of the main subfolder.}
 

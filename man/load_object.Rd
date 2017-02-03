@@ -4,13 +4,11 @@
 \alias{load_object}
 \title{Load Object}
 \usage{
-load_object(x, type = get_type(), main = get_main(), sub = get_sub(),
-  is = is.data.frame, env = calling_env())
+load_object(x, main = get_main(), sub = get_sub(), is = is.data.frame,
+  env = calling_env())
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
-
-\item{type}{A string of the type of x.}
 
 \item{main}{A string of the main subfolder.}
 

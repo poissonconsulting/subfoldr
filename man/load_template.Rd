@@ -4,13 +4,10 @@
 \alias{load_template}
 \title{Load template}
 \usage{
-load_template(x, type = get_type(), main = get_main(), sub = get_sub(),
-  env = calling_env())
+load_template(x, main = get_main(), sub = get_sub(), env = calling_env())
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
-
-\item{type}{A string of the type of x.}
 
 \item{main}{A string of the main subfolder.}
 

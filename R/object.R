@@ -1,7 +1,6 @@
 #' Save Object
 #'
 #' @param x The object to save. If missing saves all objects in calling env.
-#' @param type A string of the type of x.
 #' @param main A string of the main subfolder.
 #' @param sub A string of the path to the directory to save the object.
 #' @param is A function returning TRUE or FALSE to indicate whether to save particular objects.
@@ -10,10 +9,9 @@
 #' @param ask A string indicating whether to ask before creating a sub directory.
 #' @return The object x or TRUE or FALSE is x is missing.
 #' @export
-save_object <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
+save_object <- function(x, main = get_main(), sub = get_sub(),
                         is = is.data.frame,
                         x_name = NULL, ask = getOption("subfoldr.ask", TRUE)) {
-  check_string(type)
   check_string(main)
   check_string(sub)
   check_flag(ask)
@@ -25,7 +23,7 @@ save_object <- function(x, type = get_type(), main = get_main(), sub = get_sub()
     for (x_name in names) {
       x <- get(x = x_name, envir = calling_env())
       if (is(x))
-        save_rds(x, "objects", type = type, main = main, sub = sub, x_name = x_name, ask = ask)
+        save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
       flag <- TRUE
     }
     if (!flag) warning("no suitable 'objects' in calling environment")
@@ -35,7 +33,7 @@ save_object <- function(x, type = get_type(), main = get_main(), sub = get_sub()
   if (is.null(x_name)) x_name <- deparse(substitute(x))
   check_string(x_name)
 
-  save_rds(x, "objects", type = type, main = main, sub = sub, x_name = x_name, ask = ask)
+  save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
 }
 
 #' Load Object
@@ -43,7 +41,7 @@ save_object <- function(x, type = get_type(), main = get_main(), sub = get_sub()
 #' @inheritParams save_object
 #' @param env The environment to load the objects into if x is missing.
 #' @export
-load_object <- function(x, type = get_type(), main = get_main(), sub = get_sub(),
+load_object <- function(x, main = get_main(), sub = get_sub(),
                         is = is.data.frame, env = calling_env()) {
-  load_rds(x, class = "objects", type = type, main = main, sub = sub, is = is, env = env)
+  load_rds(x, class = "objects", main = main, sub = sub, is = is, env = env)
 }

@@ -85,43 +85,9 @@ reset_main <- function() {
 #' @return An invisible flag indicating whether successful.
 #' @export
 reset_all <- function() {
-  reset_type()
   reset_main()
   reset_sub()
   invisible(TRUE)
-}
-
-#' Get Type
-#'
-#' @return A string of the default type folder.
-#' @export
-#'
-#' @examples
-#' get_type()
-get_type <- function() {
-  type <- getOption("subfoldr.type", "")
-  type
-}
-
-#' Set Type
-#'
-#' @param ... One or more strings
-#' @return A string of the new main.
-#' @export
-set_type <- function(...) {
-  type <- file_path(...)
-  check_string(type)
-  options(subfoldr.type = type)
-  invisible(type)
-}
-
-#' Reset Type
-#'
-#' @return A string of the new type.
-#' @export
-reset_type <- function() {
-  options(subfoldr.type = "")
-  invisible("")
 }
 
 file_path <- function(...) {
@@ -149,15 +115,14 @@ calling_env <- function() {
   parent.frame(n = 2)
 }
 
-save_rds <- function(x, class, type, main, sub, x_name, ask) {
+save_rds <- function(x, class, main, sub, x_name, ask) {
   check_string(class)
-  check_string(type)
   check_string(main)
   check_string(sub)
   check_flag(ask)
   check_string(x_name)
 
-  dir <- file_path(main, class, type, sub)
+  dir <- file_path(main, class, sub)
 
   create_dir(dir, ask)
 
@@ -168,21 +133,21 @@ save_rds <- function(x, class, type, main, sub, x_name, ask) {
   invisible(x)
 }
 
-load_rds <- function(x, class, type, main, sub, is = function(x) {TRUE}, env) {
+load_rds <- function(x, class, main, sub, is = function(x) {TRUE}, env) {
 
   if (!missing(x)) {
     check_string(x)
-    file <- file_path(main, class, type, sub, x) %>% str_c(".rds")
+    file <- file_path(main, class, sub, x) %>% str_c(".rds")
     if (!file.exists(file)) error("file '", file, "' does not exist")
     return(readRDS(file))
   }
 
-  files <- list.files(path = file_path(main, class, type, sub), pattern = "[.]rds$")
+  files <- list.files(path = file_path(main, class, sub), pattern = "[.]rds$")
 
   flag <- FALSE
   for (file in files) {
     x <- basename(file) %>% str_replace("[.]rds$", "")
-    object <- readRDS(file_path(main, class, type, sub, basename(file)))
+    object <- readRDS(file_path(main, class, sub, basename(file)))
     if (is(object)) {
       assign(x, object, envir = env)
       flag <- TRUE
