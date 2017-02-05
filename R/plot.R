@@ -73,3 +73,13 @@ load_plot <- function(x, main = get_main(), sub = get_sub(), data = FALSE, env =
 
   x$plot
 }
+
+#' List Plot Sub Directories
+#'
+#' @inheritParams save_object
+#' @return A character vector of the names of the directories in the sub folder.
+#' @export
+plot_subdirs <- function(main = get_main(), sub = get_sub()) {
+  subdirs("plots", main = main, sub = sub)
+}
+

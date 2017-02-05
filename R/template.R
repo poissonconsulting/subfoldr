@@ -39,3 +39,12 @@ save_template <- function(x, x_name = NULL, caption = "", report = !identical(ca
 load_template <- function(x, main = get_main(), sub = get_sub(), env = calling_env()) {
   load_rds(x, class = "templates", main = main, sub = sub, env = env)
 }
+
+#' List Template Sub Directories
+#'
+#' @inheritParams save_object
+#' @return A character vector of the names of the directories in the sub folder.
+#' @export
+template_subdirs <- function(main = get_main(), sub = get_sub()) {
+  subdirs("templates", main = main, sub = sub)
+}

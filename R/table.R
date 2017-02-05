@@ -41,6 +41,15 @@ load_table <- function(x, main = get_main(), sub = get_sub(), env = calling_env(
   load_rds(x, class = "tables", main = main, sub = sub, env = env)
 }
 
+#' List Table Sub Directories
+#'
+#' @inheritParams save_object
+#' @return A character vector of the names of the directories in the sub folder.
+#' @export
+table_subdirs <- function(main = get_main(), sub = get_sub()) {
+  subdirs("tables", main = main, sub = sub)
+}
+
 #' Markdown Templates
 #'
 #' Returns a string of templates in markdown format ready for inclusion in a report.

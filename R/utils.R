@@ -133,6 +133,16 @@ save_rds <- function(x, class, main, sub, x_name, ask) {
   invisible(x)
 }
 
+subdirs <- function(class, main, sub) {
+  check_string(class)
+  check_string(main)
+  check_string(sub)
+
+  dir <- file_path(main, class, sub)
+  list.dirs(dir, full.names = FALSE, recursive = FALSE)
+}
+
+
 load_rds <- function(x, class, main, sub, is = function(x) {TRUE}, env) {
 
   if (!missing(x)) {

@@ -28,4 +28,8 @@ test_that("objects", {
   expect_identical(ls(), c("data2"))
   expect_identical(data2, data.frame(a = 3:4))
   expect_identical(load_object("data2"), data2)
+
+  expect_identical(object_subdirs(), character(0))
+  save_object(data2, sub = "sub", ask = FALSE)
+  expect_identical(object_subdirs(), "sub")
 })

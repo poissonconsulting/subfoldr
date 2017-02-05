@@ -45,3 +45,12 @@ load_object <- function(x, main = get_main(), sub = get_sub(),
                         is = is.data.frame, env = calling_env()) {
   load_rds(x, class = "objects", main = main, sub = sub, is = is, env = env)
 }
+
+#' List Object Sub Directories
+#'
+#' @inheritParams save_object
+#' @return A character vector of the names of the directories in the sub folder.
+#' @export
+object_subdirs <- function(main = get_main(), sub = get_sub()) {
+  subdirs("objects", main = main, sub = sub)
+}
