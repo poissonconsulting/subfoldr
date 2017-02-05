@@ -36,3 +36,15 @@ test_that("main", {
 test_that("all", {
   expect_true(reset_all())
 })
+
+test_that("sub_names", {
+  expect_identical(sub_names("1")[[1]], "1")
+  expect_identical(sub_names("")[[1]], "")
+  expect_identical(sub_names("1/3")[[1]], c("1", "3"))
+})
+
+test_that("nsubs", {
+  expect_identical(nsubs("1"), 1L)
+  expect_identical(nsubs("1/3"), 2L)
+  expect_identical(nsubs(c("1/3", ".")), c(2L, 1L))
+})

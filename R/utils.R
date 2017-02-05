@@ -157,3 +157,20 @@ load_rds <- function(x, class, main, sub, is = function(x) {TRUE}, env) {
     warning("no suitable .rds objects found")
   invisible(flag)
 }
+
+sub_names <- function(x) {
+  str_split(x, "/")
+}
+
+nsubs <- function(x) {
+  x %<>% sub_names()
+  vapply(x, length, 1L)
+}
+
+list_files <- function(dir, report) {
+  files <- list.files(dir, pattern = "[.][^/]+[.]RDS$", recursive = TRUE,  all.files = TRUE, full.names = TRUE)
+  rds <- lapply(files, readRDS)
+  rds %<>% vapply(function(x, report) x$report == report, TRUE, report)
+  files %<>% str_replace(str_c("(.*[.])([^/]+)([.]RDS$)"), "\\2")
+  files[rds]
+}

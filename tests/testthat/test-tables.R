@@ -19,4 +19,8 @@ test_that("tables", {
   load_table()
 
   expect_identical(ls(), "data2")
+
+  expect_null(md_tables())
+  expect_identical(md_tables(report = FALSE), "data2")
+
 })
