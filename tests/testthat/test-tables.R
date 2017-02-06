@@ -20,7 +20,14 @@ test_that("tables", {
 
   expect_identical(ls(), "data2")
 
-  expect_null(md_tables())
-  expect_identical(md_tables(report = FALSE), "data2")
+  save_table(data2, caption = "Caption")
+  rm(data2)
+  expect_identical(ls(), character(0))
+  load_table()
+  expect_identical(ls(), "data2")
+
+  expect_is(data2, "data.frame")
+#  expect_null(md_tables())
+#  expect_identical(md_tables(report = FALSE), "data2")
 
 })

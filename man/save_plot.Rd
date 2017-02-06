@@ -34,4 +34,3 @@ If not supplied, uses the size of current graphics device.}
 \description{
 Save Object as .png
 }
-

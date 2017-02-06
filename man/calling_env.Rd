@@ -12,4 +12,3 @@ Calling Environment
 \examples{
 calling_env()
 }
-

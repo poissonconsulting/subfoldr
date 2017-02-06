@@ -14,4 +14,3 @@ open_window(width = 6, height = width)
 \description{
 Open a new graphics window.
 }
-

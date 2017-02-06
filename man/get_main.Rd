@@ -15,4 +15,3 @@ Get Main
 \examples{
 get_main()
 }
-

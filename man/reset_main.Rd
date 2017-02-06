@@ -12,4 +12,3 @@ A string of the new main.
 \description{
 Reset Main
 }
-

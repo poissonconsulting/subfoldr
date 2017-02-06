@@ -12,4 +12,3 @@ A string of the new sub.
 \description{
 Reset sub
 }
-

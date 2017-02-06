@@ -22,4 +22,3 @@ Ignored unless x is missing.}
 \description{
 Load Object
 }
-

@@ -21,4 +21,3 @@ load_plot(x, main = get_main(), sub = get_sub(), data = FALSE,
 \description{
 Load table
 }
-

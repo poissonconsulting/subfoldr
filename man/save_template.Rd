@@ -29,4 +29,3 @@ The object x.
 \description{
 Save string as .txt
 }
-

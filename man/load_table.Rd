@@ -18,4 +18,3 @@ load_table(x, main = get_main(), sub = get_sub(), env = calling_env())
 \description{
 Load table
 }
-

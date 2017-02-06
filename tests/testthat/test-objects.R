@@ -16,6 +16,7 @@ test_that("objects", {
   expect_identical(save_object(data1, ask = FALSE), data1)
   expect_identical(load_object("data1"), data1)
 
+
   rm(data1, data2)
 
   expect_identical(load_object("data1"), 1)

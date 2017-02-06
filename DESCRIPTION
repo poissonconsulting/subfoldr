@@ -1,11 +1,11 @@
 Package: subfoldr
 Title: Subfolders
-Date: 2017-02-03
-Version: 0.0.0.9004
+Date: 2017-02-06
+Version: 0.0.0.9005
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Orchestrates the saving and loading of objects to a subfolder.
 Depends:
-    R (>= 3.3.2)
+    R (>= 3.3.0)
 Imports:
     datacheckr,
     grDevices,
@@ -22,4 +22,4 @@ LazyData: true
 Suggests:
     testthat,
     covr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.0

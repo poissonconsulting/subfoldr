@@ -40,4 +40,3 @@ By default the highest level of subfolders are considered to be third order head
 The elements in the character vectors in drop indicate the subfolders to exclude from the report.
 Again the number of the character vector indicates the level to which it applies.
 }
-

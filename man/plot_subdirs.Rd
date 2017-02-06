@@ -17,4 +17,3 @@ A character vector of the names of the directories in the sub folder.
 \description{
 List Plot Sub Directories
 }
-
