@@ -87,7 +87,12 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
 
   if (!length(files)) return(NULL)
 
-  files
+  subs <- subs_matrix(files)
+
+
+
+  subs
+#  files
 
   # further dropping....
   # for()

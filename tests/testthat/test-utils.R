@@ -48,3 +48,17 @@ test_that("nsubs", {
   expect_identical(nsubs("1/3"), 2L)
   expect_identical(nsubs(c("1/3", ".")), c(2L, 1L))
 })
+
+test_that("list_files", {
+  files <- list_files(file.path(system.file(package = "subfoldr"), "output", "tables"), TRUE)
+  names(files) <- NULL # names depend on where run
+  expect_identical(files,
+                   c("first/2nd/third/TG","first/second/data2"))
+})
+
+test_that("subs_matrix", {
+  files <- list_files(file.path(system.file(package = "subfoldr"), "output", "tables"), TRUE)
+
+  expect_identical(subs_matrix(files[1]), matrix(c("first", "2nd", "third", "TG"), ncol = 1))
+  expect_identical(subs_matrix(files), matrix(c("first", "2nd", "third", "TG", "first", "second", "data2", ""), ncol = 2))
+})

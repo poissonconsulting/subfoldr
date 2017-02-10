@@ -181,6 +181,15 @@ list_files <- function(dir, report) {
   files <- list.files(dir, pattern = "[.][^/]+[.]RDS$", recursive = TRUE,  all.files = TRUE, full.names = TRUE)
   rds <- lapply(files, readRDS)
   rds %<>% vapply(function(x, report) x$report == report, TRUE, report)
-  files %<>% str_replace(str_c("(.*[.])([^/]+)([.]RDS$)"), "\\2")
+  names_files <- files
+  files %<>% str_replace(str_c("^(.*", dir, ")(.*)([.]RDS$)"), "\\2")
+  files %<>% str_replace("^(/)(.*)([.])([^.]+)$", "\\2\\4")
+  names(files) <- names_files
   files[rds]
+}
+
+subs_matrix <- function(x) {
+  x %<>% str_split("/", simplify = TRUE)
+  x %<>% t()
+  x
 }
