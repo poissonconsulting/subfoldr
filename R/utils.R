@@ -101,7 +101,7 @@ order_headings <- function(subs_matrix, headings, locale) {
   stopifnot(length(headings) <= nrow(subs_matrix))
 
   if (length(headings) < nrow(subs_matrix))
-    headings %<>% c(rep(character(0), nrow(subs_matrix) - length(headings)))
+    headings %<>% c(lapply(1:(nrow(subs_matrix) - length(headings)), function(x) character(0)))
 
   for (i in seq_along(headings)) {
     subs_matrix[i,] %<>% order_heading(headings[[i]], locale)
