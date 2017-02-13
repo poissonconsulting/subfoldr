@@ -83,11 +83,11 @@ order_heading <- function(sub_row, heading) {
   for (h in names(heading)) {
     match <- str_detect(sub_row, str_c("^", h, "$")) & order == 0
     if (any(match)) {
-      order[match] <- seq(from = max(order) + 1, to = sum(match))
+      order[match] <- max(order) + 1
     }
   }
   match <- order == 0
-  if (any(match)) order[match] <- seq(from = max(order) + 1, to = max(order) + sum(match))
+  if (any(match)) order[match] <- max(order) + 1
   as.integer(order)
 }
 
@@ -141,7 +141,7 @@ set_headers <- function(subs_matrix, nheaders, header1, locale = locale) {
     subs_matrix[,(nheaders + 1):ncol(subs_matrix)] <- ""
   subs_matrix %<>% plyr::alply(1, str_c, collapse = "\n") %>% unlist()
   subs_matrix %<>% vapply(str_to_title, "", locale = locale)
-  subs_matrix %<>% str_replace("\n+", "\n")
+  subs_matrix %<>% str_replace_all("\n+", "\n")
   subs_matrix %<>% str_replace("^\n", "") %>% str_replace("\n$", "")
   subs_matrix
 }

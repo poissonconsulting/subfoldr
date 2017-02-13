@@ -87,7 +87,7 @@ test_that("set_headers", {
 })
 
 test_that("order_heading", {
-  expect_identical(order_heading(c("1", "2", "this"), c("that" = "Blah", "this" = "This Title")), c(2L, 3L, 1L))
+  expect_identical(order_heading(c("1", "2", "this"), c("that" = "Blah", "this" = "This Title")), c(2L, 2L, 1L))
 })
 
 test_that("order_headings", {

@@ -54,9 +54,9 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
 
   if (!length(files)) return(NULL)
 
-   order <- order_headings(subs, headings)
-   subs <- subs[order,,drop = FALSE]
-   files <- files[order]
+ #  order <- order_headings(subs, headings)
+#   subs <- subs[order,,drop = FALSE]
+#   files <- files[order]
 
    subs %<>% rename_headings(headings)
    subs %<>% set_headers(nheaders, header1, locale)
