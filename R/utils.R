@@ -77,6 +77,29 @@ drop_rows <- function(subs_matrix, drop) {
   bol
 }
 
+order_heading <- function(sub_row, heading) {
+  n <- length(sub_row)
+  order <- rep(0, n)
+  for (h in names(heading)) {
+    match <- str_detect(sub_row, str_c("^", h, "$")) & order == 0
+    if (any(match)) {
+      order[match] <- seq(from = max(order) + 1, to = sum(match))
+    }
+  }
+  match <- order == 0
+  if (any(match)) order[match] <- seq(from = max(order) + 1, to = max(order) + sum(match))
+  as.integer(order)
+}
+
+order_headings <- function(subs_matrix, headings) {
+  stopifnot(length(headings) <= nrow(subs_matrix))
+  for (i in seq_along(headings)) {
+    subs_matrix[i,] %<>% order_heading(headings[[i]])
+  }
+  subs_matrix %<>% plyr::alply(2, str_c, collapse = "-") %>% unlist()
+  order(subs_matrix)
+}
+
 rename_heading <- function(sub_row, heading) {
   for (i in seq_along(heading)) {
     sub_row %<>% str_replace(str_c("^", names(heading[i]), "$"), heading[i])
@@ -92,26 +115,33 @@ rename_headings <- function(subs_matrix, headings) {
   subs_matrix
 }
 
-make_headers <- function(headers) {
-  headers <- seq(headers[1], headers[2])
-  headers %<>% vapply(function(x) stringr::str_c(rep("#", x), collapse = ""), "")
-  headers
+header <- function(nheader, header1) {
+  str_c(rep("#", header1 + nheader - 1), collapse = "")
 }
 
-set_headers <- function(subs_matrix, headers) {
-  headers %<>% make_headers()
+set_headers <- function(subs_matrix, nheaders, header1, locale = locale) {
+  subs_matrix %<>% t()
+  if (nheaders == 0) return(rep("", nrow(subs_matrix)))
 
-  for (i in 1:length(headers)) {
-    subs_matrix[1,headers[i]] %<>% str_c(headers[i], ., collapse = " ")
-  }
+  org <- subs_matrix
 
-  if (nrow(subs_matrix) == 1) return(subs_matrix)
-
-  for (i in 2:nrow(subs_matrix)) {
-    for (j in 1:length(headers)) {
-      if (!identical(subs_matrix[i,j], subs_matrix[i - 1, j]))
-        subs_matrix[i,headers[j]] %<>% str_c(headers[j], ., collapse = " ")
+  for (i in 1:nheaders) {
+    subs_matrix[1,i] %<>% str_c(header(i, header1), ., sep = " ")
+    if (nrow(subs_matrix) > 1) {
+      for (j in 2:nrow(subs_matrix)) {
+        if (subs_matrix[j,i] == org[j - 1, i]) {
+          subs_matrix[j,i] <- ""
+        } else {
+          subs_matrix[j,i] %<>% str_c(header(i, header1), ., sep = " ")
+        }
+      }
     }
   }
+  if (ncol(subs_matrix) > nheaders)
+    subs_matrix[,(nheaders + 1):ncol(subs_matrix)] <- ""
+  subs_matrix %<>% plyr::alply(1, str_c, collapse = "\n") %>% unlist()
+  subs_matrix %<>% vapply(str_to_title, "", locale = locale)
+  subs_matrix %<>% str_replace("\n+", "\n")
+  subs_matrix %<>% str_replace("^\n", "") %>% str_replace("\n$", "")
   subs_matrix
 }

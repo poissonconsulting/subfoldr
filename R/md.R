@@ -1,5 +1,4 @@
-check_md_args <- function(headings, drop, report, main, sub, nheaders, header1, locale, class) {
-  check_string(report)
+check_md_args <- function(headings, drop, main, sub, nheaders, header1, locale, class) {
   check_string(main)
   check_string(sub)
   check_count(nheaders)
@@ -35,9 +34,9 @@ check_md_args <- function(headings, drop, report, main, sub, nheaders, header1, 
   TRUE
 }
 
-md_files <- function(headings, drop, report, main, sub, nheaders, header1, locale, class) {
+md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class) {
 
-  check_md_args(headings = headings, drop = drop, report = report, main = main,
+  check_md_args(headings = headings, drop = drop, main = main,
                 sub = sub, nheaders = nheaders, header1 = header1, locale = locale, class = class)
 
   dir <- file.path(main, class, sub)
@@ -55,24 +54,15 @@ md_files <- function(headings, drop, report, main, sub, nheaders, header1, local
 
   if (!length(files)) return(NULL)
 
-  # order <- order_headings(subs, headings)
-  # subs <- subs[order,,drop = FALSE]
-  # files <- files[order]
+   order <- order_headings(subs, headings)
+   subs <- subs[order,,drop = FALSE]
+   files <- files[order]
 
-  subs %<>% rename_headings(headings)
-  subs %<>% apply(MARGIN = 2, str_to_title, locale = locale)
+   subs %<>% rename_headings(headings)
+   subs %<>% set_headers(nheaders, header1, locale)
 
-#  subs %<>% set_headers(headers)
-
-  # do heading numbers
-
-  subs %<>% plyr::alply(2, str_c, collapse = "/") %>% unlist()
-  subs %<>% str_replace("/*$", "") %>% str_replace("/[^/]+$", "")
-
-  names(subs) <- names(files)
-  subs
- # files
- # subs
+   names(subs) <- names(files)
+   subs
 }
 
 #' Markdown Templates
@@ -93,7 +83,6 @@ md_files <- function(headings, drop, report, main, sub, nheaders, header1, local
 #'
 #' @param headings A list of named character vectors.
 #' @param drop A list of character vectors specify the subfolders to drop.
-#' @param report A string of the path to the report folder.
 #' @param main A string of the main subfolder.
 #' @param sub A string of the path to the subfolders to save the object (by default = "").
 #' @param nheaders An count of the number of headings to assign headers to.
@@ -103,13 +92,13 @@ md_files <- function(headings, drop, report, main, sub, nheaders, header1, local
 #' @return A string of the report templates in markdown format ready for inclusion in a report.
 #' @export
 md_tables <- function(headings = list(character(0)), drop = list(character(0)),
-                      report = get_report(), main = get_main(), sub = "",
+                      main = get_main(), sub = "",
                       nheaders = 1L, header1 = 3L,
                       locale = "en",
                       ask = getOption("subfoldr.ask", TRUE)) {
 
   md_files(headings = headings, drop = drop, main = main,
-           sub = sub, report = report, nheaders = nheaders,
+           sub = sub, nheaders = nheaders,
            header1 = header1,
            locale = locale, class = "tables")
 

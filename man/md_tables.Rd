@@ -5,15 +5,13 @@
 \title{Markdown Templates}
 \usage{
 md_tables(headings = list(character(0)), drop = list(character(0)),
-  report = get_report(), main = get_main(), sub = "", nheaders = 1L,
-  header1 = 3L, locale = "en", ask = getOption("subfoldr.ask", TRUE))
+  main = get_main(), sub = "", nheaders = 1L, header1 = 3L,
+  locale = "en", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{headings}{A list of named character vectors.}
 
 \item{drop}{A list of character vectors specify the subfolders to drop.}
-
-\item{report}{A string of the path to the report folder.}
 
 \item{main}{A string of the main subfolder.}
 

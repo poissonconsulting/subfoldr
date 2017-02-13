@@ -12,6 +12,8 @@ sub <- file.path("first", "second")
 
 save_table(data2, caption = "A table", main = main, sub = sub, ask = FALSE)
 save_table(mtcars, main = main, sub = sub, ask = FALSE)
+save_table(mtcars, "mtcars2", report = TRUE, main = main, sub = sub, ask = FALSE)
+save_table(mtcars, "mtcars3", caption = "Another table", main = main, sub = sub, ask = FALSE)
 
 sub <- file.path("first", "2nd", "third")
 

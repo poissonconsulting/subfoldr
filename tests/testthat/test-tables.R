@@ -8,7 +8,7 @@ test_that("tables", {
   sub <- file.path("first", "second")
 
   load_table(main = main, sub = sub)
-  expect_identical(ls(), c("data2", "main", "mtcars", "sub"))
+  expect_identical(ls(), c("data2", "main", "mtcars", "mtcars2", "mtcars3", "sub"))
 
   expect_is(data2, "data.frame")
 

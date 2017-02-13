@@ -48,14 +48,15 @@ test_that("list_files", {
   files <- list_files(file.path(system.file(package = "subfoldr"), "output", "tables"), TRUE)
   names(files) <- NULL # names depend on where run
   expect_identical(files,
-                   c("first/2nd/third/TG","first/second/data2"))
+                   c("first/2nd/third/TG","first/second/data2",
+                     "first/second/mtcars2", "first/second/mtcars3"))
 })
 
 test_that("subs_matrix", {
   files <- list_files(file.path(system.file(package = "subfoldr"), "output", "tables"), TRUE)
 
   expect_identical(subs_matrix(files[1]), matrix(c("first", "2nd", "third", "TG"), ncol = 1))
-  expect_identical(subs_matrix(files), matrix(c("first", "2nd", "third", "TG", "first", "second", "data2", ""), ncol = 2))
+  expect_identical(subs_matrix(files), matrix(c("first", "2nd", "third", "TG", "first", "second", "data2", "", "first", "second", "mtcars2", "", "first", "second", "mtcars3", ""), ncol = 4))
 })
 
 test_that("drop_rows", {
@@ -80,13 +81,18 @@ test_that("rename_headings", {
   expect_identical(rename_headings(subs_matrix, headings = list(c("1" = "x"), c("4" = "zz"))), matrix(as.character(c("x", 2:3, "zz")), ncol = 2))
 })
 
-test_that("make_headers", {
-  expect_identical(make_headers(c(1,2)), c("#", "##"))
-  expect_identical(make_headers(c(2,2)), "##")
-  expect_identical(make_headers(c(2,3)), c("##", "###"))
-})
-
 test_that("set_headers", {
   subs_matrix <- matrix(as.character(1:4), ncol = 2)
 
 })
+
+test_that("order_heading", {
+  expect_identical(order_heading(c("1", "2", "this"), c("that" = "Blah", "this" = "This Title")), c(2L, 3L, 1L))
+})
+
+test_that("order_headings", {
+  subs_matrix <- matrix(as.character(1:4), ncol = 2)
+  expect_identical(order_headings(subs_matrix, list(character(0))), c(1L, 2L))
+  expect_identical(order_headings(subs_matrix, list(c("5" = "not", "3" = "this"))), c(2L, 1L))
+})
+
