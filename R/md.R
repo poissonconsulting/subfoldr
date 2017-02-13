@@ -6,6 +6,7 @@ check_md_args <- function(headings, drop, main, sub, nheaders, header1, locale, 
   check_string(locale)
   check_string(class)
 
+
   if (header1 < 1) error("header1 cannot be less than 1")
   stopifnot(class %in% c("templates", "tables", "objects", "plots"))
 
@@ -66,9 +67,44 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
   files
 }
 
-#' Markdown Templates
+md_transfers <- function(headings, drop, main, sub, report, locale, class) {
+  dir <- file.path(main, class, sub)
+
+  files <- list_files(dir, report = TRUE)
+
+  if (!length(files)) return(TRUE)
+
+  subs <- subs_matrix(files)
+
+  drop %<>% drop_rows(subs, .)
+
+  files <- files[!drop]
+  subs <- subs[, !drop, drop = FALSE]
+
+  if (!length(files)) return(TRUE)
+
+  subs %<>% rename_headings(headings)
+
+  subs %<>% plyr::alply(2, str_c, collapse = "/") %>% unlist() %>% str_replace("/$", "")
+  subs %<>% vapply(str_to_title, "", locale = locale)
+  subs %<>% str_c(report, class, ., sep = "/")
+
+  subs %<>% str_c(class_ext(class), sep = ".")
+
+  files <- names(files)
+  files %<>% str_replace("([.])(\\w+[.]RDS$)", "\\2")
+  files %<>% str_replace("RDS$", class_ext(class))
+
+  for (i in seq_along(files)) {
+    if (!dir.exists(dirname(subs[i]))) dir.create(dirname(subs[i]), recursive = TRUE)
+    file.copy(from = files[i], to = subs[i], overwrite = TRUE)
+  }
+  TRUE
+}
+
+#' Markdown Tables
 #'
-#' Returns a string of templates in markdown format ready for inclusion in a report.
+#' Returns a string of tables in markdown format ready for inclusion in a report.
 #'
 #' The names in the character vectors in headings indicate the new headings for each subfolder.
 #' By default missing subfolders receive their current name with the first letter of each word capitalized.
@@ -86,6 +122,7 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
 #' @param drop A list of character vectors specify the subfolders to drop.
 #' @param main A string of the main subfolder.
 #' @param sub A string of the path to the subfolders to save the object (by default = "").
+#' @param report A string indicating the report folder to copy the csv files.
 #' @param nheaders An count of the number of headings to assign headers to.
 #' @param header1 A count of the heading level for the first header.
 #' @param locale A string of the locale.
@@ -93,16 +130,25 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
 #' @return A string of the report templates in markdown format ready for inclusion in a report.
 #' @export
 md_tables <- function(headings = list(character(0)), drop = list(character(0)),
-                      main = get_main(), sub = "",
+                      main = get_main(), sub = "", report = get_report(),
                       nheaders = 1L, header1 = 3L,
                       locale = "en",
                       ask = getOption("subfoldr.ask", TRUE)) {
 
-  files <- md_files(headings = headings, drop = drop, main = main,
-           sub = sub, nheaders = nheaders,
-           header1 = header1,
-           locale = locale, class = "tables")
+  if (!is.null(report) && (!is.character(report) || !length(report) == 1))
+    error("report must be NULL or a string")
 
+  check_flag(ask)
+
+  files <- md_files(headings = headings, drop = drop, main = main,
+                    sub = sub, nheaders = nheaders,
+                    header1 = header1,
+                    locale = locale, class = "tables")
+
+  if (!is.null(report) && (!ask || yesno("Copy tables to folder ", report, "?"))) {
+    md_transfers(headings = headings, drop = drop, main = main,
+                 sub = sub, report = report, locale = locale, class = "tables")
+  }
   txt <- NULL
   tabnum <- 0
 

@@ -14,6 +14,14 @@ file_path <- function(...) {
   path
 }
 
+class_ext <- function(class) {
+  switch(class,
+         plots = "png",
+         tables = "csv",
+         templates = "txt",
+         stop())
+}
+
 create_dir <- function(dir, ask) {
   if (!dir.exists(dir)) {
     if (ask && !yesno("Create directory '", dir, "'?"))

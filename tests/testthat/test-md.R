@@ -33,7 +33,7 @@ test_that("md_tables works", {
 
   md <- md_tables(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
                     drop = list(character(0), character(0), "data2"),
-                    main = main, locale = "en")
+                    main = main, report = NULL, locale = "en")
 
   expect_identical(datacheckr::check_string(md), md)
 })

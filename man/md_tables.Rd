@@ -2,11 +2,11 @@
 % Please edit documentation in R/md.R
 \name{md_tables}
 \alias{md_tables}
-\title{Markdown Templates}
+\title{Markdown Tables}
 \usage{
 md_tables(headings = list(character(0)), drop = list(character(0)),
-  main = get_main(), sub = "", nheaders = 1L, header1 = 3L,
-  locale = "en", ask = getOption("subfoldr.ask", TRUE))
+  main = get_main(), sub = "", report = get_report(), nheaders = 1L,
+  header1 = 3L, locale = "en", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{headings}{A list of named character vectors.}
@@ -16,6 +16,8 @@ md_tables(headings = list(character(0)), drop = list(character(0)),
 \item{main}{A string of the main subfolder.}
 
 \item{sub}{A string of the path to the subfolders to save the object (by default = "").}
+
+\item{report}{A string indicating the report folder to copy the csv files.}
 
 \item{nheaders}{An count of the number of headings to assign headers to.}
 
@@ -29,7 +31,7 @@ md_tables(headings = list(character(0)), drop = list(character(0)),
 A string of the report templates in markdown format ready for inclusion in a report.
 }
 \description{
-Returns a string of templates in markdown format ready for inclusion in a report.
+Returns a string of tables in markdown format ready for inclusion in a report.
 }
 \details{
 The names in the character vectors in headings indicate the new headings for each subfolder.
