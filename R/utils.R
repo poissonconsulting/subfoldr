@@ -77,25 +77,36 @@ drop_rows <- function(subs_matrix, drop) {
   bol
 }
 
-order_heading <- function(sub_row, heading) {
-  n <- length(sub_row)
-  order <- rep(0, n)
+order_heading <- function(sub_row, heading, locale) {
+  order <- rep(0, length(sub_row))
+
   for (h in names(heading)) {
     match <- str_detect(sub_row, str_c("^", h, "$")) & order == 0
     if (any(match)) {
       order[match] <- max(order) + 1
     }
   }
-  match <- order == 0
-  if (any(match)) order[match] <- max(order) + 1
+  names <- sub_row[order == 0] %>% unique() %>% str_sort(locale = locale)
+
+  for (h in names) {
+    match <- str_detect(sub_row, str_c("^", h, "$")) & order == 0
+    if (any(match)) {
+      order[match] <- max(order) + 1
+    }
+  }
   as.integer(order)
 }
 
-order_headings <- function(subs_matrix, headings) {
+order_headings <- function(subs_matrix, headings, locale) {
   stopifnot(length(headings) <= nrow(subs_matrix))
+
+  if (length(headings) < nrow(subs_matrix))
+    headings %<>% c(rep(character(0), nrow(subs_matrix) - length(headings)))
+
   for (i in seq_along(headings)) {
-    subs_matrix[i,] %<>% order_heading(headings[[i]])
+    subs_matrix[i,] %<>% order_heading(headings[[i]], locale)
   }
+
   subs_matrix %<>% plyr::alply(2, str_c, collapse = "-") %>% unlist()
   order(subs_matrix)
 }

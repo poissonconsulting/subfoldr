@@ -87,12 +87,15 @@ test_that("set_headers", {
 })
 
 test_that("order_heading", {
-  expect_identical(order_heading(c("1", "2", "this"), c("that" = "Blah", "this" = "This Title")), c(2L, 2L, 1L))
+  expect_identical(order_heading(c("1", "2"), character(0), locale = "en"), c(1L, 2L))
+  expect_identical(order_heading(c("2", "1"), character(0), locale = "en"), c(2L, 1L))
+  expect_identical(order_heading(c("2", "2", "1", "1"), character(0), locale = "en"), c(2L, 2L, 1L, 1L))
+  expect_identical(order_heading(c("1", "2", "this"), c("that" = "Blah", "this" = "This Title"), locale = "en"), c(2L, 3L, 1L))
 })
 
 test_that("order_headings", {
   subs_matrix <- matrix(as.character(1:4), ncol = 2)
-  expect_identical(order_headings(subs_matrix, list(character(0))), c(1L, 2L))
-  expect_identical(order_headings(subs_matrix, list(c("5" = "not", "3" = "this"))), c(2L, 1L))
+  expect_identical(order_headings(subs_matrix, list(character(0)), locale = "en"), c(1L, 2L))
+  expect_identical(order_headings(subs_matrix, list(c("5" = "not", "3" = "this")), locale = "en"), c(2L, 1L))
 })
 
