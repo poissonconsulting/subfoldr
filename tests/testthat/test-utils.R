@@ -1,5 +1,10 @@
 context("utils")
 
+test_that("add full stop", {
+  expect_identical(add_full_stop("x"), "x.")
+  expect_identical(add_full_stop("x."), "x.")
+})
+
 test_that("file_path", {
   reset_all()
 

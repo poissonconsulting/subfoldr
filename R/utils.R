@@ -1,3 +1,7 @@
+add_full_stop <- function(x) {
+  str_replace(x, "([^.]$)", "\\1.")
+}
+
 error <- function(...) {
   stop(..., call. = FALSE)
 }

@@ -13,7 +13,7 @@ check_md_args <- function(headings, drop, main, sub, nheaders, header1, locale, 
   if (!all(vapply(drop, is.character, TRUE)))
     error("drop must be a list of character vectors")
 
-    if (!is.list(headings)) error("headings must be a list")
+  if (!is.list(headings)) error("headings must be a list")
   if (!all(vapply(headings, is.character, TRUE)))
     error("headings must be a list of character vectors")
   if (!all(vapply(headings, function(x) !length(x) || !is.null(names), TRUE)))
@@ -54,15 +54,16 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
 
   if (!length(files)) return(NULL)
 
-   order <- order_headings(subs, headings, locale)
-   subs <- subs[,order,drop = FALSE]
-   files <- files[order]
+  order <- order_headings(subs, headings, locale)
+  subs <- subs[,order,drop = FALSE]
+  files <- files[order]
 
-   subs %<>% rename_headings(headings)
-   subs %<>% set_headers(nheaders, header1, locale)
+  subs %<>% rename_headings(headings)
+  subs %<>% set_headers(nheaders, header1, locale)
 
-   names(subs) <- names(files)
-   subs
+  files <- names(files)
+  names(files) <- subs
+  files
 }
 
 #' Markdown Templates
@@ -97,53 +98,32 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
                       locale = "en",
                       ask = getOption("subfoldr.ask", TRUE)) {
 
-  md_files(headings = headings, drop = drop, main = main,
+  files <- md_files(headings = headings, drop = drop, main = main,
            sub = sub, nheaders = nheaders,
            header1 = header1,
            locale = locale, class = "tables")
 
-  #
-  # to <- str_replace(files, str_c("(", dir, "/)(.*)"), "report/tables/\\2")
-  #
-  # for (i in seq_along(files)) {
-  #   if (!dir.exists(dirname(to[i]))) dir.create(dirname(to[i]), recursive = TRUE)
-  #   file.copy(from = files[i], to = to[i], overwrite = TRUE)
-  # }
-  #
-  # files %<>% rename_headings(rename)
-  #
-  # names(files) <- str_replace_all(names(files), "([^/]*/$)", "")
-  # names(files) <- replace_slashes(names(files))
-  #
-  # txt <- ""
-  #
-  # tabnum <- 0
-  #
-  # previous_heading <- NULL
-  #
-  # for (i in seq_along(files)) {
-  #
-  #   file <- str_replace(files[i], "[.]csv$", ".RDS")
-  #   file %<>% str_replace("(.*/)(\\w+[.]RDS$)", "\\1.\\2")
-  #
-  #   heading <- names(files[i])
-  #
-  #   table <- readRDS(file = file)
-  #
-  #   tabnum <- tabnum + 1
-  #
-  #   if ((is.null(previous_heading) || !identical(previous_heading, heading)) && !identical(heading, ""))
-  #     txt %<>% c(paste("\n####", heading))
-  #
-  #   previous_heading <- heading
-  #
-  #   caption <- str_replace(table$caption, "([^.]$)", "\\1.")
-  #   caption %<>% str_c("Table ", tabnum, ". ", .)
-  #
-  #   txt %<>% c("", knitr::kable(table$data, row.names = FALSE, output = FALSE, caption = caption), "")
-  # }
-  # txt %<>% str_c(collapse = "\n")
-  # invisible(txt)
+  txt <- NULL
+  tabnum <- 0
+
+  for (i in seq_along(files)) {
+
+    tabnum <- tabnum + 1
+
+    file <- files[i]
+
+    caption <- readRDS(file)$caption
+    caption %<>% add_full_stop()
+    caption %<>% str_c("Table ", tabnum, ". ", .)
+
+    file %<>% str_replace("([.])(\\w+)(.RDS)", "\\2.rds")
+    table <- readRDS(file = file)
+
+    txt %<>% c(names(files)[i])
+
+    txt <- c(txt, knitr::kable(table, format = "markdown", row.names = FALSE, caption = caption))
+    txt %<>% c("")
+  }
+  txt %<>% str_c(collapse = "\n")
+  txt
 }
-
-
