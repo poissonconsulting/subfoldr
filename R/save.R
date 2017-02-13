@@ -1,3 +1,21 @@
+save_rds <- function(x, class, main, sub, x_name, ask) {
+  check_string(class)
+  check_string(main)
+  check_string(sub)
+  check_flag(ask)
+  check_string(x_name)
+
+  dir <- file_path(main, class, sub)
+
+  create_dir(dir, ask)
+
+  file <- file_path(dir, x_name) %>% str_c(".rds")
+
+  saveRDS(x, file)
+
+  invisible(x)
+}
+
 #' Save Object
 #'
 #' @param x The object to save. If missing saves all objects in calling env.
@@ -76,9 +94,9 @@ save_plot <- function(x, caption = "", report = !identical(caption, ""),
     }
   }
 
-  save_rds(plot$data, "plots", main = main, sub = sub, x_name = x, ask = ask)
+  save_rds(plot, "plots", main = main, sub = sub, x_name = x, ask = ask)
 
-  obj <- list(plot = plot, width = width, height = height, dpi = dpi, caption = caption, report = report)
+  obj <- list(width = width, height = height, dpi = dpi, caption = caption, report = report)
   file <- file_path(main, "plots", sub, str_c(".", x)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 
@@ -87,24 +105,6 @@ save_plot <- function(x, caption = "", report = !identical(caption, ""),
 
   file %<>% str_replace("[.]csv$", ".png")
   ggplot2::ggsave(file, plot = plot, width = width, height = height, dpi = dpi)
-
-  invisible(x)
-}
-
-save_rds <- function(x, class, main, sub, x_name, ask) {
-  check_string(class)
-  check_string(main)
-  check_string(sub)
-  check_flag(ask)
-  check_string(x_name)
-
-  dir <- file_path(main, class, sub)
-
-  create_dir(dir, ask)
-
-  file <- file_path(dir, x_name) %>% str_c(".rds")
-
-  saveRDS(x, file)
 
   invisible(x)
 }
@@ -133,7 +133,7 @@ save_table <- function(x, x_name = NULL, caption = "", report = !identical(capti
 
   save_rds(x, "tables", main = main, sub = sub, x_name = x_name, ask = ask)
 
-  obj <- list(data = x, caption = caption, report = report)
+  obj <- list(caption = caption, report = report)
   file <- file_path(main, "tables", sub, str_c(".", x_name)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 
@@ -166,7 +166,7 @@ save_template <- function(x, x_name = NULL, caption = "", report = !identical(ca
 
   save_rds(x, "templates", main = main, sub = sub, x_name = x_name, ask = ask)
 
-  obj <- list(template = x, caption = caption, report = report)
+  obj <- list(caption = caption, report = report)
   file <- file_path(main, "templates", sub, str_c(".", x_name)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 

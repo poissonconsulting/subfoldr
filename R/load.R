@@ -1,34 +1,3 @@
-#' Load Object
-#'
-#' @inheritParams save_object
-#' @param env The environment to load the objects into if x is missing.
-#' @export
-load_object <- function(x, main = get_main(), sub = get_sub(),
-                        is = is.data.frame, env = calling_env()) {
-  load_rds(x, class = "objects", main = main, sub = sub, is = is, env = env)
-}
-
-#' Load table
-#'
-#' @inheritParams save_object
-#' @param data A flag indicating whether to load the plot data.
-#' @param env The environment to load the objects into if data = TRUE and  x is missing.
-#' @export
-load_plot <- function(x, main = get_main(), sub = get_sub(), data = FALSE, env = calling_env()) {
-  check_flag(data)
-
-  if (data) return(load_rds(x, class = "plots", main = main, sub = sub, env = env))
-
-  check_string(x)
-
-  file <- file_path(main, "plots", sub, str_c(".", x)) %>% str_c(".RDS")
-  if (!file.exists(file)) error("file '", file, "' does not exist")
-
-  x <- readRDS(file)
-
-  x$plot
-}
-
 load_rds <- function(x, class, main, sub, is = function(x) {TRUE}, env) {
 
   if (!missing(x)) {
@@ -52,6 +21,33 @@ load_rds <- function(x, class, main, sub, is = function(x) {TRUE}, env) {
   if (!flag)
     warning("no suitable .rds objects found")
   invisible(flag)
+}
+
+#' Load Object
+#'
+#' @inheritParams save_object
+#' @param env The environment to load the objects into if x is missing.
+#' @export
+load_object <- function(x, main = get_main(), sub = get_sub(),
+                        is = is.data.frame, env = calling_env()) {
+  load_rds(x, class = "objects", main = main, sub = sub, is = is, env = env)
+}
+
+#' Load table
+#'
+#' @inheritParams save_object
+#' @param data A flag indicating whether to load the plot data.
+#' @param env The environment to load the objects into if data = TRUE and  x is missing.
+#' @export
+load_plot <- function(x, main = get_main(), sub = get_sub(), data = FALSE, env = calling_env()) {
+  check_flag(data)
+
+  if (!data) return(load_rds(x, class = "plots", main = main, sub = sub, env = env))
+
+  check_string(x)
+
+  plot <- load_rds(x, class = "plots", main = main, sub = sub, env = env)
+  plot$data
 }
 
 #' Load table
