@@ -5,8 +5,8 @@
 \title{Markdown Templates}
 \usage{
 md_tables(headings = list(character(0)), drop = list(character(0)),
-  report = get_report(), main = get_main(), sub = "", headers = c(3L,
-  3L), locale = "en", ask = getOption("subfoldr.ask", TRUE))
+  report = get_report(), main = get_main(), sub = "", nheaders = 1L,
+  header1 = 3L, locale = "en", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{headings}{A list of named character vectors.}
@@ -19,7 +19,9 @@ md_tables(headings = list(character(0)), drop = list(character(0)),
 
 \item{sub}{A string of the path to the subfolders to save the object (by default = "").}
 
-\item{headers}{An integer vector of length 2 specify the header level for the first subfolders and the numer}
+\item{nheaders}{An count of the number of headings to assign headers to.}
+
+\item{header1}{A count of the heading level for the first header.}
 
 \item{locale}{A string of the locale.}
 
