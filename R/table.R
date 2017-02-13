@@ -68,38 +68,24 @@ table_subdirs <- function(main = get_main(), sub = get_sub()) {
 #'
 #' @param headings A list of named character vectors.
 #' @param drop A list of character vectors specify the subfolders to drop.
-#' @param report A flag indicating whether to include templates saved with report = TRUE.
+#' @param report A string of the path to the report folder.
 #' @param main A string of the main subfolder.
 #' @param sub A string of the path to the subfolders to save the object (by default = "").
+#' @param headers An integer vector of length 2 specify the header level for the first subfolders and the numer
+#' @param locale A string of the locale.
 #' @param ask A string indicating whether to ask before creating a sub directory.
 #' @return A string of the report templates in markdown format ready for inclusion in a report.
 #' @export
 md_tables <- function(headings = list(character(0)), drop = list(character(0)),
-                         report = TRUE, main = get_main(), sub = "",
-                         ask = getOption("subfoldr.ask", TRUE)) {
+                      report = get_report(), main = get_main(), sub = "",
+                      headers = c(3L,3L),
+                      locale = "en",
+                      ask = getOption("subfoldr.ask", TRUE)) {
 
-  check_md_args(headings = headings, drop = drop, report = report, main = main,
-                sub = sub, class = "tables", ask = ask)
+  md_files(headings = headings, drop = drop, main = main,
+           sub = sub, report = report, headers = headers,
+           locale = locale, class = "tables")
 
-  dir <- file.path(main, "tables", sub)
-
-  files <- list_files(dir, report)
-
-  if (!length(files)) return(NULL)
-
-  subs <- subs_matrix(files)
-
-
-
-  subs
-#  files
-
-  # further dropping....
-  # for()
-  #
-  # files <- files[!str_replace(names(files),"(^[^/]+)(.*)", "\\1") %in% drop]
-
-  # if (!length(files)) return(NULL)
   #
   # to <- str_replace(files, str_c("(", dir, "/)(.*)"), "report/tables/\\2")
   #

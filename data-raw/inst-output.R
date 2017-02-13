@@ -1,6 +1,8 @@
 # creates system files for testss
 library(subfoldr)
 
+rm(list = ls())
+
 data2 <- data.frame(a = 3:4)
 mtcars <- datasets::mtcars
 
@@ -13,3 +15,11 @@ save_table(mtcars, main = main, sub = sub, ask = FALSE)
 sub <- file.path("first", "2nd", "third")
 
 save_table(datasets::ToothGrowth, "TG", report = TRUE, main = main, sub = sub, ask = FALSE)
+
+x <- 1 # should not be saved
+
+save_object(main = main, sub = sub, ask = FALSE)
+
+x <- 1 # should not be saved
+
+save_object(main = main, sub = "also1", is = function(x) TRUE, ask = FALSE)

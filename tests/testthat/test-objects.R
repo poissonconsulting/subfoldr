@@ -2,35 +2,24 @@ context("objects")
 
 test_that("objects", {
 
-  reset_all()
-
-  set_main(tempdir())
-
-  data1 <- 1
-  data2 <- data.frame(a = 3:4)
-
-  expect_true(save_object(ask = FALSE))
-  expect_error(load_object("data1"))
-  expect_identical(load_object("data2"), data2)
-
-  expect_identical(save_object(data1, ask = FALSE), data1)
-  expect_identical(load_object("data1"), data1)
-
-
-  rm(data1, data2)
-
-  expect_identical(load_object("data1"), 1)
-  expect_identical(load_object("data2"), data.frame(a = 3:4))
-  expect_true(is.data.frame(load_object("data2")))
-
   expect_identical(ls(), character(0))
 
-  load_object()
-  expect_identical(ls(), c("data2"))
-  expect_identical(data2, data.frame(a = 3:4))
-  expect_identical(load_object("data2"), data2)
+  main <- file.path(system.file(package = "subfoldr"), "output")
+  sub <- file.path("first", "2nd", "third")
 
-  expect_identical(object_subdirs(), character(0))
-  save_object(data2, sub = "sub", ask = FALSE)
-  expect_identical(object_subdirs(), "sub")
+  load_object(main = main, sub = sub)
+  expect_identical(ls(), c("data2", "main", "mtcars", "sub"))
+
+
+  rm(list = ls())
+  main <- file.path(system.file(package = "subfoldr"), "output")
+  sub <- file.path("also1")
+
+  load_object(main = main, sub = sub)
+  expect_identical(ls(), c("data2", "main", "mtcars", "sub"))
+  load_object(main = main, sub = sub, is = function(x) TRUE)
+  expect_identical(ls(), c("data2", "main", "mtcars", "sub", "x"))
+
+  sub <- file.path("missing")
+  expect_warning(load_object(main = main, sub = sub))
 })

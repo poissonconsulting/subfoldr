@@ -11,6 +11,7 @@ Imports:
     grDevices,
     ggplot2,
     magrittr,
+    plyr,
     readr,
     stringr,
     yesno

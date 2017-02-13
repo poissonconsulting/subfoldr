@@ -10,5 +10,5 @@ reset_all()
 An invisible flag indicating whether successful.
 }
 \description{
-Resets main and sub
+Resets main, sub and report.
 }

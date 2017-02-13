@@ -23,20 +23,6 @@ set_sub <- function(...) {
   invisible(sub)
 }
 
-#' Add sub
-#'
-#' @param ... One or more strings
-#' @return A string of the new sub.
-#' @export
-add_sub <- function(...) {
-  sub <- file_path(...)
-  check_string(sub)
-  old_sub <- get_sub()
-  sub %<>% file_path(old_sub, .)
-  options(subfoldr.sub = sub)
-  invisible(sub)
-}
-
 #' Reset sub
 #'
 #' @return A string of the new sub.
@@ -79,21 +65,55 @@ reset_main <- function() {
   invisible("output")
 }
 
+#' Get Report
+#'
+#' @return A string of the report folder.
+#' @export
+#'
+#' @examples
+#' get_report()
+get_report <- function() {
+  report <- getOption("subfoldr.report", "report")
+  report
+}
+
+#' Set Report
+#'
+#' @param ... One or more strings
+#' @return A string of the new main.
+#' @export
+set_report <- function(...) {
+  report <- file_path(...)
+  check_string(report)
+  options(subfoldr.report = report)
+  invisible(report)
+}
+
+#' Reset Report
+#'
+#' @return A string of the new report
+#' @export
+reset_report <- function() {
+  options(subfoldr.report = "report")
+  invisible("report")
+}
+
 #' Reset All
 #'
-#' Resets main and sub
+#' Resets main, sub and report.
 #' @return An invisible flag indicating whether successful.
 #' @export
 reset_all <- function() {
   reset_main()
   reset_sub()
+  reset_report()
   invisible(TRUE)
 }
 
 file_path <- function(...) {
   path <- file.path(...)
   path %<>% str_replace_all("//", "/") %>% str_replace_all("//", "/")
-  path %<>% str_replace("^/", "") %>% str_replace_all("/$", "")
+  path %<>% str_replace_all("/$", "")
 
   path
 }
@@ -192,4 +212,53 @@ subs_matrix <- function(x) {
   x %<>% str_split("/", simplify = TRUE)
   x %<>% t()
   x
+}
+
+drop_rows <- function(subs_matrix, drop) {
+  stopifnot(length(drop) <= nrow(subs_matrix))
+
+  bol <- rep(FALSE, ncol(subs_matrix))
+  for (i in seq_along(drop)) {
+    bol <- bol | subs_matrix[i,,drop = TRUE] %in% drop[[i]]
+  }
+  bol
+}
+
+rename_heading <- function(sub_row, heading) {
+  for (i in seq_along(heading)) {
+    sub_row %<>% str_replace(str_c("^", names(heading[i]), "$"), heading[i])
+  }
+  sub_row
+}
+
+rename_headings <- function(subs_matrix, headings) {
+  stopifnot(length(headings) <= nrow(subs_matrix))
+  for (i in seq_along(headings)) {
+    subs_matrix[i,] %<>% rename_heading(headings[[i]])
+  }
+  subs_matrix
+}
+
+make_headers <- function(headers) {
+  headers <- seq(headers[1], headers[2])
+  headers %<>% vapply(function(x) stringr::str_c(rep("#", x), collapse = ""), "")
+  headers
+}
+
+set_headers <- function(subs_matrix, headers) {
+  headers %<>% make_headers()
+
+  for (i in 1:length(headers)) {
+    subs_matrix[1,headers[i]] %<>% str_c(headers[i], ., collapse = " ")
+  }
+
+  if (nrow(subs_matrix) == 1) return(subs_matrix)
+
+  for (i in 2:nrow(subs_matrix)) {
+    for (j in 1:length(headers)) {
+      if (!identical(subs_matrix[i,j], subs_matrix[i - 1, j]))
+        subs_matrix[i,headers[j]] %<>% str_c(headers[j], ., collapse = " ")
+    }
+  }
+  subs_matrix
 }

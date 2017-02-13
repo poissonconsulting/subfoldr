@@ -16,11 +16,6 @@ test_that("sub", {
   expect_identical(get_sub(), "x/z")
   expect_identical(reset_sub(), "")
   expect_identical(get_sub(), "")
-
-  expect_identical(add_sub("y"), "y")
-  expect_identical(add_sub("t"), "y/t")
-  expect_identical(add_sub(""), "y/t")
-  expect_identical(get_sub(), "y/t")
 })
 
 test_that("main", {
@@ -61,4 +56,37 @@ test_that("subs_matrix", {
 
   expect_identical(subs_matrix(files[1]), matrix(c("first", "2nd", "third", "TG"), ncol = 1))
   expect_identical(subs_matrix(files), matrix(c("first", "2nd", "third", "TG", "first", "second", "data2", ""), ncol = 2))
+})
+
+test_that("drop_rows", {
+  subs_matrix <- matrix(as.character(1:4), ncol = 2)
+  expect_identical(drop_rows(subs_matrix, drop = list(character(0))), c(FALSE, FALSE))
+  expect_identical(drop_rows(subs_matrix, drop = list("oeu", "11")), c(FALSE, FALSE))
+  expect_error(drop_rows(subs_matrix, drop = list("oeu", "11", "eee")))
+  expect_identical(drop_rows(subs_matrix, drop = list("1")), c(TRUE, FALSE))
+  expect_identical(drop_rows(subs_matrix, drop = list("2", "1")), c(FALSE, FALSE))
+  expect_identical(drop_rows(subs_matrix, drop = list("1", "4")), c(TRUE, TRUE))
+})
+
+test_that("rename_heading", {
+  expect_identical(rename_heading(1:2, c("1" = "x", "3" = "zz")), c("x", "2"))
+})
+
+test_that("rename_headings", {
+  subs_matrix <- matrix(as.character(1:4), ncol = 2)
+  expect_identical(rename_headings(subs_matrix, headings = list(character(0))), subs_matrix)
+  expect_identical(rename_headings(subs_matrix, headings = list(c("1" = "x"))), matrix(as.character(c("x", 2:4)), ncol = 2))
+  expect_identical(rename_headings(subs_matrix, headings = list(c("1" = "x", "4" = "zz"))), matrix(as.character(c("x", 2:4)), ncol = 2))
+  expect_identical(rename_headings(subs_matrix, headings = list(c("1" = "x"), c("4" = "zz"))), matrix(as.character(c("x", 2:3, "zz")), ncol = 2))
+})
+
+test_that("make_headers", {
+  expect_identical(make_headers(c(1,2)), c("#", "##"))
+  expect_identical(make_headers(c(2,2)), "##")
+  expect_identical(make_headers(c(2,3)), c("##", "###"))
+})
+
+test_that("set_headers", {
+  subs_matrix <- matrix(as.character(1:4), ncol = 2)
+
 })
