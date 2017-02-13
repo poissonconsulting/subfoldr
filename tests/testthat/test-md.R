@@ -31,9 +31,22 @@ test_that("md_files works", {
 test_that("md_tables works", {
   main <- file.path(system.file(package = "subfoldr"), "output")
 
-  md <- md_tables(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
+  md_tables <- md_tables(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
                     drop = list(character(0), character(0), "data2"),
                     main = main, report = NULL, locale = "en")
 
-  expect_identical(datacheckr::check_string(md), md)
+  expect_identical(datacheckr::check_string(md_tables), md_tables)
+
+  md_templates <- md_templates(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
+                         drop = list(character(0), character(0), "data2"),
+                         main = main, report = NULL, locale = "en")
+
+  expect_identical(md_templates, "### First\n```\n.\n\n    model{\ndo stuff\n}\n\n..\n```\nTemplate 1. \n")
+
+  md_templates <- md_templates(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
+                               drop = list(character(0), character(0), "data2"),
+                               nheaders = 2L,
+                               main = main, report = NULL, locale = "en")
+
+  expect_identical(md_templates, "### First\n#### Letter 2\n```\n.\n\n    model{\ndo stuff\n}\n\n..\n```\nTemplate 1. \n")
 })

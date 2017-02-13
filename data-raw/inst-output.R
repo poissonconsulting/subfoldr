@@ -32,7 +32,7 @@ template2 <- "
 do stuff
 }
 "
-save_template(template2, main = main, sub = sub, ask = FALSE)
+save_template(template2, report = TRUE, main = main, sub = sub, ask = FALSE)
 
 open_window()
 print(ggplot(data = datasets::mtcars, aes(x = cyl, y = mpg)) + geom_point())

@@ -173,3 +173,60 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
   txt %<>% str_c(collapse = "\n")
   txt
 }
+
+#' Markdown Templates
+#'
+#' Returns a string of templates in markdown format ready for inclusion in a report.
+#'
+#' @inheritParams md_tables
+#' @return A string of the report templates in markdown format ready for inclusion in a report.
+#' @export
+md_templates <- function(headings = list(character(0)), drop = list(character(0)),
+                      main = get_main(), sub = "", report = get_report(),
+                      nheaders = 1L, header1 = 3L,
+                      locale = "en",
+                      ask = getOption("subfoldr.ask", TRUE)) {
+
+  if (!is.null(report) && (!is.character(report) || !length(report) == 1))
+    error("report must be NULL or a string")
+
+  check_flag(ask)
+
+  files <- md_files(headings = headings, drop = drop, main = main,
+                    sub = sub, nheaders = nheaders,
+                    header1 = header1,
+                    locale = locale, class = "templates")
+
+  if (!is.null(report) && (!ask || yesno("Copy templates to folder ", report, "?"))) {
+    md_transfers(headings = headings, drop = drop, main = main,
+                 sub = sub, report = report, locale = locale, class = "templates")
+  }
+  txt <- NULL
+  tempnum <- 0
+
+  for (i in seq_along(files)) {
+
+    tempnum <- tempnum + 1
+
+    file <- files[i]
+
+    caption <- readRDS(file)$caption
+    caption %<>% add_full_stop()
+    caption %<>% str_c("Template ", tempnum, ". ", .)
+
+    file %<>% str_replace("([.])(\\w+)(.RDS)", "\\2.rds")
+    template <- readRDS(file = file)
+
+    txt %<>% c(names(files)[i])
+
+    txt %<>% c("```")
+    txt %<>% c(".")
+    txt %<>% c(template)
+    txt %<>% c("..")
+    txt %<>% c("```")
+    txt %<>% c(caption)
+    txt %<>% c("")
+  }
+  txt %<>% str_c(collapse = "\n")
+  txt
+}
