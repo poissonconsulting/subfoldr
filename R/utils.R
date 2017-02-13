@@ -2,114 +2,6 @@ error <- function(...) {
   stop(..., call. = FALSE)
 }
 
-#' Get sub
-#'
-#' @return A string of the current sub.
-#' @export
-get_sub <- function() {
-  sub <- getOption("subfoldr.sub", "")
-  sub
-}
-
-#' Set sub
-#'
-#' @param ... One or more strings
-#' @return A string of the new sub.
-#' @export
-set_sub <- function(...) {
-  sub <- file_path(...)
-  check_string(sub)
-  options(subfoldr.sub = sub)
-  invisible(sub)
-}
-
-#' Reset sub
-#'
-#' @return A string of the new sub.
-#' @export
-reset_sub <- function() {
-  options(subfoldr.sub = "")
-  invisible("")
-}
-
-#' Get Main
-#'
-#' @return A string of the main subfolder.
-#' @export
-#'
-#' @examples
-#' get_main()
-get_main <- function() {
-  main <- getOption("subfoldr.main", "output")
-  main
-}
-
-#' Set Main
-#'
-#' @param ... One or more strings
-#' @return A string of the new main.
-#' @export
-set_main <- function(...) {
-  main <- file_path(...)
-  check_string(main)
-  options(subfoldr.main = main)
-  invisible(main)
-}
-
-#' Reset Main
-#'
-#' @return A string of the new main.
-#' @export
-reset_main <- function() {
-  options(subfoldr.main = "output")
-  invisible("output")
-}
-
-#' Get Report
-#'
-#' @return A string of the report folder.
-#' @export
-#'
-#' @examples
-#' get_report()
-get_report <- function() {
-  report <- getOption("subfoldr.report", "report")
-  report
-}
-
-#' Set Report
-#'
-#' @param ... One or more strings
-#' @return A string of the new main.
-#' @export
-set_report <- function(...) {
-  report <- file_path(...)
-  check_string(report)
-  options(subfoldr.report = report)
-  invisible(report)
-}
-
-#' Reset Report
-#'
-#' @return A string of the new report
-#' @export
-reset_report <- function() {
-  options(subfoldr.report = "report")
-  invisible("report")
-}
-
-#' Reset All
-#'
-#' Resets main, sub and report.
-#' @return An invisible flag indicating whether successful.
-#' @export
-reset_all <- function() {
-  reset_main()
-  reset_sub()
-  reset_report()
-  invisible(TRUE)
-}
-
 file_path <- function(...) {
   path <- file.path(...)
   path %<>% str_replace_all("//", "/") %>% str_replace_all("//", "/")
@@ -135,59 +27,6 @@ calling_env <- function() {
   parent.frame(n = 2)
 }
 
-save_rds <- function(x, class, main, sub, x_name, ask) {
-  check_string(class)
-  check_string(main)
-  check_string(sub)
-  check_flag(ask)
-  check_string(x_name)
-
-  dir <- file_path(main, class, sub)
-
-  create_dir(dir, ask)
-
-  file <- file_path(dir, x_name) %>% str_c(".rds")
-
-  saveRDS(x, file)
-
-  invisible(x)
-}
-
-subdirs <- function(class, main, sub) {
-  check_string(class)
-  check_string(main)
-  check_string(sub)
-
-  dir <- file_path(main, class, sub)
-  list.dirs(dir, full.names = FALSE, recursive = FALSE)
-}
-
-
-load_rds <- function(x, class, main, sub, is = function(x) {TRUE}, env) {
-
-  if (!missing(x)) {
-    check_string(x)
-    file <- file_path(main, class, sub, x) %>% str_c(".rds")
-    if (!file.exists(file)) error("file '", file, "' does not exist")
-    return(readRDS(file))
-  }
-
-  files <- list.files(path = file_path(main, class, sub), pattern = "[.]rds$")
-
-  flag <- FALSE
-  for (file in files) {
-    x <- basename(file) %>% str_replace("[.]rds$", "")
-    object <- readRDS(file_path(main, class, sub, basename(file)))
-    if (is(object)) {
-      assign(x, object, envir = env)
-      flag <- TRUE
-    }
-  }
-  if (!flag)
-    warning("no suitable .rds objects found")
-  invisible(flag)
-}
-
 sub_names <- function(x) {
   str_split(x, "/")
 }
@@ -195,6 +34,20 @@ sub_names <- function(x) {
 nsubs <- function(x) {
   x %<>% sub_names()
   vapply(x, length, 1L)
+}
+
+#' Open a new graphics window.
+#'
+#' @param width A number indicating the width in inches.
+#' @param height A number indicating the height in inches.
+#' @export
+open_window <- function(width = 6, height = width) {
+  fun <- switch(Sys.info()["sysname"],
+                Windows = grDevices::windows,
+                Darwin = grDevices::quartz,
+                grDevices::x11)
+
+  fun(width = width, height = height)
 }
 
 list_files <- function(dir, report) {

@@ -17,5 +17,5 @@ test_that("tables", {
   expect_error(save_table(data1, caption = "A table", ask = FALSE), "data1 must be a data.frame")
   expect_error(load_table("data3"))
 
-  md_tables(main = main)
+ # md_tables(main = main)
 })
