@@ -43,16 +43,16 @@ test_that("md_templates works", {
 
     md_templates <- md_templates(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
                          drop = list(character(0), character(0), "data2"),
-                         main = main, report = NULL, locale = "en")
+                         main = main, report = NULL, nheaders = 1L, locale = "en")
 
-  expect_identical(md_templates, "#### First\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTemplate 1. \n")
+  expect_identical(md_templates, "### First\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTemplate 1. \n")
 
   md_templates <- md_templates(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
                                drop = list(character(0), character(0), "data2"),
                                nheaders = 2L,
                                main = main, report = NULL, locale = "en")
 
-  expect_identical(md_templates, "#### First\n##### Letter 2\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTemplate 1. \n")
+  expect_identical(md_templates, "### First\n#### Letter 2\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTemplate 1. \n")
 })
 
 test_that("md_plots works", {
@@ -60,8 +60,8 @@ test_that("md_plots works", {
 
   md_plots <- md_plots(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
                                drop = list(character(0), character(0), "data2"),
-                               main = main, report = NULL, locale = "en")
+                               main = main, report = NULL, nheaders = 1L, locale = "en")
 
-  expect_match(md_plots, "^#### First\n\n<figure>\n<img alt = \"")
+  expect_match(md_plots, "^### First\n\n<figure>\n<img alt = \"")
   expect_match(md_plots, "first/2nd/third/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>$")
 })
