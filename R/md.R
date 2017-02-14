@@ -72,7 +72,7 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
 
   files <- list_files(dir, report = TRUE)
 
-  if (!length(files)) return(TRUE)
+  if (!length(files)) return(character(0))
 
   subs <- subs_matrix(files)
 
@@ -81,7 +81,7 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
   files <- files[!drop]
   subs <- subs[, !drop, drop = FALSE]
 
-  if (!length(files)) return(TRUE)
+  if (!length(files)) return(character(0))
 
   subs %<>% rename_headings(headings)
 
@@ -99,7 +99,63 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
     if (!dir.exists(dirname(subs[i]))) dir.create(dirname(subs[i]), recursive = TRUE)
     file.copy(from = files[i], to = subs[i], overwrite = TRUE)
   }
-  TRUE
+  names(files) <- subs
+  files
+}
+
+#' Markdown Plots
+#'
+#' Returns a string of plots in markdown format ready for inclusion in a report.
+#'
+#' @inheritParams md_tables
+#' @export
+md_plots <- function(headings = list(character(0)), drop = list(character(0)),
+                     main = get_main(), sub = "", report = get_report(),
+                     nheaders = 1L, header1 = 3L,
+                     locale = "en",
+                     ask = getOption("subfoldr.ask", TRUE)) {
+
+  if (!is.null(report) && (!is.character(report) || !length(report) == 1))
+    error("report must be NULL or a string")
+
+  check_flag(ask)
+
+  files <- md_files(headings = headings, drop = drop, main = main,
+                    sub = sub, nheaders = nheaders,
+                    header1 = header1,
+                    locale = locale, class = "plots")
+
+  # if (!ask || yesno("Copy plots to folder ", report, "?"))) {
+  #   transfers <- md_transfers(headings = headings, drop = drop, main = main,
+  #                             sub = sub, report = report, locale = locale, class = "plots")
+  # }
+  txt <- NULL
+  plotnum <- 0
+
+  for (i in seq_along(files)) {
+
+    plotnum <- plotnum + 1
+
+    file <- files[i]
+
+    info <- readRDS(file)
+
+    caption <- info$caption
+    caption %<>% add_full_stop()
+    caption %<>% str_c("Figure ", plotnum, ". ", .)
+
+    file %<>% str_replace("([.])(\\w+)(.RDS)", "\\2.rds")
+
+    txt %<>% c(names(files)[i])
+
+    txt %<>% c("\n<figure>") %>%
+      # c(str_c("<img alt = \"", to[i], "\" src = \"", to[i],
+      #         "\" title = \"", to[i], "\" width = \"", round(info$width / 6 * 100), "%\">")) %>%
+       c(str_c("<figcaption>", caption, "</figcaption>")) %>%
+      c("</figure>")
+  }
+  txt %<>% str_c(collapse = "\n")
+  txt
 }
 
 #' Markdown Tables
@@ -182,10 +238,10 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
 #' @return A string of the report templates in markdown format ready for inclusion in a report.
 #' @export
 md_templates <- function(headings = list(character(0)), drop = list(character(0)),
-                      main = get_main(), sub = "", report = get_report(),
-                      nheaders = 1L, header1 = 3L,
-                      locale = "en",
-                      ask = getOption("subfoldr.ask", TRUE)) {
+                         main = get_main(), sub = "", report = get_report(),
+                         nheaders = 1L, header1 = 3L,
+                         locale = "en",
+                         ask = getOption("subfoldr.ask", TRUE)) {
 
   if (!is.null(report) && (!is.character(report) || !length(report) == 1))
     error("report must be NULL or a string")
