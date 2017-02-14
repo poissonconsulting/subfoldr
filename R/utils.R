@@ -106,7 +106,8 @@ order_heading <- function(sub_row, heading, locale) {
       order[match] <- max(order) + 1
     }
   }
-  as.integer(order)
+  stopifnot(max(order) < 10^6)
+  order %<>% str_pad(width = 6, pad = 0)
 }
 
 order_headings <- function(subs_matrix, headings, locale) {

@@ -92,10 +92,10 @@ test_that("set_headers", {
 })
 
 test_that("order_heading", {
-  expect_identical(order_heading(c("1", "2"), character(0), locale = "en"), c(1L, 2L))
-  expect_identical(order_heading(c("2", "1"), character(0), locale = "en"), c(2L, 1L))
-  expect_identical(order_heading(c("2", "2", "1", "1"), character(0), locale = "en"), c(2L, 2L, 1L, 1L))
-  expect_identical(order_heading(c("1", "2", "this"), c("that" = "Blah", "this" = "This Title"), locale = "en"), c(2L, 3L, 1L))
+  expect_identical(order_heading(c("1", "2"), character(0), locale = "en"), c("000001", "000002"))
+  expect_identical(order_heading(c("2", "1"), character(0), locale = "en"), c("000002", "000001"))
+  expect_identical(order_heading(c("2", "2", "1", "1"), character(0), locale = "en"), c("000002", "000002", "000001", "000001"))
+  expect_identical(order_heading(c("1", "2", "this"), c("that" = "Blah", "this" = "This Title"), locale = "en"), c("000002", "000003", "000001"))
 })
 
 test_that("order_headings", {
