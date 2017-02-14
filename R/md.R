@@ -128,9 +128,6 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
     if (!is.character(report) || !length(report) == 1)
       error("report must be NULL or a string")
 
-    print(transfers)
-    print(report)
-
     if (!ask || yesno("Copy plots to directory ", report, "?")) {
       transfer_files(transfers)
       csvs <- str_replace(transfers, "[.]png$", ".csv")
@@ -159,8 +156,8 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
     txt %<>% c(names(files)[i])
 
     txt %<>% c("\n<figure>") %>%
-       c(str_c("<img alt = \"", names(transfers)[i], "\" src = \"", names(transfers)[i],
-               "\" title = \"", names(transfers)[i], "\" width = \"", round(info$width / 6 * 100), "%\">")) %>%
+      c(str_c("<img alt = \"", names(transfers)[i], "\" src = \"", names(transfers)[i],
+              "\" title = \"", names(transfers)[i], "\" width = \"", round(info$width / 6 * 100), "%\">")) %>%
       c(str_c("<figcaption>", caption, "</figcaption>")) %>%
       c("</figure>")
   }
@@ -211,10 +208,18 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
                     header1 = header1,
                     locale = locale, class = "tables")
 
-  if (!is.null(report) && (!ask || yesno("Copy tables to folder ", report, "?"))) {
-    md_transfers(headings = headings, drop = drop, main = main,
-                 sub = sub, report = report, locale = locale, class = "tables")
+  transfers <- md_transfers(headings = headings, drop = drop, main = main,
+                            sub = sub, report = report, locale = locale, class = "tables")
+
+  if (!is.null(report)) {
+    if (!is.character(report) || !length(report) == 1)
+      error("report must be NULL or a string")
+
+    if (!ask || yesno("Copy tables to directory ", report, "?")) {
+      transfer_files(transfers)
+    }
   }
+
   txt <- NULL
   tabnum <- 0
 
@@ -263,10 +268,18 @@ md_templates <- function(headings = list(character(0)), drop = list(character(0)
                     header1 = header1,
                     locale = locale, class = "templates")
 
-  if (!is.null(report) && (!ask || yesno("Copy templates to folder ", report, "?"))) {
-    md_transfers(headings = headings, drop = drop, main = main,
-                 sub = sub, report = report, locale = locale, class = "templates")
+  transfers <- md_transfers(headings = headings, drop = drop, main = main,
+                            sub = sub, report = report, locale = locale, class = "templates")
+
+  if (!is.null(report)) {
+    if (!is.character(report) || !length(report) == 1)
+      error("report must be NULL or a string")
+
+    if (!ask || yesno("Copy templates to directory ", report, "?")) {
+      transfer_files(transfers)
+    }
   }
+
   txt <- NULL
   tempnum <- 0
 

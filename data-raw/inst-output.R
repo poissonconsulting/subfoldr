@@ -27,8 +27,7 @@ x <- 1 # tested later that not be saved
 
 save_object(main = main, sub = "also1", is = function(x) TRUE, ask = FALSE)
 
-template2 <- "
-    model{
+template2 <- "model{
 do stuff
 }
 "
