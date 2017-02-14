@@ -11,13 +11,13 @@ main <- file.path("inst", "output")
 sub <- file.path("first", "second")
 
 save_table(data2, caption = "A table", main = main, sub = sub, ask = FALSE)
-save_table(mtcars, main = main, sub = sub, ask = FALSE)
-save_table(mtcars, "mtcars2", report = TRUE, main = main, sub = sub, ask = FALSE)
+save_table(mtcars, report = FALSE, main = main, sub = sub, ask = FALSE)
+save_table(mtcars, "mtcars2", main = main, sub = sub, ask = FALSE)
 save_table(mtcars, "mtcars3", caption = "Another table", main = main, sub = sub, ask = FALSE)
 
 sub <- file.path("first", "2nd", "third")
 
-save_table(datasets::ToothGrowth, "TG", report = TRUE, main = main, sub = sub, ask = FALSE)
+save_table(datasets::ToothGrowth, "TG", main = main, sub = sub, ask = FALSE)
 
 x <- 1 # tested later that not saved
 
@@ -31,7 +31,7 @@ template_2 <- "model{
 do stuff
 }
 "
-save_template(template_2, report = TRUE, main = main, sub = sub, ask = FALSE)
+save_template(template_2, main = main, sub = sub, ask = FALSE)
 
 open_window()
 print(ggplot(data = datasets::mtcars, aes(x = cyl, y = mpg)) + geom_point())

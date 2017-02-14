@@ -60,10 +60,10 @@ save_object <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
 #' @inheritParams ggplot2::ggsave
 #' @param x A string of the plot name.
 #' @param caption A string of the figure caption.
-#' @param report A flag indicating to include the plot in reports (not yet implemented).
+#' @param report A flag indicating to include the plot in reports.
 #' @param height A number indicating the height of the plot in inches.
 #' @export
-save_plot <- function(x, caption = "", report = !identical(caption, ""),
+save_plot <- function(x, caption = "", report = TRUE,
                       main = get_main(), sub = get_sub(),
                       width = NA_real_, height = NA_real_, dpi = 300,
                       ask = getOption("subfoldr.ask", TRUE),
@@ -113,10 +113,10 @@ save_plot <- function(x, caption = "", report = !identical(caption, ""),
 #'
 #' @inheritParams save_object
 #' @param caption A string of the figure caption.
-#' @param report A flag indicating to include the plot in reports (not yet implemented).
+#' @param report A flag indicating to include the plot in reports.
 #' @return The object x.
 #' @export
-save_table <- function(x, x_name = NULL, caption = "", report = !identical(caption, ""),
+save_table <- function(x, x_name = NULL, caption = "", report = TRUE,
                        main = get_main(), sub = get_sub(),
                        ask = getOption("subfoldr.ask", TRUE)) {
 
@@ -147,10 +147,10 @@ save_table <- function(x, x_name = NULL, caption = "", report = !identical(capti
 #'
 #' @inheritParams save_object
 #' @param caption A string of the template caption.
-#' @param report A flag indicating to include the plot in reports (not yet implemented).
+#' @param report A flag indicating to include the plot in reports.
 #' @return The object x.
 #' @export
-save_template <- function(x, x_name = NULL, caption = "", report = !identical(caption, ""),
+save_template <- function(x, x_name = NULL, caption = "", report = TRUE,
                           main = get_main(), sub = get_sub(),
                           ask = getOption("subfoldr.ask", TRUE)) {
 

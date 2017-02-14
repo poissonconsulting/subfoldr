@@ -4,8 +4,8 @@
 \alias{save_template}
 \title{Save string as .txt}
 \usage{
-save_template(x, x_name = NULL, caption = "", report = !identical(caption,
-  ""), main = get_main(), sub = get_sub(), ask = getOption("subfoldr.ask",
+save_template(x, x_name = NULL, caption = "", report = TRUE,
+  main = get_main(), sub = get_sub(), ask = getOption("subfoldr.ask",
   TRUE))
 }
 \arguments{
@@ -15,7 +15,7 @@ save_template(x, x_name = NULL, caption = "", report = !identical(caption,
 
 \item{caption}{A string of the template caption.}
 
-\item{report}{A flag indicating to include the plot in reports (not yet implemented).}
+\item{report}{A flag indicating to include the plot in reports.}
 
 \item{main}{A string of the main subfolder.}
 
