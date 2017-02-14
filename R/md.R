@@ -107,7 +107,7 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
 #' @export
 md_plots <- function(headings = list(character(0)), drop = list(character(0)),
                      main = get_main(), sub = "", report = get_report(),
-                     nheaders = 1L, header1 = 3L,
+                     nheaders = 1L, header1 = 4L,
                      locale = "en",
                      ask = getOption("subfoldr.ask", TRUE)) {
 
@@ -194,7 +194,7 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
 #' @export
 md_tables <- function(headings = list(character(0)), drop = list(character(0)),
                       main = get_main(), sub = "", report = get_report(),
-                      nheaders = 1L, header1 = 3L,
+                      nheaders = 1L, header1 = 4L,
                       locale = "en",
                       ask = getOption("subfoldr.ask", TRUE)) {
 
@@ -254,7 +254,7 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
 #' @export
 md_templates <- function(headings = list(character(0)), drop = list(character(0)),
                          main = get_main(), sub = "", report = get_report(),
-                         nheaders = 1L, header1 = 3L,
+                         nheaders = 1L, header1 = 4L,
                          locale = "en",
                          ask = getOption("subfoldr.ask", TRUE)) {
 

@@ -6,7 +6,7 @@
 \usage{
 md_tables(headings = list(character(0)), drop = list(character(0)),
   main = get_main(), sub = "", report = get_report(), nheaders = 1L,
-  header1 = 3L, locale = "en", ask = getOption("subfoldr.ask", TRUE))
+  header1 = 4L, locale = "en", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{headings}{A list of named character vectors.}
