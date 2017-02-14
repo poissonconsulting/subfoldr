@@ -62,6 +62,6 @@ test_that("md_plots works", {
                                drop = list(character(0), character(0), "data2"),
                                main = main, report = NULL, locale = "en")
 
-  expect_identical(md_plots, "### First\n\n<figure>\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>")
+  expect_match(md_plots, "^### First\n\n<figure>\n<img alt = \"")
+  expect_match(md_plots, "first/2nd/third/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>$")
 })
-

@@ -95,10 +95,6 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
   files %<>% str_replace("([.])(\\w+[.]RDS$)", "\\2")
   files %<>% str_replace("RDS$", class_ext(class))
 
-  for (i in seq_along(files)) {
-    if (!dir.exists(dirname(subs[i]))) dir.create(dirname(subs[i]), recursive = TRUE)
-    file.copy(from = files[i], to = subs[i], overwrite = TRUE)
-  }
   names(files) <- subs
   files
 }
@@ -125,10 +121,24 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
                     header1 = header1,
                     locale = locale, class = "plots")
 
-  # if (!ask || yesno("Copy plots to folder ", report, "?"))) {
-  #   transfers <- md_transfers(headings = headings, drop = drop, main = main,
-  #                             sub = sub, report = report, locale = locale, class = "plots")
-  # }
+  transfers <- md_transfers(headings = headings, drop = drop, main = main,
+                            sub = sub, report = report, locale = locale, class = "plots")
+
+  if (!is.null(report)) {
+    if (!is.character(report) || !length(report) == 1)
+      error("report must be NULL or a string")
+
+    print(transfers)
+    print(report)
+
+    if (!ask || yesno("Copy plots to directory ", report, "?")) {
+      transfer_files(transfers)
+      csvs <- str_replace(transfers, "[.]png$", ".csv")
+      names(csvs) <- str_replace(names(transfers), "[.]png$", ".csv")
+      transfer_files(csvs)
+    } else  names(transfers) <- transfers
+  } else names(transfers) <- transfers
+
   txt <- NULL
   plotnum <- 0
 
@@ -149,9 +159,9 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
     txt %<>% c(names(files)[i])
 
     txt %<>% c("\n<figure>") %>%
-      # c(str_c("<img alt = \"", to[i], "\" src = \"", to[i],
-      #         "\" title = \"", to[i], "\" width = \"", round(info$width / 6 * 100), "%\">")) %>%
-       c(str_c("<figcaption>", caption, "</figcaption>")) %>%
+       c(str_c("<img alt = \"", names(transfers)[i], "\" src = \"", names(transfers)[i],
+               "\" title = \"", names(transfers)[i], "\" width = \"", round(info$width / 6 * 100), "%\">")) %>%
+      c(str_c("<figcaption>", caption, "</figcaption>")) %>%
       c("</figure>")
   }
   txt %<>% str_c(collapse = "\n")

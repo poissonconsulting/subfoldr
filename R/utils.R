@@ -142,6 +142,13 @@ header <- function(nheader, header1) {
   str_c(rep("#", header1 + nheader - 1), collapse = "")
 }
 
+transfer_files <- function(transfers) {
+  for (i in seq_along(transfers)) {
+    if (!dir.exists(dirname(names(transfers)[i]))) dir.create(dirname(names(transfers)[i]), recursive = TRUE)
+    file.copy(from = transfers[i], to = names(transfers)[i], overwrite = TRUE)
+  }
+}
+
 set_headers <- function(subs_matrix, nheaders, header1, locale = locale) {
   subs_matrix %<>% t()
   if (nheaders == 0) return(rep("", nrow(subs_matrix)))
