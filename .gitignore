@@ -3,6 +3,5 @@
 .RData
 .Ruserdata
 
-output
-report
-tests/testthat/var
+/output
+/report
