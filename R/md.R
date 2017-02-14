@@ -236,9 +236,10 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
     file %<>% str_replace("([.])(\\w+)(.RDS)", "\\2.rds")
     table <- readRDS(file = file)
 
-    txt %<>% c(names(files)[i])
+    txt %<>% c(names(files)[i]) %>% c("")
 
-    txt <- c(txt, knitr::kable(table, format = "markdown", row.names = FALSE, caption = caption))
+    txt %<>% c(caption) %>% c("")
+    txt %<>% c(knitr::kable(table, format = "markdown", row.names = FALSE))
     txt %<>% c("")
   }
   txt %<>% str_c(collapse = "\n")
