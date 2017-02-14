@@ -27,11 +27,11 @@ x <- 1 # tested later that not be saved
 
 save_object(main = main, sub = "also1", is = function(x) TRUE, ask = FALSE)
 
-template2 <- "model{
+template_2 <- "model{
 do stuff
 }
 "
-save_template(template2, report = TRUE, main = main, sub = sub, ask = FALSE)
+save_template(template_2, report = TRUE, main = main, sub = sub, ask = FALSE)
 
 open_window()
 print(ggplot(data = datasets::mtcars, aes(x = cyl, y = mpg)) + geom_point())

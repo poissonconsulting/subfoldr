@@ -8,7 +8,7 @@ test_that("templates", {
   sub <- file.path("first", "2nd", "third")
 
   load_template(main = main, sub = sub)
-  expect_identical(ls(), c("main", "sub", "template2"))
+  expect_identical(ls(), c("main", "sub", "template_2"))
 
   template1 <- 1
   expect_error(save_template(template1, ask = FALSE), "template1 must be of class 'character'")
