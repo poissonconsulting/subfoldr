@@ -92,7 +92,7 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
   subs %<>% str_c(class_ext(class), sep = ".")
 
   files <- names(files)
-  files %<>% str_replace("([.])(\\w+[.]RDS$)", "\\2")
+  files %<>% str_replace("(_)([^/]+[.]RDS$)", "\\2")
   files %<>% str_replace("RDS$", class_ext(class))
 
   names(files) <- subs
@@ -151,7 +151,7 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
     caption %<>% add_full_stop()
     caption %<>% str_c("Figure ", plotnum, ". ", .)
 
-    file %<>% str_replace("([.])(\\w+)(.RDS)", "\\2.rds")
+    file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
 
     txt %<>% c(names(files)[i])
 
@@ -233,7 +233,7 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
     caption %<>% add_full_stop()
     caption %<>% str_c("Table ", tabnum, ". ", .)
 
-    file %<>% str_replace("([.])(\\w+)(.RDS)", "\\2.rds")
+    file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
     table <- readRDS(file = file)
 
     txt %<>% c(names(files)[i]) %>% c("")
@@ -294,7 +294,7 @@ md_templates <- function(headings = list(character(0)), drop = list(character(0)
     caption %<>% add_full_stop()
     caption %<>% str_c("Template ", tempnum, ". ", .)
 
-    file %<>% str_replace("([.])(\\w+)(.RDS)", "\\2.rds")
+    file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
     template <- readRDS(file = file)
 
     txt %<>% c(names(files)[i])

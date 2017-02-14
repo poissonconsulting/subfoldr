@@ -97,7 +97,7 @@ save_plot <- function(x, caption = "", report = !identical(caption, ""),
   save_rds(plot, "plots", main = main, sub = sub, x_name = x, ask = ask)
 
   obj <- list(width = width, height = height, dpi = dpi, caption = caption, report = report)
-  file <- file_path(main, "plots", sub, str_c(".", x)) %>% str_c(".RDS")
+  file <- file_path(main, "plots", sub, str_c("_", x)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 
   file <- file_path(main, "plots", sub, x) %>% str_c(".csv")
@@ -134,7 +134,7 @@ save_table <- function(x, x_name = NULL, caption = "", report = !identical(capti
   save_rds(x, "tables", main = main, sub = sub, x_name = x_name, ask = ask)
 
   obj <- list(caption = caption, report = report)
-  file <- file_path(main, "tables", sub, str_c(".", x_name)) %>% str_c(".RDS")
+  file <- file_path(main, "tables", sub, str_c("_", x_name)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 
   file <- file_path(main, "tables", sub, x_name) %>% str_c(".csv")
@@ -167,7 +167,7 @@ save_template <- function(x, x_name = NULL, caption = "", report = !identical(ca
   save_rds(x, "templates", main = main, sub = sub, x_name = x_name, ask = ask)
 
   obj <- list(caption = caption, report = report)
-  file <- file_path(main, "templates", sub, str_c(".", x_name)) %>% str_c(".RDS")
+  file <- file_path(main, "templates", sub, str_c("_", x_name)) %>% str_c(".RDS")
   saveRDS(obj, file = file)
 
   file <- file_path(main, "templates", sub, x_name) %>% str_c(".txt")
