@@ -149,11 +149,18 @@ transfer_files <- function(transfers) {
   }
 }
 
+last_one <- function(x) {
+  wch <- which(!str_detect(x, "^$"))
+  wch[length(wch)]
+}
+
 set_headers <- function(subs_matrix, nheaders, header1, locale = locale) {
   subs_matrix %<>% t()
   if (nheaders == 0) return(rep("", nrow(subs_matrix)))
 
   org <- subs_matrix
+
+  last <- apply(subs_matrix, 1, last_one)
 
   for (i in 1:nheaders) {
     subs_matrix[1,i] %<>% str_c(header(i, header1), ., sep = " ")
@@ -169,6 +176,9 @@ set_headers <- function(subs_matrix, nheaders, header1, locale = locale) {
   }
   if (ncol(subs_matrix) > nheaders)
     subs_matrix[,(nheaders + 1):ncol(subs_matrix)] <- ""
+
+  for (i in seq_along(last)) subs_matrix[i,last[i]] <- ""
+
   subs_matrix %<>% plyr::alply(1, str_c, collapse = "\n") %>% unlist()
   subs_matrix %<>% vapply(str_to_title, "", locale = locale)
   subs_matrix %<>% str_replace_all("\n+", "\n")
