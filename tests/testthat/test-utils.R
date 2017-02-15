@@ -5,6 +5,12 @@ test_that("add full stop", {
   expect_identical(add_full_stop("x."), "x.")
 })
 
+test_that("capitalize_first_letter_words", {
+  expect_identical(capitalize_first_letter_words("x"), "X")
+  expect_identical(capitalize_first_letter_words("oeuoe oo"), "Oeuoe Oo")
+  expect_identical(capitalize_first_letter_words("tgI"), "TgI")
+})
+
 test_that("file_path", {
   reset_all()
 

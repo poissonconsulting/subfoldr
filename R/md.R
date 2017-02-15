@@ -62,7 +62,7 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
 
   subs %<>% rename_headings(headings)
 
-  subs %<>% set_headers(nheaders, header1, locale)
+  subs %<>% set_headers(nheaders, header1)
 
   files <- names(files)
   names(files) <- subs

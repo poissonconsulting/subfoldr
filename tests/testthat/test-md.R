@@ -17,7 +17,7 @@ test_that("md_files works", {
 
   files <- names(files)
 
-  expect_identical(files, c("#### First\n##### 2Nd", "##### Second", ""))
+  expect_identical(files, c("#### First\n##### 2nd", "##### Second", ""))
 
   files <- md_files(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
                     drop = list(character(0), character(0), "data2"),

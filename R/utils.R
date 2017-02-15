@@ -2,6 +2,10 @@ add_full_stop <- function(x) {
   str_replace(x, "([^.]$)", "\\1.")
 }
 
+capitalize_first_letter_words <- function (x) {
+  gsub(pattern = "\\b([a-z])", replacement = "\\U\\1", x, perl = TRUE)
+}
+
 error <- function(...) {
   stop(..., call. = FALSE)
 }
@@ -155,7 +159,7 @@ last_one <- function(x) {
   wch[length(wch)]
 }
 
-set_headers <- function(subs_matrix, nheaders, header1, locale = locale) {
+set_headers <- function(subs_matrix, nheaders, header1) {
   subs_matrix %<>% t()
   if (nheaders == 0) return(rep("", nrow(subs_matrix)))
 
@@ -181,7 +185,7 @@ set_headers <- function(subs_matrix, nheaders, header1, locale = locale) {
   for (i in seq_along(last)) subs_matrix[i,last[i]] <- ""
 
   subs_matrix %<>% plyr::alply(1, str_c, collapse = "\n") %>% unlist()
-  subs_matrix %<>% vapply(str_to_title, "", locale = locale)
+  subs_matrix %<>% vapply(capitalize_first_letter_words, "")
   subs_matrix %<>% str_replace_all("\n+", "\n")
   subs_matrix %<>% str_replace("^\n", "") %>% str_replace("\n$", "")
   subs_matrix
