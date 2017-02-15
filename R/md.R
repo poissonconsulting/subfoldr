@@ -22,7 +22,7 @@ check_md_args <- function(headings, drop, main, sub, nheaders, header1, locale, 
 
   dir <- file.path(main, class, sub)
 
-  files <- list_files(dir, report = TRUE)
+  files <- list_files(dir)
 
   if (!length(files)) return(TRUE)
 
@@ -42,7 +42,7 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
 
   dir <- file.path(main, class, sub)
 
-  files <- list_files(dir, report = TRUE)
+  files <- list_files(dir)
 
   if (!length(files)) return(NULL)
 
@@ -72,7 +72,7 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
 md_transfers <- function(headings, drop, main, sub, report, locale, class) {
   dir <- file.path(main, class, sub)
 
-  files <- list_files(dir, report = TRUE)
+  files <- list_files(dir)
 
   if (!length(files)) return(character(0))
 

@@ -62,10 +62,10 @@ open_window <- function(width = 6, height = width) {
   fun(width = width, height = height)
 }
 
-list_files <- function(dir, report) {
+list_files <- function(dir) {
   files <- list.files(dir, pattern = "_[^/]+[.]RDS$", recursive = TRUE,  all.files = TRUE, full.names = TRUE)
   rds <- lapply(files, readRDS)
-  rds %<>% vapply(function(x, report) x$report == report, TRUE, report)
+  rds %<>% vapply(function(x, report) x$report, TRUE)
   names_files <- files
   files %<>% str_replace(str_c("^(.*", dir, ")(.*)([.]RDS$)"), "\\2")
   files %<>% str_replace("^(/)(.*)(_)([^_]+)$", "\\2\\4")
