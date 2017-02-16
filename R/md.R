@@ -93,12 +93,14 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
   subs %<>% rename_headings(headings)
 
   subs %<>% plyr::alply(2, str_c, collapse = "/") %>% unlist() %>% str_replace("/$", "")
-  subs %<>% vapply(str_to_title, "", locale = locale)
-  subs %<>% str_c(report, class, ., sep = "/")
+
+  subs %<>% vapply(capitalize_first_letter_words, "")
+  subs %<>% str_c(report, class, ., sep = "/")  %>% str_replace("/$", "")
 
   subs %<>% str_c(class_ext(class), sep = ".")
 
   files <- names(files)
+
   files %<>% str_replace("(_)([^/]+[.]RDS$)", "\\2")
   files %<>% str_replace("RDS$", class_ext(class))
 
