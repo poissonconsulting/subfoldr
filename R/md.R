@@ -89,11 +89,7 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class, is_re
   subs <- subs[,order,drop = FALSE]
   files <- files[order]
 
-  subs %<>% rename_headings(headings)
-
   subs %<>% plyr::alply(2, str_c, collapse = "/") %>% unlist() %>% str_replace("/$", "")
-
-  subs %<>% vapply(capitalize_first_letter_words, "")
   subs %<>% str_c(report, class, ., sep = "/")  %>% str_replace("/$", "")
 
   subs %<>% str_c(class_ext(class), sep = ".")
