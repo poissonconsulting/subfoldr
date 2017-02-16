@@ -1,10 +1,118 @@
+#' Increase Table Number
+#'
+#' @return A string of the new table number.
+#' @export
+incr_table_number <- function() {
+  set_table_number(get_table_number() + 1L)
+}
+
+#' Increase Template Number
+#'
+#' @return A string of the new template number.
+#' @export
+incr_template_number <- function() {
+  set_template_number(get_template_number() + 1L)
+}
+
+#' Increase Plot Number
+#'
+#' @return A string of the new plot number.
+#' @export
+incr_plot_number <- function() {
+  set_plot_number(get_plot_number() + 1L)
+}
+
+#' Get Table Number
+#'
+#' @return A string of the last table number.
+#' @export
+get_table_number <- function() {
+  getOption("subfoldr.tab_num", 0L)
+}
+
+#' Set Table Number
+#'
+#' @param x A count.
+#' @return A string of the new table number.
+#' @export
+set_table_number <- function(x) {
+  check_count(x)
+  options(subfoldr.tab_num = x)
+  invisible(x)
+}
+
+#' Reset Table Number
+#'
+#' @return A string of the new table number.
+#' @export
+reset_table_number <- function() {
+  options(subfoldr.tab_num = 0L)
+  invisible(0L)
+}
+
+#' Get Template Number
+#'
+#' @return A string of the last template number.
+#' @export
+get_template_number <- function() {
+  getOption("subfoldr.tem_num", 0L)
+}
+
+#' Set Template Number
+#'
+#' @param x A count.
+#' @return A string of the new template number.
+#' @export
+set_template_number <- function(x) {
+  check_count(x)
+  options(subfoldr.tem_num = x)
+  invisible(x)
+}
+
+#' Reset Template Number
+#'
+#' @return A string of the new template number.
+#' @export
+reset_template_number <- function() {
+  options(subfoldr.tem_num = 0L)
+  invisible(0L)
+}
+
+#' Get Plot Number
+#'
+#' @return A string of the last plot number.
+#' @export
+get_plot_number <- function() {
+  sub <- getOption("subfoldr.plot_num", 0L)
+  sub
+}
+
+#' Set Plot Number
+#'
+#' @param x A count.
+#' @return A string of the new plot number.
+#' @export
+set_plot_number <- function(x) {
+  check_count(x)
+  options(subfoldr.plot_num = x)
+  invisible(x)
+}
+
+#' Reset Plot Number
+#'
+#' @return A string of the new plot number.
+#' @export
+reset_plot_number <- function() {
+  options(subfoldr.plot_num = 0L)
+  invisible(0L)
+}
+
 #' Get sub
 #'
 #' @return A string of the current sub.
 #' @export
 get_sub <- function() {
-  sub <- getOption("subfoldr.sub", "")
-  sub
+  getOption("subfoldr.sub", "")
 }
 
 #' Set sub
@@ -36,8 +144,7 @@ reset_sub <- function() {
 #' @examples
 #' get_main()
 get_main <- function() {
-  main <- getOption("subfoldr.main", "output")
-  main
+  getOption("subfoldr.main", "output")
 }
 
 #' Set Main
@@ -69,8 +176,7 @@ reset_main <- function() {
 #' @examples
 #' get_report()
 get_report <- function() {
-  report <- getOption("subfoldr.report", "report")
-  report
+  getOption("subfoldr.report", "report")
 }
 
 #' Set Report
@@ -103,5 +209,8 @@ reset_all <- function() {
   reset_main()
   reset_sub()
   reset_report()
+  reset_plot_number()
+  reset_table_number()
+  reset_template_number()
   invisible(TRUE)
 }

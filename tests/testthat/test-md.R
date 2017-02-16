@@ -55,7 +55,7 @@ test_that("md_templates works", {
                                nheaders = 2L,
                                main = main, report = NULL, locale = "en")
 
-  expect_identical(md_templates, "### First\n#### Letter 2\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTemplate 1. \n")
+  expect_identical(md_templates, "### First\n#### Letter 2\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTemplate 2. \n")
 })
 
 test_that("md_plots works", {
@@ -75,10 +75,10 @@ test_that("md_table works", {
   expect_identical(md_table("data3", main = main, sub = "first/second", report = NULL), "")
 
   expect_identical(md_table("data2", "New Table", main = main, sub = "first/second", report = NULL),
-                    "\n\nTable 1. New Table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
+                    "\n\nTable 4. New Table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
 
   expect_identical(md_table("data2", main = main, sub = "first/second", report = NULL),
-                   "\n\nTable 1. A table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
+                   "\n\nTable 5. A table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
 })
 
 test_that("md_plot works", {
@@ -87,7 +87,7 @@ test_that("md_plot works", {
   expect_identical(md_plot("cylmpg2", main = main, sub = "first/2nd/third", report = NULL), "")
 
   expect_identical(md_plot("cylmpg", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
-                   "\n\n<figure>\n<img alt = \"first/2nd/third/plots/Cylmpg.png\" src = \"first/2nd/third/plots/Cylmpg.png\" title = \"first/2nd/third/plots/Cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. New Plot.</figcaption>\n</figure>")
+                   "\n\n<figure>\n<img alt = \"first/2nd/third/plots/Cylmpg.png\" src = \"first/2nd/third/plots/Cylmpg.png\" title = \"first/2nd/third/plots/Cylmpg.png\" width = \"100%\">\n<figcaption>Figure 2. New Plot.</figcaption>\n</figure>")
 })
 
 test_that("md_template works", {
@@ -96,7 +96,7 @@ test_that("md_template works", {
   expect_identical(md_template("template", main = main, sub = "first/2nd/third", report = NULL), "")
 
   expect_identical(md_template("template_2", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
-                   "\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTable 1. New Plot.\n")
+                   "\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTable 3. New Plot.\n")
 })
 
 

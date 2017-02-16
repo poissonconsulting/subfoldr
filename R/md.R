@@ -147,11 +147,8 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
   } else names(transfers) <- transfers
 
   txt <- NULL
-  plotnum <- 0
 
   for (i in seq_along(files)) {
-
-    plotnum <- plotnum + 1
 
     file <- files[i]
 
@@ -159,7 +156,7 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
 
     caption <- info$caption
     caption %<>% add_full_stop()
-    caption %<>% str_c("Figure ", plotnum, ". ", .)
+    caption %<>% str_c("Figure ", incr_plot_number(), ". ", .)
 
     file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
 
@@ -231,17 +228,14 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
   }
 
   txt <- NULL
-  tabnum <- 0
 
   for (i in seq_along(files)) {
-
-    tabnum <- tabnum + 1
 
     file <- files[i]
 
     caption <- readRDS(file)$caption
     caption %<>% add_full_stop()
-    caption %<>% str_c("Table ", tabnum, ". ", .)
+    caption %<>% str_c("Table ", incr_table_number(), ". ", .)
 
     file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
     table <- readRDS(file = file)
@@ -306,17 +300,14 @@ md_table <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repo
   }
 
   txt <- NULL
-  tabnum <- 0
 
   for (i in seq_along(files)) {
-
-    tabnum <- tabnum + 1
 
     file <- files[i]
 
     caption <- if(is.null(caption)) readRDS(file)$caption else caption
     caption %<>% add_full_stop()
-    caption %<>% str_c("Table ", tabnum, ". ", .)
+    caption %<>% str_c("Table ", incr_table_number(), ". ", .)
 
     file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
     table <- readRDS(file = file)
@@ -367,17 +358,14 @@ md_templates <- function(headings = list(character(0)), drop = list(character(0)
   }
 
   txt <- NULL
-  tempnum <- 0
 
   for (i in seq_along(files)) {
-
-    tempnum <- tempnum + 1
 
     file <- files[i]
 
     caption <- readRDS(file)$caption
     caption %<>% add_full_stop()
-    caption %<>% str_c("Template ", tempnum, ". ", .)
+    caption %<>% str_c("Template ", incr_template_number(), ". ", .)
 
     file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
     template <- readRDS(file = file)
@@ -446,11 +434,8 @@ md_plot <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repor
   }
 
   txt <- NULL
-  plotnum <- 0
 
   for (i in seq_along(files)) {
-
-    plotnum <- plotnum + 1
 
     file <- files[i]
 
@@ -458,7 +443,7 @@ md_plot <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repor
 
     caption <- if (is.null(caption)) info$caption else caption
     caption %<>% add_full_stop()
-    caption %<>% str_c("Figure ", plotnum, ". ", .)
+    caption %<>% str_c("Figure ", incr_plot_number(), ". ", .)
 
     file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
 
@@ -524,17 +509,14 @@ md_template <- function(x, caption = NULL, main = get_main(), sub = get_sub(), r
   }
 
   txt <- NULL
-  tempnum <- 0
 
   for (i in seq_along(files)) {
-
-    tempnum <- tempnum + 1
 
     file <- files[i]
 
     caption <- if (is.null(caption)) readRDS(file)$caption else caption
     caption %<>% add_full_stop()
-    caption %<>% str_c("Table ", tempnum, ". ", .)
+    caption %<>% str_c("Table ", incr_template_number(), ". ", .)
 
     file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
     template <- readRDS(file = file)
