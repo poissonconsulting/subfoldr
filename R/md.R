@@ -20,18 +20,6 @@ check_md_args <- function(headings, drop, main, sub, nheaders, header1, locale, 
   if (!all(vapply(headings, function(x) !length(x) || !is.null(names), TRUE)))
     error("headings must be a list of named character vectors")
 
-  dir <- file.path(main, class, sub)
-
-  files <- list_files(dir)
-
-  if (!length(files)) return(TRUE)
-
-  nsub <- max(nsubs(files))
-
-  if (nsub < length(drop)) error("there are more vectors in headings than subfolders")
-  if (nsub < length(headings)) error("there are more vectors in headings than subfolders")
-  if (nsub < nheaders) error("there are more headers than subfolders")
-
   TRUE
 }
 
@@ -45,6 +33,12 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
   files <- list_files(dir)
 
   if (!length(files)) return(NULL)
+
+  nsub <- max(nsubs(files))
+
+  if (length(drop) > nsub) drop <- drop[1:nsub]
+  if (length(headings) > nsub) headings <- headings[1:nsub]
+  nheaders %<>% min(nsub)
 
   subs <- subs_matrix(files)
 
@@ -75,6 +69,12 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
   files <- list_files(dir)
 
   if (!length(files)) return(character(0))
+
+  nsub <- max(nsubs(files))
+
+  if (length(drop) > nsub) drop <- drop[1:nsub]
+  if (length(headings) > nsub) headings <- headings[1:nsub]
+  nheaders %<>% min(nsub)
 
   subs <- subs_matrix(files)
 
