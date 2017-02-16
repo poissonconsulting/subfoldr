@@ -167,11 +167,11 @@ set_headers <- function(subs_matrix, nheaders, header1) {
 
   last <- apply(subs_matrix, 1, last_one)
 
-  for (i in 1:nheaders) {
+  for (i in nheaders:1) {
     subs_matrix[1,i] %<>% str_c(header(i, header1), ., sep = " ")
     if (nrow(subs_matrix) > 1) {
       for (j in 2:nrow(subs_matrix)) {
-        if (subs_matrix[j,i] == org[j - 1, i]) {
+        if (identical(subs_matrix[j,1:i],org[j - 1, 1:i])) {
           subs_matrix[j,i] <- ""
         } else {
           subs_matrix[j,i] %<>% str_c(header(i, header1), ., sep = " ")
@@ -179,6 +179,7 @@ set_headers <- function(subs_matrix, nheaders, header1) {
       }
     }
   }
+
   if (ncol(subs_matrix) > nheaders)
     subs_matrix[,(nheaders + 1):ncol(subs_matrix)] <- ""
 
