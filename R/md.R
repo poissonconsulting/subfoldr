@@ -98,8 +98,7 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
 
   subs %<>% str_c(class_ext(class), sep = ".")
 
-  subs %<>% file.path(sub, .)
-  subs %<>% str_replace_all("//", "/")
+  if (sub != "") subs %<>% file.path(sub, .)
 
   files <- names(files)
 
@@ -257,7 +256,7 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
   txt
 }
 
-#' Markdown Tables
+#' Markdown Table
 #'
 #' Returns a string of table in markdown format ready for inclusion in a report.
 #'
@@ -283,11 +282,12 @@ md_table <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repo
                     header1 = 3L,
                     locale = locale, class = "tables")
 
-  if (!length(files)) error("table ", x, " does not exist")
+  if (!length(files)) return("")
 
   bol <- str_detect(files, str_c("/_", x, "[.]RDS$"))
 
-  if (!any(bol)) error("table ", x, " does not exist")
+  if (!any(bol)) return("")
+
   stopifnot(sum(bol) == 1)
 
   transfers <- md_transfers(headings = list(character(0)), drop = list(character(0)), main = main,
@@ -391,6 +391,84 @@ md_templates <- function(headings = list(character(0)), drop = list(character(0)
     txt %<>% c("```")
     txt %<>% c(caption)
     txt %<>% c("")
+  }
+  txt %<>% str_c(collapse = "\n")
+  txt
+}
+
+#' Markdown Plot
+#'
+#' Returns a string of plot in markdown format ready for inclusion in a report.
+#'
+#' @inheritParams md_tables
+#' @param x A string of the plot name
+#' @param caption A string of the caption.
+#' @return A string of the plot in markdown format ready for inclusion in a report.
+#' @export
+md_plot <- function(x, caption = NULL, main = get_main(), sub = get_sub(), report = get_report(),
+                     locale = "en",
+                     ask = getOption("subfoldr.ask", TRUE)) {
+
+  if (!is.null(report) && (!is.character(report) || !length(report) == 1))
+    error("report must be NULL or a string")
+
+  if (!is.null(caption) && (!is.character(caption) || !length(caption) == 1))
+    error("caption must be NULL or a string")
+
+  check_flag(ask)
+
+  files <- md_files(headings = list(character(0)), drop = list(character(0)),
+                    main = main, sub = sub, nheaders = 0L,
+                    header1 = 3L,
+                    locale = locale, class = "plots")
+
+  if (!length(files)) return("")
+
+  bol <- str_detect(files, str_c("/_", x, "[.]RDS$"))
+
+  if (!any(bol)) return("")
+
+  stopifnot(sum(bol) == 1)
+
+  transfers <- md_transfers(headings = list(character(0)), drop = list(character(0)), main = main,
+                            sub = sub, report = report, locale = locale, class = "plots")
+
+  files <- files[bol]
+  transfers <- transfers[bol]
+
+  if (!is.null(report)) {
+    if (!is.character(report) || !length(report) == 1)
+      error("report must be NULL or a string")
+
+    if (!ask || yesno("Copy plot to directory ", report, "?")) {
+      transfer_files(transfers)
+    }
+  }
+
+  txt <- NULL
+  plotnum <- 0
+
+  for (i in seq_along(files)) {
+
+    plotnum <- plotnum + 1
+
+    file <- files[i]
+
+    info <- readRDS(file)
+
+    caption <- if (is.null(caption)) info$caption else caption
+    caption %<>% add_full_stop()
+    caption %<>% str_c("Figure ", plotnum, ". ", .)
+
+    file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
+
+    txt %<>% c(names(files)[i])
+
+    txt %<>% c("\n<figure>") %>%
+      c(str_c("<img alt = \"", names(transfers)[i], "\" src = \"", names(transfers)[i],
+              "\" title = \"", names(transfers)[i], "\" width = \"", round(info$width / 6 * 100), "%\">")) %>%
+      c(str_c("<figcaption>", caption, "</figcaption>")) %>%
+      c("</figure>")
   }
   txt %<>% str_c(collapse = "\n")
   txt

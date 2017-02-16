@@ -69,7 +69,7 @@ test_that("md_plots works", {
 test_that("md_table works", {
   main <- file.path(system.file(package = "subfoldr"), "output")
 
-  expect_error(md_table("data3", main = main, sub = "first/second", report = NULL), "^table data3 does not exist$")
+  expect_identical(md_table("data3", main = main, sub = "first/second", report = NULL), "")
 
   expect_identical(md_table("data2", "New Table", main = main, sub = "first/second", report = NULL),
                     "\n\nTable 1. New Table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
@@ -78,3 +78,11 @@ test_that("md_table works", {
                    "\n\nTable 1. A table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
 })
 
+test_that("md_plot works", {
+  main <- file.path(system.file(package = "subfoldr"), "output")
+
+  expect_identical(md_plot("cylmpg2", main = main, sub = "first/2nd/third", report = NULL), "")
+
+  expect_identical(md_plot("cylmpg", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
+                   "\n\n<figure>\n<img alt = \"first/2nd/third/plots/Cylmpg.png\" src = \"first/2nd/third/plots/Cylmpg.png\" title = \"first/2nd/third/plots/Cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. New Plot.</figcaption>\n</figure>")
+})
