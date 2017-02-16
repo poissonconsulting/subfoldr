@@ -473,3 +473,83 @@ md_plot <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repor
   txt %<>% str_c(collapse = "\n")
   txt
 }
+
+#' Markdown Template
+#'
+#' Returns a string of template in markdown format ready for inclusion in a report.
+#'
+#' @inheritParams md_tables
+#' @param x A string of the template name
+#' @param caption A string of the caption.
+#' @return A string of the template in markdown format ready for inclusion in a report.
+#' @export
+md_template <- function(x, caption = NULL, main = get_main(), sub = get_sub(), report = get_report(),
+                     locale = "en",
+                     ask = getOption("subfoldr.ask", TRUE)) {
+
+  if (!is.null(report) && (!is.character(report) || !length(report) == 1))
+    error("report must be NULL or a string")
+
+  if (!is.null(caption) && (!is.character(caption) || !length(caption) == 1))
+    error("caption must be NULL or a string")
+
+  check_flag(ask)
+
+  files <- md_files(headings = list(character(0)), drop = list(character(0)),
+                    main = main, sub = sub, nheaders = 0L,
+                    header1 = 3L,
+                    locale = locale, class = "templates")
+
+  if (!length(files)) return("")
+
+  bol <- str_detect(files, str_c("/_", x, "[.]RDS$"))
+
+  if (!any(bol)) return("")
+
+  stopifnot(sum(bol) == 1)
+
+  transfers <- md_transfers(headings = list(character(0)), drop = list(character(0)), main = main,
+                            sub = sub, report = report, locale = locale, class = "templates")
+
+  files <- files[bol]
+  transfers <- transfers[bol]
+
+  if (!is.null(report)) {
+    if (!is.character(report) || !length(report) == 1)
+      error("report must be NULL or a string")
+
+    if (!ask || yesno("Copy template to directory ", report, "?")) {
+      transfer_files(transfers)
+    }
+  }
+
+  txt <- NULL
+  tempnum <- 0
+
+  for (i in seq_along(files)) {
+
+    tempnum <- tempnum + 1
+
+    file <- files[i]
+
+    caption <- if (is.null(caption)) readRDS(file)$caption else caption
+    caption %<>% add_full_stop()
+    caption %<>% str_c("Table ", tempnum, ". ", .)
+
+    file %<>% str_replace("(_)([^/]+)(.RDS)", "\\2.rds")
+    template <- readRDS(file = file)
+
+    txt %<>% c(names(files)[i])
+
+    txt %<>% c("```")
+    txt %<>% c(".")
+    txt %<>% c(template)
+    txt %<>% c("..")
+    txt %<>% c("```")
+    txt %<>% c(caption)
+    txt %<>% c("")
+  }
+  txt %<>% str_c(collapse = "\n")
+  txt
+}
+

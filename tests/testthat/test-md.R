@@ -86,3 +86,14 @@ test_that("md_plot works", {
   expect_identical(md_plot("cylmpg", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
                    "\n\n<figure>\n<img alt = \"first/2nd/third/plots/Cylmpg.png\" src = \"first/2nd/third/plots/Cylmpg.png\" title = \"first/2nd/third/plots/Cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. New Plot.</figcaption>\n</figure>")
 })
+
+test_that("md_template works", {
+  main <- file.path(system.file(package = "subfoldr"), "output")
+
+  expect_identical(md_template("template", main = main, sub = "first/2nd/third", report = NULL), "")
+
+  expect_identical(md_template("template_2", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
+                   "\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTable 1. New Plot.\n")
+})
+
+
