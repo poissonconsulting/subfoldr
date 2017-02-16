@@ -74,7 +74,6 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class) {
 
   if (length(drop) > nsub) drop <- drop[1:nsub]
   if (length(headings) > nsub) headings <- headings[1:nsub]
-  nheaders %<>% min(nsub)
 
   subs <- subs_matrix(files)
 
