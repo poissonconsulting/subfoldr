@@ -87,7 +87,7 @@ test_that("md_plot works", {
   expect_identical(md_plot("cylmpg2", main = main, sub = "first/2nd/third", report = NULL), "")
 
   expect_identical(md_plot("cylmpg", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
-                   "\n\n<figure>\n<img alt = \"first/2nd/third/plots/Cylmpg.png\" src = \"first/2nd/third/plots/Cylmpg.png\" title = \"first/2nd/third/plots/Cylmpg.png\" width = \"100%\">\n<figcaption>Figure 2. New Plot.</figcaption>\n</figure>")
+                   "\n\n<figure>\n<img alt = \"first/2nd/third/plots/cylmpg.png\" src = \"first/2nd/third/plots/cylmpg.png\" title = \"first/2nd/third/plots/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 2. New Plot.</figcaption>\n</figure>")
 })
 
 test_that("md_template works", {
