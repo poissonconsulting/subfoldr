@@ -56,7 +56,7 @@ test_that("nsubs", {
 })
 
 test_that("list_files", {
-  files <- list_files(file.path(system.file(package = "subfoldr"), "output", "tables"))
+  files <- list_files(file.path(system.file(package = "subfoldr"), "output", "tables"), report = TRUE)
   names(files) <- NULL # names depend on where run
   expect_identical(files,
                    c("first/2nd/third/TG","first/second/data2",
@@ -64,7 +64,7 @@ test_that("list_files", {
 })
 
 test_that("subs_matrix", {
-  files <- list_files(file.path(system.file(package = "subfoldr"), "output", "tables"))
+  files <- list_files(file.path(system.file(package = "subfoldr"), "output", "tables"), report = TRUE)
 
   expect_identical(subs_matrix(files[1]), matrix(c("first", "2nd", "third", "TG"), ncol = 1))
   expect_identical(subs_matrix(files), matrix(c("first", "2nd", "third", "TG", "first", "second", "data2", "", "first", "second", "mtcars2", "", "first", "second", "mtcars3", ""), ncol = 4))

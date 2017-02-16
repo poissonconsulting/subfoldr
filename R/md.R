@@ -23,14 +23,14 @@ check_md_args <- function(headings, drop, main, sub, nheaders, header1, locale, 
   TRUE
 }
 
-md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class) {
+md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class, is_report) {
 
   check_md_args(headings = headings, drop = drop, main = main,
                 sub = sub, nheaders = nheaders, header1 = header1, locale = locale, class = class)
 
   dir <- file.path(main, class, sub)
 
-  files <- list_files(dir)
+  files <- list_files(dir, report = is_report)
 
   if (!length(files)) return(NULL)
 
@@ -63,10 +63,10 @@ md_files <- function(headings, drop, main, sub, nheaders, header1, locale, class
   files
 }
 
-md_transfers <- function(headings, drop, main, sub, report, locale, class) {
+md_transfers <- function(headings, drop, main, sub, report, locale, class, is_report) {
   dir <- file.path(main, class, sub)
 
-  files <- list_files(dir)
+  files <- list_files(dir, report = is_report)
 
   if (!length(files)) return(character(0))
 
@@ -129,10 +129,10 @@ md_plots <- function(headings = list(character(0)), drop = list(character(0)),
   files <- md_files(headings = headings, drop = drop, main = main,
                     sub = sub, nheaders = nheaders,
                     header1 = header1,
-                    locale = locale, class = "plots")
+                    locale = locale, class = "plots", is_report = TRUE)
 
   transfers <- md_transfers(headings = headings, drop = drop, main = main,
-                            sub = sub, report = report, locale = locale, class = "plots")
+                            sub = sub, report = report, locale = locale, class = "plots", is_report = TRUE)
 
   if (!is.null(report)) {
     if (!is.character(report) || !length(report) == 1)
@@ -216,10 +216,10 @@ md_tables <- function(headings = list(character(0)), drop = list(character(0)),
   files <- md_files(headings = headings, drop = drop, main = main,
                     sub = sub, nheaders = nheaders,
                     header1 = header1,
-                    locale = locale, class = "tables")
+                    locale = locale, class = "tables", is_report = TRUE)
 
   transfers <- md_transfers(headings = headings, drop = drop, main = main,
-                            sub = sub, report = report, locale = locale, class = "tables")
+                            sub = sub, report = report, locale = locale, class = "tables", is_report = TRUE)
 
   if (!is.null(report)) {
     if (!is.character(report) || !length(report) == 1)
@@ -280,7 +280,7 @@ md_table <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repo
   files <- md_files(headings = list(character(0)), drop = list(character(0)),
                     main = main, sub = sub, nheaders = 0L,
                     header1 = 3L,
-                    locale = locale, class = "tables")
+                    locale = locale, class = "tables", is_report = NA)
 
   if (!length(files)) return("")
 
@@ -291,7 +291,7 @@ md_table <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repo
   stopifnot(sum(bol) == 1)
 
   transfers <- md_transfers(headings = list(character(0)), drop = list(character(0)), main = main,
-                            sub = sub, report = report, locale = locale, class = "tables")
+                            sub = sub, report = report, locale = locale, class = "tables", is_report = NA)
 
   files <- files[bol]
   transfers <- transfers[bol]
@@ -352,10 +352,10 @@ md_templates <- function(headings = list(character(0)), drop = list(character(0)
   files <- md_files(headings = headings, drop = drop, main = main,
                     sub = sub, nheaders = nheaders,
                     header1 = header1,
-                    locale = locale, class = "templates")
+                    locale = locale, class = "templates", is_report = TRUE)
 
   transfers <- md_transfers(headings = headings, drop = drop, main = main,
-                            sub = sub, report = report, locale = locale, class = "templates")
+                            sub = sub, report = report, locale = locale, class = "templates", is_report = TRUE)
 
   if (!is.null(report)) {
     if (!is.character(report) || !length(report) == 1)
@@ -420,7 +420,7 @@ md_plot <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repor
   files <- md_files(headings = list(character(0)), drop = list(character(0)),
                     main = main, sub = sub, nheaders = 0L,
                     header1 = 3L,
-                    locale = locale, class = "plots")
+                    locale = locale, class = "plots", is_report = NA)
 
   if (!length(files)) return("")
 
@@ -431,7 +431,7 @@ md_plot <- function(x, caption = NULL, main = get_main(), sub = get_sub(), repor
   stopifnot(sum(bol) == 1)
 
   transfers <- md_transfers(headings = list(character(0)), drop = list(character(0)), main = main,
-                            sub = sub, report = report, locale = locale, class = "plots")
+                            sub = sub, report = report, locale = locale, class = "plots", is_report = NA)
 
   files <- files[bol]
   transfers <- transfers[bol]
@@ -498,7 +498,7 @@ md_template <- function(x, caption = NULL, main = get_main(), sub = get_sub(), r
   files <- md_files(headings = list(character(0)), drop = list(character(0)),
                     main = main, sub = sub, nheaders = 0L,
                     header1 = 3L,
-                    locale = locale, class = "templates")
+                    locale = locale, class = "templates", is_report = NA)
 
   if (!length(files)) return("")
 
@@ -509,7 +509,7 @@ md_template <- function(x, caption = NULL, main = get_main(), sub = get_sub(), r
   stopifnot(sum(bol) == 1)
 
   transfers <- md_transfers(headings = list(character(0)), drop = list(character(0)), main = main,
-                            sub = sub, report = report, locale = locale, class = "templates")
+                            sub = sub, report = report, locale = locale, class = "templates", is_report = NA)
 
   files <- files[bol]
   transfers <- transfers[bol]
