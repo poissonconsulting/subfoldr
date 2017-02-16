@@ -65,3 +65,16 @@ test_that("md_plots works", {
   expect_match(md_plots, "^### First\n\n<figure>\n<img alt = \"")
   expect_match(md_plots, "first/2nd/third/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>$")
 })
+
+test_that("md_table works", {
+  main <- file.path(system.file(package = "subfoldr"), "output")
+
+  expect_error(md_table("data3", main = main, sub = "first/second", report = NULL), "^table data3 does not exist$")
+
+  expect_identical(md_table("data2", "New Table", main = main, sub = "first/second", report = NULL),
+                    "\n\nTable 1. New Table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
+
+  expect_identical(md_table("data2", main = main, sub = "first/second", report = NULL),
+                   "\n\nTable 1. A table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
+})
+
