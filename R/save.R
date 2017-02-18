@@ -39,6 +39,7 @@ save_object <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
     names <- objects(envir = calling_env())
     flag <- FALSE
     for (x_name in names) {
+      check_filename(x_name)
       x <- get(x = x_name, envir = calling_env())
       if (is(x))
         save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
@@ -50,6 +51,7 @@ save_object <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
 
   if (is.null(x_name)) x_name <- deparse(substitute(x))
   check_string(x_name)
+  check_filename(x_name)
 
   save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
 }
@@ -70,6 +72,8 @@ save_plot <- function(x, caption = "", report = TRUE,
                       plot = ggplot2::last_plot()) {
 
   check_string(x)
+  check_filename(x)
+
   check_flag(report)
   check_string(main)
   check_string(sub)
@@ -128,6 +132,7 @@ save_table <- function(x, x_name = NULL, caption = "", report = TRUE,
 
   if (is.null(x_name)) x_name <- deparse(substitute(x))
   check_string(x_name)
+  check_filename(x_name)
 
   if (!is.data.frame(x)) error(x_name, " must be a data.frame")
 
@@ -160,9 +165,10 @@ save_template <- function(x, x_name = NULL, caption = "", report = TRUE,
   check_string(caption)
   check_flag(ask)
 
-  if (is.null(x_name)) x_name <- deparse(substitute(x))
-  check_string(x, x_name = x_name)
+  check_string(x, x_name = deparse(substitute(x)))
   check_string(x_name)
+  if (is.null(x_name)) x_name <- deparse(substitute(x))
+  check_filename(x_name)
 
   save_rds(x, "templates", main = main, sub = sub, x_name = x_name, ask = ask)
 
