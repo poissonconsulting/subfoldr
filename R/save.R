@@ -166,8 +166,8 @@ save_template <- function(x, x_name = NULL, caption = "", report = TRUE,
   check_flag(ask)
 
   check_string(x, x_name = deparse(substitute(x)))
-  check_string(x_name)
   if (is.null(x_name)) x_name <- deparse(substitute(x))
+  check_string(x_name)
   check_filename(x_name)
 
   save_rds(x, "templates", main = main, sub = sub, x_name = x_name, ask = ask)
