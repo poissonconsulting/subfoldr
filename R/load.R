@@ -63,6 +63,10 @@ load_rdss <- function(x, main, sub, class, is = is.data.frame, fun = identity) {
     colnames(subs) <- str_c("Subfolder", 1:ncol(subs))
     subs %<>% plyr::alply(.margins = 1, function(x) x)
     files %<>% purrr::map2(subs, merge)
+    subs %<>% dplyr::bind_rows() %>% as.matrix()
+    subs %<>% plyr::alply(.margins = 1, str_c, collapse = "/")
+    subs %<>% str_replace_all("//", "/") %>% str_replace("/$", "")
+    names(files) <- unlist(subs)
   }
   files
 }

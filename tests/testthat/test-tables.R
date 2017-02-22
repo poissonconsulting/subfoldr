@@ -20,6 +20,8 @@ test_that("tables", {
   expect_error(load_tables())
   expect_error(load_tables("data3"))
   mtcars <- load_tables("mtcars", main = main)
+
+  expect_identical(names(mtcars), c("first/2nd/third", "first/second"))
   mtcars %<>% dplyr::bind_rows()
   expect_identical(colnames(mtcars), c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb", "Subfolder1" , "Subfolder2", "Subfolder3"))
   expect_identical(nrow(mtcars), 64L)
