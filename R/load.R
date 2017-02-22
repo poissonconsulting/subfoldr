@@ -23,13 +23,56 @@ load_rds <- function(x, class, main, sub, is = function(x) {TRUE}, env) {
   invisible(flag)
 }
 
+load_rdss <- function(x, main, sub, class, is = is.data.frame, fun = identity) {
+  check_string(x)
+  check_string(main)
+  check_string(sub)
+
+  dir <- file_path(main, class, sub)
+  if (!dir.exists(dir)) error("directory '", dir, "' does not exist")
+
+  pattern <- str_c(x, ".rds$")
+
+  files <- list.files(dir, pattern = pattern, recursive = TRUE)
+  if (!length(files)) {
+    warning("no files with pattern ", pattern, " found")
+    return(invisible(FALSE))
+  }
+  subs <- subs_matrix(files) %>% t()
+  subs %<>% plyr::aaply(1, function(x) {x[max(which(!str_detect(x, "^$")))] <- ""; x},
+                        .drop = FALSE)
+
+  files %<>% str_c(dir, "/", .)
+  files %<>% lapply(readRDS)
+
+  bool <- vapply(files, is, TRUE)
+
+  if (!any(bool)) {
+    warning("no suitable .rds objects found")
+    return(invisible(FALSE))
+  }
+
+  files %<>% lapply(fun)
+
+  files <- files[bool]
+  subs <- subs[bool,,drop = FALSE]
+
+  if (ncol(subs) > 1) {
+    subs <- subs[, -ncol(subs), drop = FALSE]
+    subs %<>% as.data.frame()
+    colnames(subs) <- str_c("Subfolder", 1:ncol(subs))
+    subs %<>% plyr::alply(.margins = 1, function(x) x)
+    files %<>% purrr::map2(subs, merge)
+  }
+  files
+}
+
 #' Load Object
 #'
 #' @inheritParams save_object
 #' @param env The environment to load the objects into if x is missing.
 #' @export
-load_object <- function(x, main = get_main(), sub = get_sub(),
-                        is = is.data.frame, env = calling_env()) {
+load_object <- function(x, main = get_main(), sub = get_sub(), is = is.data.frame, env = calling_env()) {
   load_rds(x, class = "objects", main = main, sub = sub, is = is, env = env)
 }
 
@@ -68,40 +111,32 @@ load_template <- function(x, main = get_main(), sub = get_sub(), env = calling_e
   load_rds(x, class = "templates", main = main, sub = sub, env = env)
 }
 
+#' Load objects
+#'
+#' List of all data objects in sub and its subdirectories.
+#'
+#' @inheritParams save_object
+#' @export
+load_objects <- function(x, main = get_main(), sub = get_sub()) {
+  load_rdss(x = x, main = main, sub = sub, class = "objects")
+}
+
 #' Load tables
 #'
-#' Combines all tables in sub and its subdirectories named x by rows.
-#'
+#' List of all tables in sub and its subdirectories.
 #'
 #' @inheritParams save_object
 #' @export
 load_tables <- function(x, main = get_main(), sub = get_sub()) {
-  check_string(x)
+  load_rdss(x = x, main = main, sub = sub, class = "tables")
+}
 
-  dir <- file_path(main, "tables", sub)
-  if (!dir.exists(dir)) error("directory '", dir, "' does not exist")
-
-  pattern <- str_c(x, ".rds$")
-
-  files <- list.files(dir, pattern = pattern, recursive = TRUE)
-  if (!length(files)) {
-    warning("no files with pattern ", pattern, " found")
-    return(invisible(FALSE))
-  }
-  subs <- subs_matrix(files) %>% t()
-  subs %<>% plyr::aaply(1, function(x) {x[max(which(!str_detect(x, "^$")))] <- ""; x},
-                        .drop = FALSE)
-
-  files %<>% str_c(dir, "/", .)
-  files %<>% lapply(readRDS)
-
-  if (ncol(subs) > 1) {
-    subs <- subs[, -ncol(subs), drop = FALSE]
-    subs %<>% as.data.frame()
-    colnames(subs) <- str_c("Subfolder", 1:ncol(subs))
-    subs %<>% plyr::alply(.margins = 1, function(x) x)
-    files %<>% purrr::map2(subs, merge)
-  }
-  files %<>% dplyr::bind_rows()
-  files
+#' Load plots
+#'
+#' List of all plot data in sub and its subdirectories.
+#'
+#' @inheritParams save_object
+#' @export
+load_plots <- function(x, main = get_main(), sub = get_sub()) {
+  load_rdss(x = x, main = main, sub = sub, class = "plots", is = ggplot2::is.ggplot, fun = function(x) x$data)
 }
