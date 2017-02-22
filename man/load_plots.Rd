@@ -4,7 +4,7 @@
 \alias{load_plots}
 \title{Load plots}
 \usage{
-load_plots(x, main = get_main(), sub = get_sub(), data = FALSE)
+load_plots(x, main = get_main(), sub = "", data = FALSE)
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}

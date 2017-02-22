@@ -4,7 +4,7 @@
 \alias{load_objects}
 \title{Load objects}
 \usage{
-load_objects(x, main = get_main(), sub = get_sub(), data = TRUE)
+load_objects(x, main = get_main(), sub = "", data = TRUE)
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
