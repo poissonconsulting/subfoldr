@@ -4,7 +4,7 @@
 \alias{load_objects}
 \title{Load objects}
 \usage{
-load_objects(x, main = get_main(), sub = get_sub())
+load_objects(x, main = get_main(), sub = get_sub(), data = TRUE)
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
@@ -12,6 +12,8 @@ load_objects(x, main = get_main(), sub = get_sub())
 \item{main}{A string of the main subfolder.}
 
 \item{sub}{A string of the path to the directory to save the object.}
+
+\item{data}{A flag indicating whether to only load objects inheriting from data.frame.}
 }
 \description{
 List of all data objects in sub and its subdirectories.

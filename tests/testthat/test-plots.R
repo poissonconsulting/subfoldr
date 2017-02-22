@@ -15,6 +15,8 @@ test_that("plots", {
   plots <- load_plots("cylmpg", main = main, sub = "first")
   expect_is(plots, "list")
   expect_identical(length(plots), 1L)
+  expect_true(ggplot2::is.ggplot(plots[[1]]))
+
+  plots <- load_plots("cylmpg", main = main, sub = "first", data = TRUE)
   expect_identical(nrow(plots[[1]]), 32L)
-  expect_is(plots[[1]], "data.frame")
 })

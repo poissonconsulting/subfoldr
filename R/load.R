@@ -23,10 +23,11 @@ load_rds <- function(x, class, main, sub, is = function(x) {TRUE}, env) {
   invisible(flag)
 }
 
-load_rdss <- function(x, main, sub, class, is = is.data.frame, fun = identity) {
+load_rdss <- function(x, main, sub, class, data = TRUE, fun = identity) {
   check_string(x)
   check_string(main)
   check_string(sub)
+  check_flag(data)
 
   dir <- file_path(main, class, sub)
   if (!dir.exists(dir)) error("directory '", dir, "' does not exist")
@@ -44,25 +45,26 @@ load_rdss <- function(x, main, sub, class, is = is.data.frame, fun = identity) {
 
   files %<>% str_c(dir, "/", .)
   files %<>% lapply(readRDS)
-
-  bool <- vapply(files, is, TRUE)
-
-  if (!any(bool)) {
-    warning("no suitable .rds objects found")
-    return(invisible(FALSE))
-  }
-
   files %<>% lapply(fun)
 
-  files <- files[bool]
-  subs <- subs[bool,,drop = FALSE]
+  if (data) {
+    bool <- vapply(files, is.data.frame, TRUE)
+
+    if (!any(bool)) {
+      warning("no suitable .rds objects found")
+      return(invisible(FALSE))
+    }
+    files <- files[bool]
+    subs <- subs[bool,,drop = FALSE]
+  }
+
 
   if (ncol(subs) > 1) {
     subs <- subs[, -ncol(subs), drop = FALSE]
     subs %<>% as.data.frame()
     colnames(subs) <- str_c("Subfolder", 1:ncol(subs))
     subs %<>% plyr::alply(.margins = 1, function(x) x)
-    files %<>% purrr::map2(subs, merge)
+    if (data) files %<>% purrr::map2(subs, merge)
     subs %<>% dplyr::bind_rows() %>% as.matrix()
     subs %<>% plyr::alply(.margins = 1, str_c, collapse = "/")
     subs %<>% str_replace_all("//", "/") %>% str_replace("/$", "")
@@ -120,9 +122,10 @@ load_template <- function(x, main = get_main(), sub = get_sub(), env = calling_e
 #' List of all data objects in sub and its subdirectories.
 #'
 #' @inheritParams save_object
+#' @param data A flag indicating whether to only load objects inheriting from data.frame.
 #' @export
-load_objects <- function(x, main = get_main(), sub = get_sub()) {
-  load_rdss(x = x, main = main, sub = sub, class = "objects")
+load_objects <- function(x, main = get_main(), sub = get_sub(), data = TRUE) {
+  load_rdss(x = x, main = main, sub = sub, class = "objects", data = data)
 }
 
 #' Load tables
@@ -140,7 +143,9 @@ load_tables <- function(x, main = get_main(), sub = get_sub()) {
 #' List of all plot data in sub and its subdirectories.
 #'
 #' @inheritParams save_object
+#' @param data A flag indicating whether to load the plot data.
 #' @export
-load_plots <- function(x, main = get_main(), sub = get_sub()) {
-  load_rdss(x = x, main = main, sub = sub, class = "plots", is = ggplot2::is.ggplot, fun = function(x) x$data)
+load_plots <- function(x, main = get_main(), sub = get_sub(), data = FALSE) {
+  fun <- if (data) function(x) x$data else identity
+  load_rdss(x = x, main = main, sub = sub, class = "plots", data = data, fun = fun)
 }

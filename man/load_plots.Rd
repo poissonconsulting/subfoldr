@@ -4,7 +4,7 @@
 \alias{load_plots}
 \title{Load plots}
 \usage{
-load_plots(x, main = get_main(), sub = get_sub())
+load_plots(x, main = get_main(), sub = get_sub(), data = FALSE)
 }
 \arguments{
 \item{x}{The object to save. If missing saves all objects in calling env.}
@@ -12,6 +12,8 @@ load_plots(x, main = get_main(), sub = get_sub())
 \item{main}{A string of the main subfolder.}
 
 \item{sub}{A string of the path to the directory to save the object.}
+
+\item{data}{A flag indicating whether to load the plot data.}
 }
 \description{
 List of all plot data in sub and its subdirectories.
