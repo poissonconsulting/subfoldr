@@ -1,18 +1,20 @@
 Package: subfoldr
 Title: Subfolders
-Date: 2017-02-18
-Version: 0.0.0.9010
+Date: 2017-02-2
+Version: 0.0.0.9011
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Orchestrates the saving and loading of objects to a subfolder and the generation of markdown results.
 Depends:
     R (>= 3.3.0)
 Imports:
     datacheckr,
+    dplyr,
     grDevices,
     ggplot2,
     knitr,
     magrittr,
     plyr,
+    purrr,
     readr,
     stringr,
     yesno

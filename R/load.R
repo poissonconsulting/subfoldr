@@ -67,3 +67,41 @@ load_table <- function(x, main = get_main(), sub = get_sub(), env = calling_env(
 load_template <- function(x, main = get_main(), sub = get_sub(), env = calling_env()) {
   load_rds(x, class = "templates", main = main, sub = sub, env = env)
 }
+
+#' Load tables
+#'
+#' Combines all tables in sub and its subdirectories named x by rows.
+#'
+#'
+#' @inheritParams save_object
+#' @export
+load_tables <- function(x, main = get_main(), sub = get_sub()) {
+  check_string(x)
+
+  dir <- file_path(main, "tables", sub)
+  if (!dir.exists(dir)) error("directory '", dir, "' does not exist")
+
+  pattern <- str_c(x, ".rds$")
+
+  files <- list.files(dir, pattern = pattern, recursive = TRUE)
+  if (!length(files)) {
+    warning("no files with pattern ", pattern, " found")
+    return(invisible(FALSE))
+  }
+  subs <- subs_matrix(files) %>% t()
+  subs %<>% plyr::aaply(1, function(x) {x[max(which(!str_detect(x, "^$")))] <- ""; x},
+                        .drop = FALSE)
+
+  files %<>% str_c(dir, "/", .)
+  files %<>% lapply(readRDS)
+
+  if (ncol(subs) > 1) {
+    subs <- subs[, -ncol(subs), drop = FALSE]
+    subs %<>% as.data.frame()
+    colnames(subs) <- str_c("Subfolder", 1:ncol(subs))
+    subs %<>% plyr::alply(.margins = 1, function(x) x)
+    files %<>% purrr::map2(subs, merge)
+  }
+  files %<>% dplyr::bind_rows()
+  files
+}

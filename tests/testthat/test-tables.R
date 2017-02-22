@@ -17,5 +17,17 @@ test_that("tables", {
   expect_error(save_table(data1, caption = "A table", ask = FALSE), "data1 must be a data.frame")
   expect_error(load_table("data3"))
 
- # md_tables(main = main)
+  expect_error(load_tables())
+  expect_error(load_tables("data3"))
+  mtcars <- load_tables("mtcars", main = main)
+  expect_identical(colnames(mtcars), c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb", "Subfolder1" , "Subfolder2", "Subfolder3"))
+  expect_identical(nrow(mtcars), 64L)
+
+  mtcars <- load_tables("mtcars", main = main, sub = "first")
+  expect_identical(colnames(mtcars), c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb", "Subfolder1" , "Subfolder2"))
+  expect_identical(nrow(mtcars), 64L)
+
+  mtcars <- load_tables("mtcars", main = main, sub = "first/second")
+  expect_identical(colnames(mtcars), c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"))
+  expect_identical(nrow(mtcars), 32L)
 })

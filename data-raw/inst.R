@@ -17,6 +17,7 @@ save_table(mtcars, "mtcars3", caption = "Another table", main = main, sub = sub,
 
 sub <- file.path("first", "2nd", "third")
 
+save_table(mtcars, "mtcars", report = FALSE, main = main, sub = sub, ask = FALSE)
 save_table(datasets::ToothGrowth, "TG", main = main, sub = sub, ask = FALSE)
 
 x <- 1 # tested later that not saved
