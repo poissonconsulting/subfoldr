@@ -58,7 +58,6 @@ load_rdss <- function(x, main, sub, class, data = TRUE, fun = identity) {
     subs <- subs[bool,,drop = FALSE]
   }
 
-
   if (ncol(subs) > 1) {
     subs <- subs[, -ncol(subs), drop = FALSE]
     subs %<>% as.data.frame()
@@ -69,7 +68,9 @@ load_rdss <- function(x, main, sub, class, data = TRUE, fun = identity) {
     subs %<>% plyr::alply(.margins = 1, str_c, collapse = "/")
     subs %<>% str_replace_all("//", "/") %>% str_replace("/$", "")
     names(files) <- unlist(subs)
-  }
+    if (sub != "") names(files) %<>% file_path(sub, .)
+  } else if (sub != "")
+    names(files) <- sub
   files
 }
 

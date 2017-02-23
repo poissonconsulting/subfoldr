@@ -27,11 +27,13 @@ test_that("tables", {
   expect_identical(nrow(mtcars), 64L)
 
   mtcars <- load_tables("mtcars", main = main, sub = "first")
+  expect_identical(names(mtcars), c("first/2nd/third", "first/second"))
   mtcars %<>% dplyr::bind_rows()
   expect_identical(colnames(mtcars), c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb", "Subfolder1" , "Subfolder2"))
   expect_identical(nrow(mtcars), 64L)
 
   mtcars <- load_tables("mtcars", main = main, sub = "first/second")
+  expect_identical(names(mtcars), c("first/second"))
   mtcars %<>% dplyr::bind_rows()
   expect_identical(colnames(mtcars), c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"))
   expect_identical(nrow(mtcars), 32L)
