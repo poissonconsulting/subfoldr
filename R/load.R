@@ -71,6 +71,7 @@ load_rdss <- function(x, main, sub, class, data = TRUE, fun = identity) {
     if (sub != "") names(files) %<>% file_path(sub, .)
   } else if (sub != "")
     names(files) <- sub
+  if (data) files %<>% lapply(dplyr::as.tbl)
   files
 }
 
