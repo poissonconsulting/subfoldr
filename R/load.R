@@ -126,7 +126,7 @@ load_template <- function(x, main = get_main(), sub = get_sub(), env = calling_e
 #' @inheritParams save_object
 #' @param data A flag indicating whether to only load objects inheriting from data.frame.
 #' @export
-load_objects <- function(x, main = get_main(), sub = "", data = TRUE) {
+load_objects <- function(x, main = get_main(), sub = "", data = FALSE) {
   load_rdss(x = x, main = main, sub = sub, class = "objects", data = data)
 }
 
