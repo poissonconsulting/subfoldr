@@ -84,6 +84,16 @@ load_object <- function(x, main = get_main(), sub = get_sub(), is = is.data.fram
   load_rds(x, class = "objects", main = main, sub = sub, is = is, env = env)
 }
 
+#' Load Data
+#'
+#' @inheritParams save_object
+#' @param env The environment to load the objects into if x is missing.
+#' @export
+load_data <- function(x, main = get_main(), sub = get_sub(), env = calling_env()) {
+  load_rds(x, class = "data", main = main, sub = sub, env = env)
+
+}
+
 #' Load table
 #'
 #' @inheritParams save_object
@@ -128,6 +138,16 @@ load_template <- function(x, main = get_main(), sub = get_sub(), env = calling_e
 #' @export
 load_objects <- function(x, main = get_main(), sub = "", data = FALSE) {
   load_rdss(x = x, main = main, sub = sub, class = "objects", data = data)
+}
+
+#' Load objects
+#'
+#' List of all data objects in sub and its subdirectories.
+#'
+#' @inheritParams save_object
+#' @export
+load_datas <- function(x, main = get_main(), sub = "") {
+  load_rdss(x = x, main = main, sub = sub, class = "data", data = TRUE)
 }
 
 #' Load tables

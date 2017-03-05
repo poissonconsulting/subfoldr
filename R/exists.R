@@ -24,6 +24,17 @@ object_exists <- function(x, main = get_main(), sub = get_sub()) {
   rds_exists(x = x, main = main, sub = sub, class = "objects")
 }
 
+#' Data exists
+#'
+#' Test whether an data frame named x exists.
+#'
+#' @inheritParams save_object
+#' @export
+data_exists <- function(x, main = get_main(), sub = get_sub()) {
+  rds_exists(x = x, main = main, sub = sub, class = "data")
+}
+
+
 #' Table exists
 #'
 #' Test whether a table named x exists.

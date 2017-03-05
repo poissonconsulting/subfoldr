@@ -56,6 +56,42 @@ save_object <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
   save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
 }
 
+#' Save Object
+#'
+#' @param x The data frame to save. If missing saves all data frames in calling env.
+#' @param main A string of the main subfolder.
+#' @param sub A string of the path to the directory to save the object.
+#' @param x_name An optional string of the name to use.
+#' @param ask A string indicating whether to ask before creating a sub directory.
+#' @return The object x or TRUE or FALSE is x is missing.
+#' @export
+save_data <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
+                        ask = getOption("subfoldr.ask", TRUE)) {
+  check_string(main)
+  check_string(sub)
+  check_flag(ask)
+
+  if (missing(x)) {
+    names <- objects(envir = calling_env())
+    flag <- FALSE
+    for (x_name in names) {
+      check_filename(x_name)
+      x <- get(x = x_name, envir = calling_env())
+      if (is.data.frame(x))
+        save_rds(x, "data", main = main, sub = sub, x_name = x_name, ask = ask)
+      flag <- TRUE
+    }
+    if (!flag) warning("no objects inheriting from data.frame in calling environment")
+    return(invisible(flag))
+  }
+
+  if (is.null(x_name)) x_name <- deparse(substitute(x))
+  check_string(x_name)
+  check_filename(x_name)
+
+  save_rds(x, "data", main = main, sub = sub, x_name = x_name, ask = ask)
+}
+
 #' Save Object as .png
 #'
 #' @inheritParams save_object
