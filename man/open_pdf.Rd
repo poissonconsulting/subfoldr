@@ -4,8 +4,8 @@
 \alias{open_pdf}
 \title{Open a pdf}
 \usage{
-open_pdf(x, width = 6, height = width, main = get_main(),
-  sub = get_sub(), ...)
+open_pdf(x, width = 6, height = width, sub = get_sub(),
+  main = get_main(), ...)
 }
 \arguments{
 \item{x}{A string of the name of the file to create.}
@@ -14,9 +14,9 @@ open_pdf(x, width = 6, height = width, main = get_main(),
 
 \item{height}{A number indicating the height in inches.}
 
-\item{main}{A string of the main subfolder.}
-
 \item{sub}{A string of the path to the directory to save the object.}
+
+\item{main}{A string of the main subfolder.}
 
 \item{...}{Additional arguments passed to pdf}
 }

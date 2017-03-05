@@ -2,17 +2,17 @@
 % Please edit documentation in R/load.R
 \name{load_tables}
 \alias{load_tables}
-\title{Load tables}
+\title{Load Data}
 \usage{
-load_tables(x, main = get_main(), sub = "")
+load_tables(sub = get_sub(), main = get_main(), env = calling_env())
 }
 \arguments{
-\item{x}{The object to save. If missing saves all objects in calling env.}
+\item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
 
-\item{sub}{A string of the path to the directory to save the object.}
+\item{env}{The environment to load the objects into}
 }
 \description{
-List of all tables in sub and its subdirectories.
+Load Data
 }

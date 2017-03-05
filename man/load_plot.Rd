@@ -4,19 +4,14 @@
 \alias{load_plot}
 \title{Load table}
 \usage{
-load_plot(x, main = get_main(), sub = get_sub(), data = FALSE,
-  env = calling_env())
+load_plot(x, sub = get_sub(), main = get_main())
 }
 \arguments{
-\item{x}{The object to save. If missing saves all objects in calling env.}
-
-\item{main}{A string of the main subfolder.}
+\item{x}{The object to save.}
 
 \item{sub}{A string of the path to the directory to save the object.}
 
-\item{data}{A flag indicating whether to load the plot data.}
-
-\item{env}{The environment to load the objects into if data = TRUE and  x is missing.}
+\item{main}{A string of the main subfolder.}
 }
 \description{
 Load table

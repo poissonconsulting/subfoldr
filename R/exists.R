@@ -10,7 +10,7 @@ rds_exists <- function(x, class, main, sub) {
 #'
 #' @inheritParams save_object
 #' @export
-template_exists <- function(x, main = get_main(), sub = get_sub()) {
+template_exists <- function(x, sub = get_sub(), main = get_main()) {
   rds_exists(x = x, main = main, sub = sub, class = "templates")
 }
 
@@ -20,7 +20,7 @@ template_exists <- function(x, main = get_main(), sub = get_sub()) {
 #'
 #' @inheritParams save_object
 #' @export
-object_exists <- function(x, main = get_main(), sub = get_sub()) {
+object_exists <- function(x, sub = get_sub(), main = get_main()) {
   rds_exists(x = x, main = main, sub = sub, class = "objects")
 }
 
@@ -30,7 +30,7 @@ object_exists <- function(x, main = get_main(), sub = get_sub()) {
 #'
 #' @inheritParams save_object
 #' @export
-data_exists <- function(x, main = get_main(), sub = get_sub()) {
+data_exists <- function(x, sub = get_sub(), main = get_main()) {
   rds_exists(x = x, main = main, sub = sub, class = "data")
 }
 
@@ -41,7 +41,7 @@ data_exists <- function(x, main = get_main(), sub = get_sub()) {
 #'
 #' @inheritParams save_object
 #' @export
-table_exists <- function(x, main = get_main(), sub = get_sub()) {
+table_exists <- function(x, sub = get_sub(), main = get_main()) {
   rds_exists(x = x, main = main, sub = sub, class = "tables")
 }
 
@@ -51,6 +51,6 @@ table_exists <- function(x, main = get_main(), sub = get_sub()) {
 #'
 #' @inheritParams save_object
 #' @export
-plot_exists <- function(x, main = get_main(), sub = get_sub()) {
+plot_exists <- function(x, sub = get_sub(), main = get_main()) {
   rds_exists(x = x, main = main, sub = sub, class = "plots")
 }

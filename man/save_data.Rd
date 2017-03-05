@@ -2,19 +2,19 @@
 % Please edit documentation in R/save.R
 \name{save_data}
 \alias{save_data}
-\title{Save Object}
+\title{Save Data}
 \usage{
-save_data(x, x_name = NULL, main = get_main(), sub = get_sub(),
+save_data(x, sub = get_sub(), main = get_main(), x_name = NULL,
   ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{x}{The data frame to save. If missing saves all data frames in calling env.}
 
-\item{x_name}{An optional string of the name to use.}
+\item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
 
-\item{sub}{A string of the path to the directory to save the object.}
+\item{x_name}{An optional string of the name to use.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 }
@@ -22,5 +22,5 @@ save_data(x, x_name = NULL, main = get_main(), sub = get_sub(),
 The object x or TRUE or FALSE is x is missing.
 }
 \description{
-Save Object
+Save Data
 }

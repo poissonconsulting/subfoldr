@@ -4,20 +4,20 @@
 \alias{save_plot}
 \title{Save Object as .png}
 \usage{
-save_plot(x, caption = "", report = TRUE, main = get_main(),
-  sub = get_sub(), width = NA_real_, height = NA_real_, dpi = 300,
+save_plot(x, sub = get_sub(), main = get_main(), caption = "",
+  report = TRUE, width = NA_real_, height = NA_real_, dpi = 300,
   ask = getOption("subfoldr.ask", TRUE), plot = ggplot2::last_plot())
 }
 \arguments{
 \item{x}{A string of the plot name.}
 
-\item{caption}{A string of the figure caption.}
-
-\item{report}{A flag indicating to include the plot in reports.}
+\item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
 
-\item{sub}{A string of the path to the directory to save the object.}
+\item{caption}{A string of the figure caption.}
+
+\item{report}{A flag indicating to include the plot in reports.}
 
 \item{width}{Plot size in \code{units} ("in", "cm", or "mm").
 If not supplied, uses the size of current graphics device.}

@@ -2,19 +2,17 @@
 % Please edit documentation in R/load.R
 \name{load_objects}
 \alias{load_objects}
-\title{Load objects}
+\title{Load Objects}
 \usage{
-load_objects(x, main = get_main(), sub = "", data = FALSE)
+load_objects(sub = get_sub(), main = get_main(), env = calling_env())
 }
 \arguments{
-\item{x}{The object to save. If missing saves all objects in calling env.}
+\item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
 
-\item{sub}{A string of the path to the directory to save the object.}
-
-\item{data}{A flag indicating whether to only load objects inheriting from data.frame.}
+\item{env}{The environment to load the objects into}
 }
 \description{
-List of all data objects in sub and its subdirectories.
+Load Objects
 }

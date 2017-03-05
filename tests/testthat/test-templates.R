@@ -7,7 +7,7 @@ test_that("templates", {
   main <- file.path(system.file(package = "subfoldr"), "output")
   sub <- file.path("first", "2nd", "third")
 
-  load_template(main = main, sub = sub)
+  load_templates(main = main, sub = sub)
   expect_identical(ls(), c("main", "sub", "template_2"))
 
   template1 <- 1

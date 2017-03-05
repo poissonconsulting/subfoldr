@@ -4,12 +4,12 @@
 \alias{subdirs_objects}
 \title{List Object Sub Directories}
 \usage{
-subdirs_objects(main = get_main(), sub = get_sub())
+subdirs_objects(sub = get_sub(), main = get_main())
 }
 \arguments{
-\item{main}{A string of the main subfolder.}
-
 \item{sub}{A string of the path to the directory to save the object.}
+
+\item{main}{A string of the main subfolder.}
 }
 \value{
 A character vector of the names of the directories in the sub folder.

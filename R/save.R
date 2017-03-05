@@ -16,47 +16,7 @@ save_rds <- function(x, class, main, sub, x_name, ask) {
   invisible(x)
 }
 
-#' Save Object
-#'
-#' @param x The object to save. If missing saves all objects in calling env.
-#' @param main A string of the main subfolder.
-#' @param sub A string of the path to the directory to save the object.
-#' @param is A function returning TRUE or FALSE to indicate whether to save particular objects.
-#' Ignored unless x is missing.
-#' @param x_name An optional string of the name to use.
-#' @param ask A string indicating whether to ask before creating a sub directory.
-#' @return The object x or TRUE or FALSE is x is missing.
-#' @export
-save_object <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
-                        is = is.data.frame,
-                        ask = getOption("subfoldr.ask", TRUE)) {
-  check_string(main)
-  check_string(sub)
-  check_flag(ask)
-  if (!is.function(is)) error("is must be a function")
-
-  if (missing(x)) {
-    names <- objects(envir = calling_env())
-    flag <- FALSE
-    for (x_name in names) {
-      check_filename(x_name)
-      x <- get(x = x_name, envir = calling_env())
-      if (is(x))
-        save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
-      flag <- TRUE
-    }
-    if (!flag) warning("no suitable 'objects' in calling environment")
-    return(invisible(flag))
-  }
-
-  if (is.null(x_name)) x_name <- deparse(substitute(x))
-  check_string(x_name)
-  check_filename(x_name)
-
-  save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
-}
-
-#' Save Object
+#' Save Data
 #'
 #' @param x The data frame to save. If missing saves all data frames in calling env.
 #' @param main A string of the main subfolder.
@@ -65,31 +25,40 @@ save_object <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
 #' @param ask A string indicating whether to ask before creating a sub directory.
 #' @return The object x or TRUE or FALSE is x is missing.
 #' @export
-save_data <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
-                        ask = getOption("subfoldr.ask", TRUE)) {
+save_data <- function(x, sub = get_sub(), main = get_main(),
+                      x_name = NULL, ask = getOption("subfoldr.ask", TRUE)) {
+  check_data1(x)
   check_string(main)
   check_string(sub)
   check_flag(ask)
-
-  if (missing(x)) {
-    names <- objects(envir = calling_env())
-    flag <- FALSE
-    for (x_name in names) {
-      check_filename(x_name)
-      x <- get(x = x_name, envir = calling_env())
-      if (is.data.frame(x))
-        save_rds(x, "data", main = main, sub = sub, x_name = x_name, ask = ask)
-      flag <- TRUE
-    }
-    if (!flag) warning("no objects inheriting from data.frame in calling environment")
-    return(invisible(flag))
-  }
 
   if (is.null(x_name)) x_name <- deparse(substitute(x))
   check_string(x_name)
   check_filename(x_name)
 
   save_rds(x, "data", main = main, sub = sub, x_name = x_name, ask = ask)
+}
+
+#' Save Object
+#'
+#' @param x The object to save.
+#' @param main A string of the main subfolder.
+#' @param sub A string of the path to the directory to save the object.
+#' @param x_name An optional string of the name to use.
+#' @param ask A string indicating whether to ask before creating a sub directory.
+#' @return The object x or TRUE or FALSE is x is missing.
+#' @export
+save_object <- function(x, sub = get_sub(), main = get_main(),
+                        x_name = NULL, ask = getOption("subfoldr.ask", TRUE)) {
+  check_string(main)
+  check_string(sub)
+  check_flag(ask)
+
+  if (is.null(x_name)) x_name <- deparse(substitute(x))
+  check_string(x_name)
+  check_filename(x_name)
+
+  save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
 }
 
 #' Save Object as .png
@@ -101,8 +70,8 @@ save_data <- function(x, x_name = NULL, main = get_main(), sub = get_sub(),
 #' @param report A flag indicating to include the plot in reports.
 #' @param height A number indicating the height of the plot in inches.
 #' @export
-save_plot <- function(x, caption = "", report = TRUE,
-                      main = get_main(), sub = get_sub(),
+save_plot <- function(x, sub = get_sub(), main = get_main(),
+                      caption = "", report = TRUE,
                       width = NA_real_, height = NA_real_, dpi = 300,
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
@@ -156,8 +125,8 @@ save_plot <- function(x, caption = "", report = TRUE,
 #' @param report A flag indicating to include the plot in reports.
 #' @return The object x.
 #' @export
-save_table <- function(x, x_name = NULL, caption = "", report = TRUE,
-                       main = get_main(), sub = get_sub(),
+save_table <- function(x, sub = get_sub(), main = get_main(),
+                       x_name = NULL, caption = "", report = TRUE,
                        ask = getOption("subfoldr.ask", TRUE)) {
 
   check_flag(report)
@@ -191,8 +160,8 @@ save_table <- function(x, x_name = NULL, caption = "", report = TRUE,
 #' @param report A flag indicating to include the plot in reports.
 #' @return The object x.
 #' @export
-save_template <- function(x, x_name = NULL, caption = "", report = TRUE,
-                          main = get_main(), sub = get_sub(),
+save_template <- function(x, sub = get_sub(), main = get_main(),
+                          x_name = NULL, caption = "", report = TRUE,
                           ask = getOption("subfoldr.ask", TRUE)) {
 
   check_flag(report)
@@ -216,4 +185,31 @@ save_template <- function(x, x_name = NULL, caption = "", report = TRUE,
   cat(x, file = file)
 
   invisible(x)
+}
+
+#' Save data frames in the environ
+#'
+#' @param main A string of the main subfolder.
+#' @param sub A string of the path to the directory to save the object.
+#' @param ask A string indicating whether to ask before creating a sub directory.
+#' @param env The environment to get the data from.
+#' @return TRUE or FALSE
+#' @export
+save_datas <- function(sub = get_sub(), main = get_main(), env = calling_env(),
+                       ask = getOption("subfoldr.ask", TRUE)) {
+  check_string(main)
+  check_string(sub)
+  check_flag(ask)
+
+  names <- objects(envir = calling_env())
+  flag <- FALSE
+  for (x_name in names) {
+    check_filename(x_name)
+    x <- get(x = x_name, envir = env)
+    if (is.data.frame(x))
+      save_rds(x, "data", main = main, sub = sub, x_name = x_name, ask = ask)
+    flag <- TRUE
+  }
+  if (!flag) warning("no objects inheriting from data.frame in calling environment")
+  invisible(flag)
 }

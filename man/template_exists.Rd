@@ -4,14 +4,14 @@
 \alias{template_exists}
 \title{Template exists}
 \usage{
-template_exists(x, main = get_main(), sub = get_sub())
+template_exists(x, sub = get_sub(), main = get_main())
 }
 \arguments{
-\item{x}{The object to save. If missing saves all objects in calling env.}
-
-\item{main}{A string of the main subfolder.}
+\item{x}{The object to save.}
 
 \item{sub}{A string of the path to the directory to save the object.}
+
+\item{main}{A string of the main subfolder.}
 }
 \description{
 Test whether an template named x exists.

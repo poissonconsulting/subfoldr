@@ -2,17 +2,17 @@
 % Please edit documentation in R/load.R
 \name{load_datas}
 \alias{load_datas}
-\title{Load objects}
+\title{Load Data}
 \usage{
-load_datas(x, main = get_main(), sub = "")
+load_datas(sub = get_sub(), main = get_main(), env = calling_env())
 }
 \arguments{
-\item{x}{The object to save. If missing saves all objects in calling env.}
+\item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
 
-\item{sub}{A string of the path to the directory to save the object.}
+\item{env}{The environment to load the objects into}
 }
 \description{
-List of all data objects in sub and its subdirectories.
+Load Data
 }

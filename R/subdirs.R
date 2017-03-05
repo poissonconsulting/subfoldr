@@ -7,12 +7,21 @@ subdirs <- function(class, main, sub) {
   list.dirs(dir, full.names = FALSE, recursive = FALSE)
 }
 
+#' List Data Sub Directories
+#'
+#' @inheritParams save_object
+#' @return A character vector of the names of the directories in the sub folder.
+#' @export
+subdirs_datas <- function(sub = get_sub(), main = get_main()) {
+  subdirs("objects", main = main, sub = sub)
+}
+
 #' List Object Sub Directories
 #'
 #' @inheritParams save_object
 #' @return A character vector of the names of the directories in the sub folder.
 #' @export
-subdirs_objects <- function(main = get_main(), sub = get_sub()) {
+subdirs_objects <- function(sub = get_sub(), main = get_main()) {
   subdirs("objects", main = main, sub = sub)
 }
 
@@ -21,7 +30,7 @@ subdirs_objects <- function(main = get_main(), sub = get_sub()) {
 #' @inheritParams save_object
 #' @return A character vector of the names of the directories in the sub folder.
 #' @export
-subdirs_plots <- function(main = get_main(), sub = get_sub()) {
+subdirs_plots <- function(sub = get_sub(), main = get_main()) {
   subdirs("plots", main = main, sub = sub)
 }
 
@@ -30,7 +39,7 @@ subdirs_plots <- function(main = get_main(), sub = get_sub()) {
 #' @inheritParams save_object
 #' @return A character vector of the names of the directories in the sub folder.
 #' @export
-subdirs_tables <- function(main = get_main(), sub = get_sub()) {
+subdirs_tables <- function(sub = get_sub(), main = get_main()) {
   subdirs("tables", main = main, sub = sub)
 }
 
@@ -39,6 +48,6 @@ subdirs_tables <- function(main = get_main(), sub = get_sub()) {
 #' @inheritParams save_object
 #' @return A character vector of the names of the directories in the sub folder.
 #' @export
-subdirs_templates <- function(main = get_main(), sub = get_sub()) {
+subdirs_templates <- function(sub = get_sub(), main = get_main()) {
   subdirs("templates", main = main, sub = sub)
 }

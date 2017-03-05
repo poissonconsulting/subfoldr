@@ -4,20 +4,20 @@
 \alias{md_templates}
 \title{Markdown Templates}
 \usage{
-md_templates(headings = list(character(0)), drop = list(character(0)),
-  main = get_main(), sub = "", report = get_report(), nheaders = 0L,
+md_templates(sub = get_sub(), main = get_main(), report = get_report(),
+  headings = list(character(0)), drop = list(character(0)), nheaders = 0L,
   header1 = 3L, locale = "en", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
-\item{headings}{A list of named character vectors.}
-
-\item{drop}{A list of character vectors specify the subfolders to drop.}
+\item{sub}{A string of the path to the subfolders to save the object (by default = "").}
 
 \item{main}{A string of the main subfolder.}
 
-\item{sub}{A string of the path to the subfolders to save the object (by default = "").}
-
 \item{report}{A string indicating the report folder to copy the csv files.}
+
+\item{headings}{A list of named character vectors.}
+
+\item{drop}{A list of character vectors specify the subfolders to drop.}
 
 \item{nheaders}{An count of the number of headings to assign headers to.}
 

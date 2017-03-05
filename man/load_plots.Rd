@@ -2,19 +2,17 @@
 % Please edit documentation in R/load.R
 \name{load_plots}
 \alias{load_plots}
-\title{Load plots}
+\title{Load Data}
 \usage{
-load_plots(x, main = get_main(), sub = "", data = FALSE)
+load_plots(sub = get_sub(), main = get_main(), env = calling_env())
 }
 \arguments{
-\item{x}{The object to save. If missing saves all objects in calling env.}
+\item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
 
-\item{sub}{A string of the path to the directory to save the object.}
-
-\item{data}{A flag indicating whether to load the plot data.}
+\item{env}{The environment to load the objects into}
 }
 \description{
-List of all plot data in sub and its subdirectories.
+Load Data
 }

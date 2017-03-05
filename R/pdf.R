@@ -6,7 +6,7 @@
 #' @param height A number indicating the height in inches.
 #' @param ... Additional arguments passed to pdf
 #' @export
-open_pdf <- function(x, width = 6, height = width, main = get_main(), sub = get_sub(), ...) {
+open_pdf <- function(x, width = 6, height = width, sub = get_sub(), main = get_main(), ...) {
   check_string(x)
   check_string(main)
   check_string(sub)

@@ -20,14 +20,6 @@ sub2 <- file.path("first", "2nd", "third")
 save_table(mtcars, "mtcars", report = FALSE, main = main2, sub = sub2, ask = FALSE)
 save_table(datasets::ToothGrowth, "TG", main = main2, sub = sub2, ask = FALSE)
 
-x <- 1 # tested later that not saved
-
-save_object(main = main2, sub = sub2, ask = FALSE)
-
-x <- 1 # tested later that not be saved
-
-save_object(main = main2, sub = "also1", is = function(x) TRUE, ask = FALSE)
-
 template_2 <- "model{
 do stuff
 }
