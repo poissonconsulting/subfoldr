@@ -4,17 +4,17 @@
 \alias{save_object}
 \title{Save Object}
 \usage{
-save_object(x, sub = get_sub(), main = get_main(), x_name = NULL,
+save_object(x, x_name = NULL, sub = get_sub(), main = get_main(),
   ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{x}{The object to save.}
 
+\item{x_name}{An optional string of the name to use.}
+
 \item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
-
-\item{x_name}{An optional string of the name to use.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 }

@@ -25,8 +25,8 @@ save_rds <- function(x, class, main, sub, x_name, ask) {
 #' @param ask A string indicating whether to ask before creating a sub directory.
 #' @return The object x or TRUE or FALSE is x is missing.
 #' @export
-save_data <- function(x, sub = get_sub(), main = get_main(),
-                      x_name = NULL, ask = getOption("subfoldr.ask", TRUE)) {
+save_data <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
+                      ask = getOption("subfoldr.ask", TRUE)) {
   check_data1(x)
   check_string(main)
   check_string(sub)
@@ -48,8 +48,8 @@ save_data <- function(x, sub = get_sub(), main = get_main(),
 #' @param ask A string indicating whether to ask before creating a sub directory.
 #' @return The object x or TRUE or FALSE is x is missing.
 #' @export
-save_object <- function(x, sub = get_sub(), main = get_main(),
-                        x_name = NULL, ask = getOption("subfoldr.ask", TRUE)) {
+save_object <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
+                        ask = getOption("subfoldr.ask", TRUE)) {
   check_string(main)
   check_string(sub)
   check_flag(ask)
@@ -125,8 +125,8 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
 #' @param report A flag indicating to include the plot in reports.
 #' @return The object x.
 #' @export
-save_table <- function(x, sub = get_sub(), main = get_main(),
-                       x_name = NULL, caption = "", report = TRUE,
+save_table <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
+                       caption = "", report = TRUE,
                        ask = getOption("subfoldr.ask", TRUE)) {
 
   check_flag(report)
@@ -160,8 +160,8 @@ save_table <- function(x, sub = get_sub(), main = get_main(),
 #' @param report A flag indicating to include the plot in reports.
 #' @return The object x.
 #' @export
-save_template <- function(x, sub = get_sub(), main = get_main(),
-                          x_name = NULL, caption = "", report = TRUE,
+save_template <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
+                          caption = "", report = TRUE,
                           ask = getOption("subfoldr.ask", TRUE)) {
 
   check_flag(report)
