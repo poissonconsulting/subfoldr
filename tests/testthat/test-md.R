@@ -31,12 +31,23 @@ test_that("md_files works", {
   expect_identical(files, c("#### First\n##### Word 2", "", "##### Letter 2"))
 })
 
+test_that("md_transfers works", {
+  main <- file.path(system.file(package = "subfoldr"), "output")
+
+  transfers <- md_transfers(headings = list(character(0)), drop = list(character(0)), main = main,
+               sub = "first/second", report = "report", locale = "en", class = "tables", is_report = NA)
+
+  expect_identical(length(transfers), 4L)
+  expect_match(transfers[1], "output/tables/first/second/data2.csv$")
+  expect_identical(names(transfers[1]), "report/tables/first/second/data2.csv")
+})
+
 test_that("md_tables works", {
   main <- file.path(system.file(package = "subfoldr"), "output")
 
   md_tables <- md_tables(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
-                    drop = list(character(0), character(0), "data2"),
-                    main = main, report = NULL, locale = "en")
+                         drop = list(character(0), character(0), "data2"),
+                         main = main, report = NULL, locale = "en")
 
   expect_identical(datacheckr::check_string(md_tables), md_tables)
 })
@@ -44,9 +55,9 @@ test_that("md_tables works", {
 test_that("md_templates works", {
   main <- file.path(system.file(package = "subfoldr"), "output")
 
-    md_templates <- md_templates(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
-                         drop = list(character(0), character(0), "data2"),
-                         main = main, report = NULL, nheaders = 1L, locale = "en")
+  md_templates <- md_templates(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
+                               drop = list(character(0), character(0), "data2"),
+                               main = main, report = NULL, nheaders = 1L, locale = "en")
 
   expect_identical(md_templates, "### First\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTemplate 1. \n")
 
@@ -62,8 +73,8 @@ test_that("md_plots works", {
   main <- file.path(system.file(package = "subfoldr"), "output")
 
   md_plots <- md_plots(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
-                               drop = list(character(0), character(0), "data2"),
-                               main = main, report = NULL, nheaders = 1L, locale = "en")
+                       drop = list(character(0), character(0), "data2"),
+                       main = main, report = NULL, nheaders = 1L, locale = "en")
 
   expect_match(md_plots, "^### First\n\n<figure>\n<img alt = \"")
   expect_match(md_plots, "first/2nd/third/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>$")
@@ -75,7 +86,7 @@ test_that("md_table works", {
   expect_identical(md_table("data3", main = main, sub = "first/second", report = NULL), "")
 
   expect_identical(md_table("data2", "New Table", main = main, sub = "first/second", report = NULL),
-                    "\n\nTable 4. New Table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
+                   "\n\nTable 4. New Table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
 
   expect_identical(md_table("data2", main = main, sub = "first/second", report = NULL),
                    "\n\nTable 5. A table.\n\n|  a|\n|--:|\n|  3|\n|  4|\n")
@@ -87,7 +98,7 @@ test_that("md_plot works", {
   expect_identical(md_plot("cylmpg2", main = main, sub = "first/2nd/third", report = NULL), "")
 
   expect_identical(md_plot("cylmpg", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
-                   "\n\n<figure>\n<img alt = \"first/2nd/third/plots/cylmpg.png\" src = \"first/2nd/third/plots/cylmpg.png\" title = \"first/2nd/third/plots/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 2. New Plot.</figcaption>\n</figure>")
+                   "\n\n<figure>\n<img alt = \"plots/first/2nd/third/cylmpg.png\" src = \"plots/first/2nd/third/cylmpg.png\" title = \"plots/first/2nd/third/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 2. New Plot.</figcaption>\n</figure>")
 })
 
 test_that("md_template works", {
