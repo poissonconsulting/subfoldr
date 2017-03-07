@@ -1,7 +1,7 @@
 Package: subfoldr
 Title: Subfolders
-Date: 2017-03-05
-Version: 0.0.0.9014
+Date: 2017-03-07
+Version: 0.0.0.9015
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Orchestrates the saving and loading of objects to a subfolder and the generation of markdown results.
 Depends:
