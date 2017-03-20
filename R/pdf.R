@@ -6,14 +6,15 @@
 #' @param height A number indicating the height in inches.
 #' @param ... Additional arguments passed to pdf
 #' @export
-open_pdf <- function(x, width = 6, height = width, sub = get_sub(), main = get_main(), ...) {
+open_pdf <- function(x, width = 6, height = width, sub = get_sub(), main = get_main(),
+                     ask = getOption("subfoldr.ask", TRUE), ...) {
   check_string(x)
   check_string(main)
   check_string(sub)
 
   file <- file_path(main, "pdfs", sub, x) %>% str_c(".pdf")
 
-  dir.create(dirname(file), showWarnings = FALSE, recursive = TRUE)
+  create_dir(dirname(file), ask)
 
   grDevices::pdf(file = file, width = width, height = height, ...)
 }
