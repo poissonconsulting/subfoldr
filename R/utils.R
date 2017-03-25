@@ -67,7 +67,10 @@ open_window <- function(width = 6, height = width) {
 }
 
 list_files <- function(dir, report) {
+  dir %<>% str_replace("/$", "")
+
   files <- list.files(dir, pattern = "_[^/]+[.]RDS$", recursive = TRUE,  all.files = TRUE, full.names = TRUE)
+
   rds <- lapply(files, readRDS)
   if (!is.na(report))
     rds %<>% vapply(function(x, report) x$report == report, TRUE, report)
