@@ -312,9 +312,11 @@ md_transfers <- function(headings, drop, main, sub, report, locale, class, is_re
   subs <- subs[,order,drop = FALSE]
   files <- files[order]
 
-  subs %<>% plyr::alply(2, str_c, collapse = "/") %>% unlist() %>% str_replace("/$", "")
+  subs %<>% plyr::alply(2, str_c, collapse = "/") %>% unlist()
 
-  subs %<>% str_c(report, class, sub, ., sep = "/")  %>% str_replace("/$", "")
+  subs %<>% str_c(report, class, sub, ., sep = "/")  %>%
+    str_replace_all("/{2,}", "/") %>% str_replace("/$", "")
+
   subs %<>% str_c(class_ext(class), sep = ".")
 
   files <- names(files)
