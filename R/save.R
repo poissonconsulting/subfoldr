@@ -69,10 +69,12 @@ save_object <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
 #' @param caption A string of the figure caption.
 #' @param report A flag indicating to include the plot in reports.
 #' @param height A number indicating the height of the plot in inches.
+#' @param csv A flag indicating whether to save a csv of the plot data.
 #' @export
 save_plot <- function(x, sub = get_sub(), main = get_main(),
                       caption = "", report = TRUE,
                       width = NA_real_, height = NA_real_, dpi = 300,
+                      csv = TRUE,
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
 
@@ -86,6 +88,7 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
   check_flag(ask)
   check_scalar(width, c(1, NA))
   check_scalar(height, c(1, NA))
+  check_flag(csv)
 
   if (is.null(plot)) error("plot is NULL")
 
@@ -110,7 +113,7 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
   saveRDS(obj, file = file)
 
   file <- file_path(main, "plots", sub, x) %>% str_c(".csv")
-  readr::write_csv(plot$data, path = file)
+  if (csv) readr::write_csv(plot$data, path = file)
 
   file %<>% str_replace("[.]csv$", ".png")
   ggplot2::ggsave(file, plot = plot, width = width, height = height, dpi = dpi)

@@ -6,7 +6,8 @@
 \usage{
 save_plot(x, sub = get_sub(), main = get_main(), caption = "",
   report = TRUE, width = NA_real_, height = NA_real_, dpi = 300,
-  ask = getOption("subfoldr.ask", TRUE), plot = ggplot2::last_plot())
+  csv = TRUE, ask = getOption("subfoldr.ask", TRUE),
+  plot = ggplot2::last_plot())
 }
 \arguments{
 \item{x}{A string of the plot name.}
@@ -25,6 +26,8 @@ If not supplied, uses the size of current graphics device.}
 \item{height}{A number indicating the height of the plot in inches.}
 
 \item{dpi}{Plot resolution. Applies only to raster output types.}
+
+\item{csv}{A flag indicating whether to save a csv of the plot data.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 

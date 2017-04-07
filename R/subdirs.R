@@ -12,8 +12,8 @@ subdirs <- function(class, main, sub) {
 #' @inheritParams save_object
 #' @return A character vector of the names of the directories in the sub folder.
 #' @export
-subdirs_datas <- function(sub = get_sub(), main = get_main()) {
-  subdirs("objects", main = main, sub = sub)
+subdirs_data <- function(sub = get_sub(), main = get_main()) {
+  subdirs("data", main = main, sub = sub)
 }
 
 #' List Object Sub Directories
