@@ -8,15 +8,15 @@ test_that("plots", {
   sub <- file.path("first", "2nd", "third")
 
   load_plots(main = main, sub = sub)
-  expect_identical(ls(), c("cylmpg", "main", "sub"))
+  expect_identical(ls(), c("cyl_mpg", "main", "sub"))
 
-  expect_is(cylmpg, "ggplot")
+  expect_is(cyl_mpg, "ggplot")
 
-  plots <- load_plot_recursive("cylmpg", main = main, sub = "first")
+  plots <- load_plot_recursive("cyl_mpg", main = main, sub = "first")
   expect_is(plots, "list")
   expect_identical(length(plots), 1L)
   expect_true(ggplot2::is.ggplot(plots[[1]]))
 
-  plots <- load_plot_data_recursive("cylmpg", main = main, sub = "first")
+  plots <- load_plot_data_recursive("cyl_mpg", main = main, sub = "first")
   expect_identical(nrow(plots[[1]]), 32L)
 })

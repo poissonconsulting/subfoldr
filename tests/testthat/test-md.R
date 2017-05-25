@@ -79,7 +79,7 @@ test_that("md_plots works", {
                        main = main, report = NULL, nheaders = 1L, locale = "en")
 
   expect_match(md_plots, "^### First\n\n<figure>\n<img alt = \"")
-  expect_match(md_plots, "first/2nd/third/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>$")
+  expect_match(md_plots, "first/2nd/third/cyl_mpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>$")
 })
 
 test_that("md_table works", {
@@ -101,10 +101,10 @@ test_that("md_plot works", {
 
   reset_plot_number()
 
-  expect_identical(md_plot("cylmpg2", main = main, sub = "first/2nd/third", report = NULL), "")
+  expect_identical(md_plot("cyl_mpg2", main = main, sub = "first/2nd/third", report = NULL), "")
 
-  expect_identical(md_plot("cylmpg", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
-                   "\n\n<figure>\n<img alt = \"plots/first/2nd/third/cylmpg.png\" src = \"plots/first/2nd/third/cylmpg.png\" title = \"plots/first/2nd/third/cylmpg.png\" width = \"100%\">\n<figcaption>Figure 1. New Plot.</figcaption>\n</figure>")
+  expect_identical(md_plot("cyl_mpg", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
+                   "\n\n<figure>\n<img alt = \"plots/first/2nd/third/cyl_mpg.png\" src = \"plots/first/2nd/third/cyl_mpg.png\" title = \"plots/first/2nd/third/cyl_mpg.png\" width = \"100%\">\n<figcaption>Figure 1. New Plot.</figcaption>\n</figure>")
 })
 
 test_that("md_template works", {

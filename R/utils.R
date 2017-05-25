@@ -75,8 +75,10 @@ list_files <- function(dir, report) {
   if (!is.na(report))
     rds %<>% vapply(function(x, report) x$report == report, TRUE, report)
   names_files <- files
-  files %<>% str_replace(str_c("^(.*", dir, ")(.*)([.]RDS$)"), "\\2")
-  files %<>% str_replace("^(/)(.*)(_)([^_]+)$", "\\2\\4")
+  files %<>%
+    str_replace(str_c("^(.*", dir, ")(.*)([.]RDS$)"), "\\2") %>%
+    str_replace("/_", "/") %>%
+    str_replace("^/", "")
   names(files) <- names_files
   if (!is.na(report)) files <- files[rds]
   files

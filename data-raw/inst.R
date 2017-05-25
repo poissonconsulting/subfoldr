@@ -29,4 +29,4 @@ save_template(template_2, main = main2, sub = sub2, ask = FALSE)
 open_window()
 print(ggplot(data = datasets::mtcars, aes(x = cyl, y = mpg)) + geom_point())
 
-save_plot("cylmpg", caption = "a fine plot", main = main2, sub = sub2, ask = FALSE)
+save_plot("cyl_mpg", caption = "a fine plot", main = main2, sub = sub2, ask = FALSE)
