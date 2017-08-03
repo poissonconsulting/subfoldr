@@ -25,7 +25,8 @@ If not supplied, uses the size of current graphics device.}
 
 \item{height}{A number indicating the height of the plot in inches.}
 
-\item{dpi}{Plot resolution. Applies only to raster output types.}
+\item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
+"print" (300), or "screen" (72). Applies only to raster output types.}
 
 \item{csv}{A flag indicating whether to save a csv of the plot data.}
 
