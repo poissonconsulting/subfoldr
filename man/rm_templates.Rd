@@ -2,12 +2,14 @@
 % Please edit documentation in R/rm.R
 \name{rm_templates}
 \alias{rm_templates}
-\title{Load template}
+\title{Remove templates}
 \usage{
-rm_templates(sub = get_sub(), main = get_main(),
+rm_templates(recursive = TRUE, sub = get_sub(), main = get_main(),
   ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
+\item{recursive}{A flag indicating whether to recursively delete items.}
+
 \item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
@@ -15,5 +17,5 @@ rm_templates(sub = get_sub(), main = get_main(),
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 }
 \description{
-Load template
+Remove templates
 }

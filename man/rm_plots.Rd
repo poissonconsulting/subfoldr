@@ -4,10 +4,12 @@
 \alias{rm_plots}
 \title{Remove Plots}
 \usage{
-rm_plots(sub = get_sub(), main = get_main(),
+rm_plots(recursive = TRUE, sub = get_sub(), main = get_main(),
   ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
+\item{recursive}{A flag indicating whether to recursively delete items.}
+
 \item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
