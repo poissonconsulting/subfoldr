@@ -204,7 +204,7 @@ save_datas <- function(sub = get_sub(), main = get_main(), env = calling_env(),
   check_string(sub)
   check_flag(ask)
 
-  names <- objects(envir = calling_env())
+  names <- objects(envir = env)
   flag <- FALSE
   for (x_name in names) {
     check_filename(x_name)
