@@ -2,7 +2,7 @@
 % Please edit documentation in R/db.R
 \name{open_db}
 \alias{open_db}
-\title{Opens an connection to an sqlite3 database}
+\title{Opens an connection to an sqlite database}
 \usage{
 open_db(x, new = NA, foreign_keys = TRUE, sub = get_sub(),
   main = get_main(), ask = getOption("subfoldr.ask", TRUE), ...)
@@ -23,5 +23,5 @@ open_db(x, new = NA, foreign_keys = TRUE, sub = get_sub(),
 \item{...}{Additional arguments passed to pdf}
 }
 \description{
-Opens an connection to an sqlite3 database
+Currently an sqlite3 database
 }

@@ -1,9 +1,12 @@
 Package: subfoldr
 Title: Subfolders
-Date: 2017-08-29
-Version: 0.0.0.9022
+Version: 0.0.0.9023
+Date: 2017-09-09
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Orchestrates the saving and loading of objects to a subfolder and the generation of markdown results.
+License: MIT + file LICENSE
+URL: https://github.com/poissonconsulting/subfoldr
+BugReports: https://github.com/poissonconsulting/subfoldr/issues
 Depends:
     R (>= 3.3.0)
 Imports:
@@ -20,10 +23,9 @@ Imports:
     RSQLite,
     stringr,
     yesno
-License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
 Suggests:
     testthat,
     covr
+Encoding: UTF-8
+LazyData: true
 RoxygenNote: 6.0.1

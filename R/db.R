@@ -1,4 +1,6 @@
-#' Opens an connection to an sqlite3 database
+#' Opens an connection to an sqlite database
+#'
+#' Currently an sqlite3 database
 #'
 #' @inheritParams save_object
 #' @param x A string of the name of the db to create (without the file extension).
@@ -14,7 +16,7 @@ open_db <- function(x, new = NA, foreign_keys = TRUE, sub = get_sub(), main = ge
   check_scalar(new, c(TRUE, NA))
   check_flag(foreign_keys)
 
-  file <- file_path(main, "dbs", sub, x) %>% str_c(".sqlite3")
+  file <- file_path(main, "dbs", sub, x) %>% str_c(".sqlite")
 
   if (identical(new, FALSE) && !file.exists(file))
     error("database `", file, "` does not exist")

@@ -9,3 +9,5 @@
 ^output$
 ^report$
 ^data-raw$
+^document.R$
+^docs$
