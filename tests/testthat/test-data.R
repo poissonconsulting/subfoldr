@@ -11,6 +11,7 @@ test_that("data", {
   expect_identical(sort(ls()), sort(c("main", "mtcars", "sub", "TG")))
 
   dir <- tempdir()
+  on.exit(rm_all(ask = FALSE))
   dir.create(dir, showWarnings = FALSE, recursive = TRUE)
   template1 <- 1
   expect_error(save_data(template1, ask = FALSE), "template1 must be a data frame")
