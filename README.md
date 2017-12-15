@@ -14,11 +14,26 @@ MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org
 
 # subfoldr
 
+`subfoldr` is an R package to orchestrate the saving and loading of
+data, tables, plots, templates and objects to a directory and the
+generation of markdown results
+
 ## Installation
+
+`subfoldr` can be installed from GitHub
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("poissonconsulting/subfoldr")
+```
+
+or the Poisson R Archive Network
+([PoisRAN](https://github.com/poissonconsulting/drat))
+
+``` r
+# install.packages("drat")
+drat::addRepo("poissonconsulting")
+install.packages("subfoldr")
 ```
 
 ## Contribution
