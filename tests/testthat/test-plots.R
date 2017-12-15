@@ -19,4 +19,9 @@ test_that("plots", {
 
   plots <- load_plot_data_recursive("cyl_mpg", main = main, sub = "first")
   expect_identical(nrow(plots[[1]]), 32L)
+
+
+#  sub <-
+#  save_plot(ggplot2::qplot(data = mtcars, mpg, binwidth = 1),
+
 })

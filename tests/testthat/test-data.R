@@ -12,7 +12,6 @@ test_that("data", {
 
   dir <- tempdir()
   on.exit(rm_all(ask = FALSE))
-  dir.create(dir, showWarnings = FALSE, recursive = TRUE)
   template1 <- 1
   expect_error(save_data(template1, ask = FALSE), "template1 must be a data frame")
   expect_identical(save_data(TG, sub = dir, ask = FALSE), TG)

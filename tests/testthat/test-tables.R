@@ -36,4 +36,9 @@ test_that("tables", {
   mtcars <- dplyr::bind_rows(mtcars)
   expect_identical(colnames(mtcars), c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb"))
   expect_identical(nrow(mtcars), 32L)
+
+  dir <- tempdir()
+  on.exit(rm_all(ask = FALSE))
+  expect_identical(save_table(mtcars, sub = dir, ask = FALSE), mtcars)
+  expect_identical(load_table("mtcars", sub = dir), mtcars)
 })
