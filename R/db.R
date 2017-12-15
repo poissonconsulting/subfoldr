@@ -13,7 +13,7 @@ open_db <- function(x, new = NA, foreign_keys = TRUE, sub = get_sub(), main = ge
   check_string(x)
   check_string(main)
   check_string(sub)
-  check_scalar(new, c(TRUE, NA))
+  check_vector(new, c(TRUE, NA), length = 1)
   check_flag(foreign_keys)
 
   file <- file_path(main, "dbs", sub, x) %>% str_c(".sqlite")

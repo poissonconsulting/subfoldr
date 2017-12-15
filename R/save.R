@@ -27,14 +27,15 @@ save_rds <- function(x, class, main, sub, x_name, ask) {
 #' @export
 save_data <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
                       ask = getOption("subfoldr.ask", TRUE)) {
-  check_data(x)
-  check_string(main)
-  check_string(sub)
-  check_flag(ask)
-
   if (is.null(x_name)) x_name <- deparse(substitute(x))
   check_string(x_name)
   check_filename(x_name)
+
+  check_data(x, x_name = deparse(substitute(x)))
+
+  check_string(main)
+  check_string(sub)
+  check_flag(ask)
 
   save_rds(x, "data", main = main, sub = sub, x_name = x_name, ask = ask)
 }
@@ -50,13 +51,14 @@ save_data <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
 #' @export
 save_object <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
                         ask = getOption("subfoldr.ask", TRUE)) {
+  if (is.null(x_name)) x_name <- deparse(substitute(x))
+  check_string(x_name)
+  check_filename(x_name)
+
   check_string(main)
   check_string(sub)
   check_flag(ask)
 
-  if (is.null(x_name)) x_name <- deparse(substitute(x))
-  check_string(x_name)
-  check_filename(x_name)
 
   save_rds(x, "objects", main = main, sub = sub, x_name = x_name, ask = ask)
 }
@@ -78,16 +80,17 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
 
-  check_string(x)
-  check_filename(x)
+  if (is.null(x_name)) x_name <- deparse(substitute(x))
+  check_string(x_name)
+  check_filename(x_name)
 
   check_flag(report)
   check_string(main)
   check_string(sub)
   check_string(caption)
   check_flag(ask)
-  check_scalar(width, c(1, NA))
-  check_scalar(height, c(1, NA))
+  check_length1(width, c(1, NA))
+  check_length1(height, c(1, NA))
   check_flag(csv)
 
   if (is.null(plot)) error("plot is NULL")
@@ -132,17 +135,17 @@ save_table <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
                        caption = "", report = TRUE,
                        ask = getOption("subfoldr.ask", TRUE)) {
 
+  if (is.null(x_name)) x_name <- deparse(substitute(x))
+  check_string(x_name)
+  check_filename(x_name)
+
+  check_data(x, x_name = deparse(substitute(x)))
+
   check_flag(report)
   check_string(main)
   check_string(sub)
   check_string(caption)
   check_flag(ask)
-
-  if (is.null(x_name)) x_name <- deparse(substitute(x))
-  check_string(x_name)
-  check_filename(x_name)
-
-  if (!is.data.frame(x)) error(x_name, " must be a data.frame")
 
   save_rds(x, "tables", main = main, sub = sub, x_name = x_name, ask = ask)
 
@@ -167,16 +170,17 @@ save_template <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
                           caption = "", report = TRUE,
                           ask = getOption("subfoldr.ask", TRUE)) {
 
+  if (is.null(x_name)) x_name <- deparse(substitute(x))
+  check_string(x_name)
+  check_filename(x_name)
+
+  check_string(x, x_name = deparse(substitute(x)))
+
   check_flag(report)
   check_string(main)
   check_string(sub)
   check_string(caption)
   check_flag(ask)
-
-  check_string(x, x_name = deparse(substitute(x)))
-  if (is.null(x_name)) x_name <- deparse(substitute(x))
-  check_string(x_name)
-  check_filename(x_name)
 
   save_rds(x, "templates", main = main, sub = sub, x_name = x_name, ask = ask)
 
