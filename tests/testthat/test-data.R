@@ -1,6 +1,6 @@
-context("templates")
+context("data")
 
-test_that("templates", {
+test_that("data", {
   rm(list = ls())
   expect_identical(ls(), character(0))
 

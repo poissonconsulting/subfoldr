@@ -27,7 +27,7 @@ save_rds <- function(x, class, main, sub, x_name, ask) {
 #' @export
 save_data <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
                       ask = getOption("subfoldr.ask", TRUE)) {
-  check_data1(x)
+  check_data(x)
   check_string(main)
   check_string(sub)
   check_flag(ask)
