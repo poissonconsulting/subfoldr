@@ -15,10 +15,18 @@ save_table(mtcars, report = FALSE, main = main2, sub = sub2, ask = FALSE)
 save_table(mtcars, "mtcars2", main = main2, sub = sub2, ask = FALSE)
 save_table(mtcars, "mtcars3", caption = "Another table", main = main2, sub = sub2, ask = FALSE)
 
+save_data(data2, main = main2, sub = sub2, ask = FALSE)
+save_data(mtcars, main = main2, sub = sub2, ask = FALSE)
+save_data(mtcars, "mtcars2", main = main2, sub = sub2, ask = FALSE)
+save_data(mtcars, "mtcars3", main = main2, sub = sub2, ask = FALSE)
+
 sub2 <- file.path("first", "2nd", "third")
 
 save_table(mtcars, "mtcars", report = FALSE, main = main2, sub = sub2, ask = FALSE)
 save_table(datasets::ToothGrowth, "TG", main = main2, sub = sub2, ask = FALSE)
+
+save_data(mtcars, "mtcars", main = main2, sub = sub2, ask = FALSE)
+save_data(datasets::ToothGrowth, "TG", main = main2, sub = sub2, ask = FALSE)
 
 template_2 <- "model{
 do stuff
