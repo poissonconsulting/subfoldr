@@ -21,7 +21,9 @@ test_that("plots", {
   expect_identical(nrow(plots[[1]]), 32L)
 
 
-#  sub <-
-#  save_plot(ggplot2::qplot(data = mtcars, mpg, binwidth = 1),
-
+  dir <- tempdir()
+  on.exit(rm_all(ask = FALSE))
+  ggplot2::qplot(data = mtcars, mpg, binwidth = 1)
+  save_plot("mtcars", sub = dir, ask = FALSE)
+  expect_identical(load_plot_data("mtcars", sub = dir), mtcars)
 })

@@ -80,9 +80,8 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
                       ask = getOption("subfoldr.ask", TRUE),
                       plot = ggplot2::last_plot()) {
 
-  if (is.null(x_name)) x_name <- deparse(substitute(x))
-  check_string(x_name)
-  check_filename(x_name)
+  check_string(x)
+  check_filename(x)
 
   check_flag(report)
   check_string(main)
