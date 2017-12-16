@@ -49,7 +49,7 @@ test_that("md_tables works", {
                          drop = list(character(0), character(0), "data2"),
                          main = main, report = NULL, locale = "en")
 
-  expect_identical(datacheckr::check_string(md_tables), md_tables)
+  expect_identical(checkr::check_string(md_tables), md_tables)
 })
 
 test_that("md_templates works", {

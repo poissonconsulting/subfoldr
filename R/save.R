@@ -31,7 +31,7 @@ save_data <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
   check_string(x_name)
   check_filename(x_name)
 
-  check_data(x, x_name = deparse(substitute(x)))
+  check_data(x, x_name = x_name)
 
   check_string(main)
   check_string(sub)
@@ -138,7 +138,7 @@ save_table <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
   check_string(x_name)
   check_filename(x_name)
 
-  check_data(x, x_name = deparse(substitute(x)))
+  check_data(x, x_name = x_name)
 
   check_flag(report)
   check_string(main)
@@ -173,7 +173,7 @@ save_template <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
   check_string(x_name)
   check_filename(x_name)
 
-  check_string(x, x_name = deparse(substitute(x)))
+  check_string(x, x_name = x_name)
 
   check_flag(report)
   check_string(main)
