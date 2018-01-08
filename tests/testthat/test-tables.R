@@ -14,7 +14,7 @@ test_that("tables", {
 
   data1 <- 1
 
-  expect_error(save_table(data1, caption = "A table", ask = FALSE), "data1 must be a data.frame")
+  expect_error(save_table(data1, caption = "A table", ask = FALSE), "data1 must inherit from class data.frame")
   expect_error(load_table("data3"))
 
   expect_error(load_table())

@@ -123,6 +123,75 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
   invisible(x)
 }
 
+#' Save Object with multiple viewports as .png
+#' For each plot provided in 'plot' argument, there should be a corresponding viewport in 'vp' argument (where first plot object corresponds to first viewport object, etc.).
+#'
+#' @inheritParams save_object
+#' @inheritParams png
+#' @param x A string of the plot name.
+#' @param caption A string of the figure caption.
+#' @param report A flag indicating to include the plot in reports.
+#' @param height A number indicating the height of the plot in inches.
+#' @param width A number indicating the width of the plot in inches.
+#' @param dpi A number indicating the resolution of the .png.
+#' @param plot A list containing plot objects.
+#' @param vp A list containing viewport objects.
+
+#' @export
+save_multiplot <- function(x, sub = get_sub(), main = get_main(), caption = "",
+                           report = TRUE, width = NA_real_, height = NA_real_, dpi = 300,
+                           ask = getOption("subfoldr.ask", TRUE),
+                           plot, vp) {
+
+  check_string(x)
+  check_filename(x)
+  check_flag(report)
+  check_string(main)
+  check_string(sub)
+  check_string(caption)
+  check_flag(ask)
+  check_length1(width, c(1, NA))
+  check_length1(height, c(1, NA))
+
+  if (is.null(plot)) error("plot is NULL")
+
+  if (is.null(vp)) error("vp is NULL")
+
+  if (any(!purrr::map_lgl(vp, inherits, "viewport"))) error ("all objects in vp must be class 'viewport'")
+
+  if(!identical(length(plot), length(vp))) error("plot and vp must be same length")
+
+  if (is.na(width))  width <- height
+  if (is.na(height)) height <- width
+
+  if (is.na(width)) {
+    if (!length(grDevices::dev.list())) {
+      width = 6
+      height = 6
+    }
+    else {
+      dim <- grDevices::dev.size(units = "in")
+      width <- dim[1]
+      height <- dim[2]
+    }
+  }
+
+  save_rds(list(plots = plot, viewports = vp), "plots", main = main, sub = sub, x_name = x, ask = ask)
+  obj <- list(width = width, height = height, dpi = dpi, caption = caption, report = report)
+  file <- file_path(main, "plots", sub, str_c("_", x)) %>% str_c(".RDS")
+  saveRDS(obj, file = file)
+
+  dir <- file_path(main, "plots", sub)
+  create_dir(dir = dir, ask = T)
+  file <- file_path(dir, x) %>% str_c(".png")
+
+  grDevices::png(filename = file, width = width, height = height, res = dpi, units = "in")
+  purrr::pwalk(list(plot, vp), function(a, b) print(a, vp = b))
+  grDevices::dev.off()
+
+  invisible(x)
+}
+
 #' Save Object as .csv
 #'
 #' @inheritParams save_object
