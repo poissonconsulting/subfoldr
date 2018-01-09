@@ -118,7 +118,8 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
   saveRDS(obj, file = file)
 
   file <- file_path(main, "plots", sub, x) %>% str_c(".csv")
-  if (csv) readr::write_csv(plot$data, path = file)
+  if (csv)
+    if(inherits(plot$data, "data.frame")) readr::write_csv(plot$data, path = file)
 
   file %<>% str_replace("[.]csv$", ".png")
   ggplot2::ggsave(file, plot = plot, width = width, height = height, dpi = dpi)
@@ -130,7 +131,7 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
 #' For each plot provided in 'plot' argument, there should be a corresponding viewport in 'vp' argument (where first plot object corresponds to first viewport object, etc.).
 #'
 #' @inheritParams save_object
-#' @inheritParams png
+#' @inheritParams grDevices::png
 #' @param x A string of the plot name.
 #' @param caption A string of the figure caption.
 #' @param report A flag indicating to include the plot in reports.
