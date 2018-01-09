@@ -1,6 +1,6 @@
 Package: subfoldr
 Title: Subfolders
-Version: 0.0.0.9025
+Version: 0.0.0.9026
 Date: 2017-12-15
 Authors@R: person("Joe", "Thorley", email = "joe@poissonconsulting.ca", role = c("aut", "cre"))
 Description: Orchestrates the saving and loading of data, tables, plots, templates and objects 
