@@ -24,7 +24,7 @@ save_multiplot(x, sub = get_sub(), main = get_main(), caption = "",
 
 \item{height}{A number indicating the height of the plot in inches.}
 
-\item{dpi}{A number indicating the resolution of the .png.}
+\item{dpi}{A number indicating plot resolution.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 

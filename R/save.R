@@ -71,6 +71,9 @@ save_object <- function(x, x_name = NULL, sub = get_sub(), main = get_main(),
 #' @param caption A string of the figure caption.
 #' @param report A flag indicating to include the plot in reports.
 #' @param height A number indicating the height of the plot in inches.
+#' @param width A number indicating the width of the plot in inches.
+#' @param dpi A number indicating plot resolution.
+#' @param plot A plot object.
 #' @param csv A flag indicating whether to save a csv of the plot data.
 #' @export
 save_plot <- function(x, sub = get_sub(), main = get_main(),
@@ -133,7 +136,7 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
 #' @param report A flag indicating to include the plot in reports.
 #' @param height A number indicating the height of the plot in inches.
 #' @param width A number indicating the width of the plot in inches.
-#' @param dpi A number indicating the resolution of the .png.
+#' @param dpi A number indicating plot resolution.
 #' @param plot A list containing plot objects.
 #' @param vp A list containing viewport objects.
 

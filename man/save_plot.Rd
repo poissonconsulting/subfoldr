@@ -20,19 +20,17 @@ save_plot(x, sub = get_sub(), main = get_main(), caption = "",
 
 \item{report}{A flag indicating to include the plot in reports.}
 
-\item{width}{Plot size in \code{units} ("in", "cm", or "mm").
-If not supplied, uses the size of current graphics device.}
+\item{width}{A number indicating the width of the plot in inches.}
 
 \item{height}{A number indicating the height of the plot in inches.}
 
-\item{dpi}{Plot resolution. Also accepts a string input: "retina" (320),
-"print" (300), or "screen" (72). Applies only to raster output types.}
+\item{dpi}{A number indicating plot resolution.}
 
 \item{csv}{A flag indicating whether to save a csv of the plot data.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 
-\item{plot}{Plot to save, defaults to last plot displayed.}
+\item{plot}{A plot object.}
 }
 \description{
 Save Object as .png
