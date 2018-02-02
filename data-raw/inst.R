@@ -38,3 +38,9 @@ open_window()
 print(ggplot(data = datasets::mtcars, aes(x = cyl, y = mpg)) + geom_point())
 
 save_plot("cyl_mpg", caption = "a fine plot", main = main2, sub = sub2, ask = FALSE)
+
+p1 <- ggplot2::qplot(data = mtcars, mpg, binwidth = 1)
+p2 <- ggplot2::qplot(data = mtcars, mpg, binwidth = 3)
+v1 <- grid::viewport(width = 0.5, height = 0.5, x = 0, y = 1, just = c("left", "top"))
+v2 <- grid::viewport(width = 1, height = 0.5, x = 0.5, y = 0.5, just = c("left", "top"))
+save_multiplot("mtcars_multi", main = main2, sub = sub2, ask = FALSE, plot = list(p1, p2), vp = list(v1, v2))

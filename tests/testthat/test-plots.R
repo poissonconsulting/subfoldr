@@ -8,7 +8,7 @@ test_that("plots", {
   sub <- file.path("first", "2nd", "third")
 
   load_plots(main = main, sub = sub)
-  expect_identical(ls(), c("cyl_mpg", "main", "sub"))
+  expect_identical(ls(), c("cyl_mpg", "main", "mtcars_multi", "sub"))
 
   expect_is(cyl_mpg, "ggplot")
 
@@ -32,10 +32,6 @@ test_that("plots", {
   v2 <- grid::viewport(width = 1, height = 0.5, x = 0.5, y = 0.5, just = c("left", "top"))
   save_multiplot("mtcars_multi", sub = dir, ask = FALSE, plot = list(p1, p2), vp = list(v1, v2))
 
-  data <- load_plot("mtcars_multi", sub = dir)
+  data <- load_plot("mtcars_multi", sub = sub, main = main)
   expect_identical(names(data), c("plots", "viewports"))
-
-  data2 <- load_plot("_mtcars_multi", sub = dir)
-  expect_identical(length(data2), 5L)
-
 })

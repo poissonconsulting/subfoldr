@@ -79,7 +79,7 @@ test_that("md_plots works", {
                        main = main, report = NULL, nheaders = 1L, locale = "en")
 
   expect_match(md_plots, "^### First\n\n<figure>\n<img alt = \"")
-  expect_match(md_plots, "first/2nd/third/cyl_mpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>$")
+  expect_match(md_plots, "first/2nd/third/cyl_mpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>")
 })
 
 test_that("md_table works", {
