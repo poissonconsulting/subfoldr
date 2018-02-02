@@ -4,10 +4,17 @@
 \alias{set_sub}
 \title{Set sub}
 \usage{
-set_sub(...)
+set_sub(..., rm = FALSE, recursive = TRUE, ask = getOption("subfoldr.ask",
+  TRUE))
 }
 \arguments{
 \item{...}{One or more strings}
+
+\item{rm}{A flag indicating whether to remove the subdirectories.}
+
+\item{recursive}{A flag indicating whether to recursively delete items.}
+
+\item{ask}{A string indicating whether to ask before creating a sub directory.}
 }
 \value{
 A string of the new sub.

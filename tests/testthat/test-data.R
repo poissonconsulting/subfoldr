@@ -16,4 +16,7 @@ test_that("data", {
   expect_error(save_data(template1, ask = FALSE), "template1 must inherit from class data.frame")
   expect_identical(save_data(TG, sub = dir, ask = FALSE), TG)
   expect_identical(load_data("TG", sub = dir), TG)
+  env <- new.env()
+  load_datas(sub = dir, env = env)
+  expect_identical(ls(envir = env), "TG")
 })

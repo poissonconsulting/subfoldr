@@ -37,7 +37,8 @@ rm_rdss <- function(recursive, class, sub, main, ask) {
 #' @inheritParams save_object
 #' @param recursive A flag indicating whether to recursively delete items.
 #' @export
-rm_datas <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask = getOption("subfoldr.ask", TRUE)) {
+rm_datas <- function(sub = get_sub(), main = get_main(), recursive = TRUE,
+                     ask = getOption("subfoldr.ask", TRUE)) {
   invisible(rm_rdss(recursive = recursive, class = "data", sub = sub, main = main, ask = ask))
 }
 
@@ -46,7 +47,8 @@ rm_datas <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask =
 #' @inheritParams save_object
 #' @param recursive A flag indicating whether to recursively delete items.
 #' @export
-rm_dbs <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask = getOption("subfoldr.ask", TRUE)) {
+rm_dbs <- function(sub = get_sub(), main = get_main(), recursive = TRUE,
+                   ask = getOption("subfoldr.ask", TRUE)) {
   invisible(rm_rdss(recursive = recursive, class = "dbs", sub = sub, main = main, ask = ask))
 }
 
@@ -55,7 +57,8 @@ rm_dbs <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask = g
 #' @inheritParams save_object
 #' @param recursive A flag indicating whether to recursively delete items.
 #' @export
-rm_objects <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask = getOption("subfoldr.ask", TRUE)) {
+rm_objects <- function(sub = get_sub(), main = get_main(), recursive = TRUE,
+                       ask = getOption("subfoldr.ask", TRUE)) {
   invisible(rm_rdss(recursive = recursive, class = "objects", sub = sub, main = main, ask = ask))
 }
 
@@ -64,7 +67,8 @@ rm_objects <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask
 #' @inheritParams save_object
 #' @param recursive A flag indicating whether to recursively delete items.
 #' @export
-rm_plots <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask = getOption("subfoldr.ask", TRUE)) {
+rm_plots <- function(sub = get_sub(), main = get_main(), recursive = TRUE,
+                     ask = getOption("subfoldr.ask", TRUE)) {
   invisible(rm_rdss(recursive = recursive, class = "plots", sub = sub, main = main, ask = ask))
 }
 
@@ -73,7 +77,8 @@ rm_plots <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask =
 #' @inheritParams save_object
 #' @param recursive A flag indicating whether to recursively delete items.
 #' @export
-rm_tables <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask = getOption("subfoldr.ask", TRUE)) {
+rm_tables <- function(sub = get_sub(), main = get_main(), recursive = TRUE,
+                      ask = getOption("subfoldr.ask", TRUE)) {
   invisible(rm_rdss(recursive = recursive, class = "tables", sub = sub, main = main, ask = ask))
 }
 
@@ -82,7 +87,8 @@ rm_tables <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask 
 #' @inheritParams save_object
 #' @param recursive A flag indicating whether to recursively delete items.
 #' @export
-rm_templates <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask = getOption("subfoldr.ask", TRUE)) {
+rm_templates <- function(sub = get_sub(), main = get_main(), recursive = TRUE,
+                         ask = getOption("subfoldr.ask", TRUE)) {
   invisible(rm_rdss(recursive = recursive, class = "templates", sub = sub, main = main, ask = ask))
 }
 
@@ -91,7 +97,8 @@ rm_templates <- function(recursive = TRUE, sub = get_sub(), main = get_main(), a
 #' @inheritParams save_object
 #' @param recursive A flag indicating whether to recursively delete items.
 #' @export
-rm_all <- function(recursive = TRUE, sub = get_sub(), main = get_main(), ask = getOption("subfoldr.ask", TRUE)) {
+rm_all <- function(sub = get_sub(), main = get_main(), recursive = TRUE,
+                   ask = getOption("subfoldr.ask", TRUE)) {
   check_flag(ask)
   check_string(sub)
   check_string(main)

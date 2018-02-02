@@ -87,16 +87,12 @@
     <p>Remove Data</p>
     
 
-    <pre class="usage"><span class='fu'>rm_datas</span>(<span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sub</span> <span class='kw'>=</span> <span class='fu'><a href='get_sub.html'>get_sub</a></span>(), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='get_main.html'>get_main</a></span>(),
+    <pre class="usage"><span class='fu'>rm_datas</span>(<span class='kw'>sub</span> <span class='kw'>=</span> <span class='fu'><a href='get_sub.html'>get_sub</a></span>(), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='get_main.html'>get_main</a></span>(), <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"subfoldr.ask"</span>, <span class='fl'>TRUE</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>recursive</th>
-      <td><p>A flag indicating whether to recursively delete items.</p></td>
-    </tr>
     <tr>
       <th>sub</th>
       <td><p>A string of the path to the directory to save the object.</p></td>
@@ -104,6 +100,10 @@
     <tr>
       <th>main</th>
       <td><p>A string of the main subfolder.</p></td>
+    </tr>
+    <tr>
+      <th>recursive</th>
+      <td><p>A flag indicating whether to recursively delete items.</p></td>
     </tr>
     <tr>
       <th>ask</th>

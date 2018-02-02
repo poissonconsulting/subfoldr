@@ -118,12 +118,18 @@ get_sub <- function() {
 #' Set sub
 #'
 #' @param ... One or more strings
+#' @inheritParams save_object
+#' @param rm A flag indicating whether to remove the subdirectories.
+#' @param recursive A flag indicating whether to recursively delete items.
 #' @return A string of the new sub.
 #' @export
-set_sub <- function(...) {
+set_sub <- function(..., rm = FALSE, recursive = TRUE,
+                    ask = getOption("subfoldr.ask", TRUE)) {
+  check_flag(rm)
   sub <- file_path(...)
   check_string(sub)
   options(subfoldr.sub = sub)
+  if(rm) rm_all(sub = sub, recursive = recursive, ask = ask)
   invisible(sub)
 }
 

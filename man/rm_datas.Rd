@@ -4,15 +4,15 @@
 \alias{rm_datas}
 \title{Remove Data}
 \usage{
-rm_datas(recursive = TRUE, sub = get_sub(), main = get_main(),
+rm_datas(sub = get_sub(), main = get_main(), recursive = TRUE,
   ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
-\item{recursive}{A flag indicating whether to recursively delete items.}
-
 \item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
+
+\item{recursive}{A flag indicating whether to recursively delete items.}
 
 \item{ask}{A string indicating whether to ask before creating a sub directory.}
 }

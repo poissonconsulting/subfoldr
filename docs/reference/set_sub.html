@@ -87,7 +87,8 @@
     <p>Set sub</p>
     
 
-    <pre class="usage"><span class='fu'>set_sub</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>set_sub</span>(<span class='no'>...</span>, <span class='kw'>rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>ask</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"subfoldr.ask"</span>,
+  <span class='fl'>TRUE</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -95,6 +96,18 @@
     <tr>
       <th>...</th>
       <td><p>One or more strings</p></td>
+    </tr>
+    <tr>
+      <th>rm</th>
+      <td><p>A flag indicating whether to remove the subdirectories.</p></td>
+    </tr>
+    <tr>
+      <th>recursive</th>
+      <td><p>A flag indicating whether to recursively delete items.</p></td>
+    </tr>
+    <tr>
+      <th>ask</th>
+      <td><p>A string indicating whether to ask before creating a sub directory.</p></td>
     </tr>
     </table>
     

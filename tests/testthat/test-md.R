@@ -115,3 +115,4 @@ test_that("md_template works", {
   expect_identical(md_template("template_2", "New Plot", main = main, sub = "first/2nd/third", report = NULL),
                    "\n```\n.\nmodel{\ndo stuff\n}\n\n..\n```\nTable 3. New Plot.\n")
 })
+
