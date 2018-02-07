@@ -80,6 +80,12 @@ test_that("md_plots works", {
 
   expect_match(md_plots, "^### First\n\n<figure>\n<img alt = \"")
   expect_match(md_plots, "first/2nd/third/cyl_mpg.png\" width = \"100%\">\n<figcaption>Figure 1. a fine plot.</figcaption>\n</figure>")
+
+  md_plots3 <- md_plots(headings = list(character(0), c("second" = "Word 2", "2nd" = "Letter 2")),
+                       drop = list(character(0), character(0), "data2"),
+                       main = main, report = NULL, nheaders = 3L, locale = "en")
+
+  expect_match(md_plots3, "### First\n#### Letter 2\n##### Third\n\n<figure>\n<img alt = \"")
 })
 
 test_that("md_table works", {
