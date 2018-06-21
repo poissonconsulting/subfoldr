@@ -118,9 +118,14 @@ save_plot <- function(x, sub = get_sub(), main = get_main(),
   saveRDS(obj, file = file)
 
   file <- file_path(main, "plots", sub, x) %>% str_c(".csv")
-  if (csv)
-    if(inherits(plot$data, "data.frame")) readr::write_csv(plot$data, path = file)
-
+  if (csv) {
+    if(inherits(plot$data, "data.frame")) {
+      data <- plot$data
+      # remove columns that are lists
+      data[vapply(data, is.list, TRUE)] <- NULL
+      readr::write_csv(data, path = file)
+    }
+  }
   file %<>% str_replace("[.]csv$", ".png")
   ggplot2::ggsave(file, plot = plot, width = width, height = height, dpi = dpi)
 
