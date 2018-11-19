@@ -5,7 +5,8 @@
 \title{Markdown Plot}
 \usage{
 md_plot(x, sub = get_sub(), main = get_main(), report = get_report(),
-  caption = NULL, locale = "en", ask = getOption("subfoldr.ask", TRUE))
+  caption = NULL, locale = "en", ask = getOption("subfoldr.ask",
+  TRUE))
 }
 \arguments{
 \item{x}{A string of the plot name}

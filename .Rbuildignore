@@ -1,3 +1,4 @@
+^_pkgdown\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
@@ -9,7 +10,7 @@
 ^output$
 ^report$
 ^data-raw$
-^document.R$
+^build\.R$
 ^docs$
 ^LICENSE.md$
 ^codemeta\.json$

@@ -124,11 +124,12 @@ load_templates <- function(sub = get_sub(), main = get_main(), env = calling_env
   load_rdss(class = "templates", sub = sub, main = main, env = env)
 }
 
-load_rds_recursive <- function(x, class, sub, main, fun = identity,
+load_rds_recursive <- function(x, class, sub, main, top, fun = identity,
                                subfolder_names = FALSE) {
   check_string(x)
   check_string(main)
   check_string(sub)
+  check_flag(top)
   check_flag(subfolder_names)
 
   dir <- file_path(main, class, sub)
@@ -137,6 +138,8 @@ load_rds_recursive <- function(x, class, sub, main, fun = identity,
   pattern <- str_c(x, ".rds$")
 
   files <- list.files(dir, pattern = pattern, recursive = TRUE)
+  if(!top) files <- files[grepl("/", files)]
+
   if (!length(files)) {
     warning("no files with pattern ", pattern, " found")
     return(invisible(FALSE))
@@ -169,36 +172,40 @@ load_rds_recursive <- function(x, class, sub, main, fun = identity,
 #' Load Data Recursive
 #'
 #' @inheritParams save_object
+#' @param top A flag indicating whether to include objects in the top folder.
 #' @param subfolder_names A string indicating whether to add columns indicating subfolder names.
 #' @export
-load_data_recursive <- function(x, sub = get_sub(), main = get_main(), subfolder_names = FALSE) {
-  load_rds_recursive(x, class = "data", sub = sub, main = main, subfolder_names = subfolder_names)
+load_data_recursive <- function(x, sub = get_sub(), main = get_main(), top = TRUE, subfolder_names = FALSE) {
+  load_rds_recursive(x, class = "data", sub = sub, main = main, top = top, subfolder_names = subfolder_names)
 }
 
 #' Load Object Recursive
 #'
 #' @inheritParams save_object
+#' @param top A flag indicating whether to include objects in the top folder.
 #' @export
-load_object_recursive <- function(x, sub = get_sub(), main = get_main()) {
-  load_rds_recursive(x, class = "objects", sub = sub, main = main)
+load_object_recursive <- function(x, sub = get_sub(), top = TRUE, main = get_main()) {
+  load_rds_recursive(x, class = "objects", sub = sub, top = top, main = main)
 }
 
 #' Load Plot Recursive
 #'
 #' @inheritParams save_object
+#' @param top A flag indicating whether to include objects in the top folder.
 #' @export
-load_plot_recursive <- function(x, sub = get_sub(), main = get_main()) {
-  load_rds_recursive(x, class = "plots", sub = sub, main = main)
+load_plot_recursive <- function(x, sub = get_sub(), top = TRUE, main = get_main()) {
+  load_rds_recursive(x, class = "plots", sub = sub, top = top, main = main)
 }
 
 #' Load Plot Data
 #'
 #' @inheritParams save_object
 #' @param subfolder_names A string indicating whether to add columns indicating subfolder names.
+#' @param top A flag indicating whether to include objects in the top folder.
 #' @export
 load_plot_data_recursive <- function(x, sub = get_sub(), main = get_main(),
-                                     subfolder_names = FALSE) {
-  load_rds_recursive(x, class = "plots", sub = sub, main = main, fun = function(x) x$data,
+                                     top = TRUE, subfolder_names = FALSE) {
+  load_rds_recursive(x, class = "plots", sub = sub, main = main, top = top, fun = function(x) x$data,
             subfolder_names = subfolder_names)
 }
 
@@ -206,15 +213,18 @@ load_plot_data_recursive <- function(x, sub = get_sub(), main = get_main(),
 #'
 #' @inheritParams save_object
 #' @param subfolder_names A string indicating whether to add columns indicating subfolder names.
+#' @param top A flag indicating whether to include objects in the top folder.
 #' @export
-load_table_recursive <- function(x, sub = get_sub(), main = get_main(), subfolder_names = FALSE) {
-  load_rds_recursive(x, class = "tables", sub = sub, main = main, subfolder_names = subfolder_names)
+load_table_recursive <- function(x, sub = get_sub(), main = get_main(), top = TRUE, subfolder_names = FALSE) {
+  load_rds_recursive(x, class = "tables", sub = sub, main = main, top = top, subfolder_names = subfolder_names)
 }
 
 #' Load Templates
 #'
 #' @inheritParams save_object
+#' @param subfolder_names A string indicating whether to add columns indicating subfolder names.
+#' @param top A flag indicating whether to include objects in the top folder.
 #' @export
-load_template_recursive <- function(x, sub = get_sub(), main = get_main()) {
-  load_rds_recursive(x, class = "templates", sub = sub, main = main)
+load_template_recursive <- function(x, sub = get_sub(), main = get_main(), top = TRUE, subfolder_names = FALSE) {
+  load_rds_recursive(x, class = "templates", sub = sub, main = main, subfolder_names = subfolder_names)
 }

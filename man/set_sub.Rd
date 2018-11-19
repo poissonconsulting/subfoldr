@@ -4,8 +4,8 @@
 \alias{set_sub}
 \title{Set sub}
 \usage{
-set_sub(..., rm = FALSE, recursive = TRUE, ask = getOption("subfoldr.ask",
-  TRUE))
+set_sub(..., rm = FALSE, recursive = TRUE,
+  ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{...}{One or more strings}

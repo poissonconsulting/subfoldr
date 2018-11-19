@@ -4,7 +4,8 @@
 \alias{load_template_recursive}
 \title{Load Templates}
 \usage{
-load_template_recursive(x, sub = get_sub(), main = get_main())
+load_template_recursive(x, sub = get_sub(), main = get_main(),
+  top = TRUE, subfolder_names = FALSE)
 }
 \arguments{
 \item{x}{The object to save.}
@@ -12,6 +13,10 @@ load_template_recursive(x, sub = get_sub(), main = get_main())
 \item{sub}{A string of the path to the directory to save the object.}
 
 \item{main}{A string of the main subfolder.}
+
+\item{top}{A flag indicating whether to include objects in the top folder.}
+
+\item{subfolder_names}{A string indicating whether to add columns indicating subfolder names.}
 }
 \description{
 Load Templates

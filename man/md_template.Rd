@@ -4,8 +4,9 @@
 \alias{md_template}
 \title{Markdown Template}
 \usage{
-md_template(x, sub = get_sub(), main = get_main(), report = get_report(),
-  caption = NULL, locale = "en", ask = getOption("subfoldr.ask", TRUE))
+md_template(x, sub = get_sub(), main = get_main(),
+  report = get_report(), caption = NULL, locale = "en",
+  ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{x}{A string of the template name}

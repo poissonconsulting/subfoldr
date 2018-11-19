@@ -4,7 +4,8 @@
 \alias{load_templates}
 \title{Load Templates}
 \usage{
-load_templates(sub = get_sub(), main = get_main(), env = calling_env())
+load_templates(sub = get_sub(), main = get_main(),
+  env = calling_env())
 }
 \arguments{
 \item{sub}{A string of the path to the directory to save the object.}

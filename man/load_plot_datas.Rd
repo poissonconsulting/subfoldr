@@ -4,7 +4,8 @@
 \alias{load_plot_datas}
 \title{Load Plot Data}
 \usage{
-load_plot_datas(sub = get_sub(), main = get_main(), env = calling_env())
+load_plot_datas(sub = get_sub(), main = get_main(),
+  env = calling_env())
 }
 \arguments{
 \item{sub}{A string of the path to the directory to save the object.}

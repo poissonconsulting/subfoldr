@@ -4,9 +4,10 @@
 \alias{md_templates}
 \title{Markdown Templates}
 \usage{
-md_templates(sub = get_sub(), main = get_main(), report = get_report(),
-  headings = list(character(0)), drop = list(character(0)), nheaders = 0L,
-  header1 = 3L, locale = "en", ask = getOption("subfoldr.ask", TRUE))
+md_templates(sub = get_sub(), main = get_main(),
+  report = get_report(), headings = list(character(0)),
+  drop = list(character(0)), nheaders = 0L, header1 = 3L,
+  locale = "en", ask = getOption("subfoldr.ask", TRUE))
 }
 \arguments{
 \item{sub}{A string of the path to the subfolders to save the object (by default = "").}

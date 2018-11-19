@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![stability-unstable](https://img.shields.io/badge/stability-unstable-yellow.svg)](https://github.com/joethorley/stability-badges#unstable)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis-CI Build
 Status](https://travis-ci.org/poissonconsulting/subfoldr.svg?branch=master)](https://travis-ci.org/poissonconsulting/subfoldr)
 [![AppVeyor Build
@@ -10,7 +10,6 @@ Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/sub
 Status](https://img.shields.io/codecov/c/github/poissonconsulting/subfoldr/master.svg)](https://codecov.io/github/poissonconsulting/subfoldr?branch=master)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/subfoldr)](https://cran.r-project.org/package=subfoldr)
 
 # subfoldr
 
@@ -20,15 +19,8 @@ generation of markdown results
 
 ## Installation
 
-`subfoldr` can be installed from GitHub
-
-``` r
-# install.packages("devtools")
-devtools::install_github("poissonconsulting/subfoldr")
-```
-
-or the Poisson R Archive Network
-([PoisRAN](https://github.com/poissonconsulting/drat))
+`subfoldr` can be installed from the Poisson
+([drat](https://github.com/poissonconsulting/drat)) repository.
 
 ``` r
 # install.packages("drat")
