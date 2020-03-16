@@ -12,33 +12,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Travis-CI Build Status](https://travis-ci.org/poissonconsulting/subfoldr.svg?branch=master)](https://travis-ci.org/poissonconsulting/subfoldr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/poissonconsulting/subfoldr?branch=master&svg=true)](https://ci.appveyor.com/project/poissonconsulting/subfoldr)
-[![Coverage Status](https://img.shields.io/codecov/c/github/poissonconsulting/subfoldr/master.svg)](https://codecov.io/github/poissonconsulting/subfoldr?branch=master)
+<!-- badges: start -->
+[![Lifecycle: archived](https://img.shields.io/badge/lifecycle-archived-red.svg)](https://www.tidyverse.org/lifecycle/#archived)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+<!-- badges: end -->
 
 # subfoldr
 
-`subfoldr` is an R package to orchestrate the saving and loading of 
+`subfoldr` is an archived R package to orchestrate the saving and loading of 
 data, tables, plots, templates and objects 
-to a directory and the generation of markdown results
+to a directory and the generation of markdown results.
 
-## Installation
-
-`subfoldr` can be installed from the Poisson ([drat](https://github.com/poissonconsulting/drat)) repository.
-
-```{r poisran-installation, eval = FALSE}
-# install.packages("drat")
-drat::addRepo("poissonconsulting")
-install.packages("subfoldr")
-```
-
-## Contribution
-
-Please report any [issues](https://github.com/poissonconsulting/subfoldr/issues).
-
-[Pull requests](https://github.com/poissonconsulting/subfoldr/pulls) are always welcome.
-
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/poissonconsulting/subfoldr/blob/master/CONDUCT.md). 
-By participating in this project you agree to abide by its terms.
+It has been superseded by [subfoldr2](https://github.com/poissonconsulting/subfoldr2).
